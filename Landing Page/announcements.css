@@ -1,31 +1,8 @@
-:root {
-    /* Colors */
-    --color-white: #FFF;
-    --color-primary: #2C6159;
-    --color-secondary: #1C313A;
-    --color-transparent-dark: rgba(28, 49, 58, 0.95);
-    
-    /* Typography */
-    --font-poppins: 'Poppins', sans-serif;
-    --font-size-small: 16px;
-    --font-size-medium: 24px;
-    
-    /* Spacing */
-    --spacing-small: 1rem;
-    --spacing-medium: 1.5rem;
-    --spacing-large: 2rem;
-    
-    /* Effects */
-    --border-radius-small: 8px;
-    --transition-default: 0.2s ease;
-}
-
-/* Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-poppins);
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -36,7 +13,7 @@ body {
     flex-direction: column;
 }
 
-.text-white { color: var(--color-white); }
+.text-white { color: #FFF; }
 .letter-spacing-4 { letter-spacing: 4px; }
 .flex-center {
     display: flex;
@@ -50,27 +27,36 @@ body {
     left: 0;
     right: 0;
     justify-content: space-between;
-    padding: var(--spacing-medium) 2.5rem;
+    padding: 1.5rem 2.5rem;
     z-index: 1000;
-    background: rgba(28, 49, 58, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 65%, transparent 100%);
 }
 
 .nav-logo {
-    gap: var(--spacing-medium);
+    gap: 1rem;
 }
 
 .nav-logo img {
-    width: 60px;
-    height: 60px;
+    width: 95px;
+    height: 95px;
     aspect-ratio: 59/58;
+}
+
+.nav-text h2 {
+    margin-bottom: 2px;
+    display: flex;
+    gap: 4px;
+}
+
+.nav-text p {
+    display: flex;
+    gap: 4px;
 }
 
 /* Typography Styles */
 .municipality-of,
 .conception {
-    font-size: var(--font-size-medium);
+    font-size: 18px;
     line-height: normal;
 }
 
@@ -79,15 +65,12 @@ body {
 
 .tarlac,
 .province-of {
-    font-size: var(--font-size-small);
+    font-size: 10px;
     line-height: normal;
 }
 
 .tarlac { font-weight: 700; }
-.province-of {
-    font-weight: 400;
-    margin-right: 4px;
-}
+.province-of { font-weight: 400; }
 
 /* Navigation Links */
 .nav-links {
@@ -97,25 +80,25 @@ body {
 }
 
 .nav-links a {
-    color: var(--color-white);
+    color: #FFF;
     text-decoration: none;
-    font-size: var(--font-size-small);
+    font-size: 16px;
     font-weight: 500;
-    transition: opacity var(--transition-default);
+    transition: opacity 0.2s ease;
 }
 
 .nav-links a:hover { opacity: 0.8; }
 .nav-links a.active { font-weight: 600; }
 
 .login-btn {
-    padding: 0.6rem var(--spacing-medium);
-    background: var(--color-primary);
-    border-radius: var(--border-radius-small);
-    transition: background var(--transition-default);
+    padding: 0.6rem 1.5rem;
+    background: #2C6159;
+    border-radius: 8px;
+    transition: background 0.2s ease;
 }
 
 .login-btn:hover {
-    background: var(--color-secondary);
+    background: #1C313A;
 }
 
 /* Mobile Menu */
@@ -132,7 +115,7 @@ body {
     display: block;
     width: 25px;
     height: 3px;
-    background-color: var(--color-white);
+    background-color: #FFF;
     margin: 5px 0;
     transition: 0.3s;
 }
@@ -153,19 +136,38 @@ body {
 .announcements-container {
     flex: 1;
     display: flex;
-    padding: var(--spacing-large);
+    padding: 2rem;
     margin-top: 5rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
-        padding: var(--spacing-small) var(--spacing-medium);
+        padding: 1rem 1.5rem;
+        background: rgba(28, 49, 58, 0.95);
+    }
+
+    .nav-logo {
+        gap: 0.5rem;
     }
 
     .nav-logo img {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .nav-text h2 {
+        margin-bottom: 0;
+    }
+
+    .municipality-of,
+    .conception {
+        font-size: 14px;
+    }
+
+    .tarlac,
+    .province-of {
+        font-size: 8px;
     }
 
     .mobile-menu-btn {
@@ -177,10 +179,10 @@ body {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--color-transparent-dark);
+        background: rgba(28, 49, 58, 0.95);
         flex-direction: column;
-        padding: var(--spacing-small);
-        gap: var(--spacing-small);
+        padding: 1rem;
+        gap: 1rem;
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
@@ -207,11 +209,21 @@ body {
 
 @media (max-width: 480px) {
     .nav-text {
-        display: none;
+        display: block;
+    }
+
+    .municipality-of,
+    .conception {
+        font-size: 12px;
+    }
+
+    .tarlac,
+    .province-of {
+        font-size: 7px;
     }
 
     .announcements-container {
-        padding: var(--spacing-small);
-        margin-top: var(--spacing-large);
+        padding: 1rem;
+        margin-top: 2rem;
     }
 } 

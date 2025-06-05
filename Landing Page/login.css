@@ -1,35 +1,8 @@
-:root {
-    /* Colors */
-    --color-white: #FFF;
-    --color-primary: #2C6159;
-    --color-secondary: #1C313A;
-    --color-transparent-light: rgba(255, 255, 255, 0.28);
-    --color-transparent-dark: rgba(28, 49, 58, 0.95);
-    
-    /* Typography */
-    --font-poppins: 'Poppins', sans-serif;
-    --font-size-small: 16px;
-    --font-size-medium: 24px;
-    --font-size-large: 45px;
-    
-    /* Spacing */
-    --spacing-small: 1rem;
-    --spacing-medium: 1.5rem;
-    --spacing-large: 2rem;
-    
-    /* Effects */
-    --border-radius-small: 8px;
-    --border-radius-medium: 15px;
-    --border-radius-large: 20px;
-    --transition-default: 0.2s ease;
-}
-
-/* Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-poppins);
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -40,7 +13,7 @@ body {
     flex-direction: column;
 }
 
-.text-white { color: var(--color-white); }
+.text-white { color: #FFF; }
 .letter-spacing-4 { letter-spacing: 4px; }
 .flex-center {
     display: flex;
@@ -54,31 +27,36 @@ body {
     left: 0;
     right: 0;
     justify-content: space-between;
-    padding: var(--spacing-medium) 2.5rem;
+    padding: 1.5rem 2.5rem;
     z-index: 1000;
-    background: rgba(28, 49, 58, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 65%, transparent 100%);
 }
 
 .nav-logo {
-    gap: var(--spacing-medium);
+    gap: 1rem;
 }
 
 .nav-logo img {
-    width: 60px;
-    height: 60px;
+    width: 95px;
+    height: 95px;
     aspect-ratio: 59/58;
 }
 
 .nav-text h2 {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    display: flex;
+    gap: 4px;
+}
+
+.nav-text p {
+    display: flex;
+    gap: 4px;
 }
 
 /* Typography Styles */
 .municipality-of,
 .conception {
-    font-size: var(--font-size-medium);
+    font-size: 18px;
     line-height: normal;
 }
 
@@ -87,15 +65,12 @@ body {
 
 .tarlac,
 .province-of {
-    font-size: var(--font-size-small);
+    font-size: 10px;
     line-height: normal;
 }
 
 .tarlac { font-weight: 700; }
-.province-of {
-    font-weight: 400;
-    margin-right: 4px;
-}
+.province-of { font-weight: 400; }
 
 /* Navigation Links */
 .nav-links {
@@ -105,28 +80,28 @@ body {
 }
 
 .nav-links a {
-    color: var(--color-white);
+    color: #FFF;
     text-decoration: none;
-    font-size: var(--font-size-small);
+    font-size: 16px;
     font-weight: 500;
-    transition: opacity var(--transition-default);
+    transition: opacity 0.2s ease;
 }
 
 .nav-links a:hover { opacity: 0.8; }
 .nav-links a.active { font-weight: 600; }
 
 .login-btn {
-    padding: 0.6rem var(--spacing-medium);
-    background: var(--color-primary);
-    border-radius: var(--border-radius-small);
-    transition: background var(--transition-default);
+    padding: 0.6rem 1.5rem;
+    background: #2C6159;
+    border-radius: 8px;
+    transition: background 0.2s ease;
 }
 
 .login-btn:hover {
-    background: var(--color-secondary);
+    background: #1C313A;
 }
 
-/* Mobile Menu Button */
+/* Mobile Menu */
 .mobile-menu-btn {
     display: none;
     background: none;
@@ -140,7 +115,7 @@ body {
     display: block;
     width: 25px;
     height: 3px;
-    background-color: var(--color-white);
+    background-color: #FFF;
     margin: 5px 0;
     transition: 0.3s;
 }
@@ -157,13 +132,13 @@ body {
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
-/* Login Container Styles */
+/* Login Container */
 .login-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--spacing-large);
+    padding: 2rem;
     margin-top: 5rem;
 }
 
@@ -171,9 +146,9 @@ body {
     width: min(90%, 500px);
     height: auto;
     min-height: 570px;
-    padding: 2.5rem var(--spacing-large);
-    border-radius: var(--border-radius-large);
-    background: var(--color-transparent-light);
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.28);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
     display: flex;
@@ -183,14 +158,14 @@ body {
 }
 
 .login-card h1 {
-    font-size: clamp(28px, 5vw, var(--font-size-large));
+    font-size: clamp(28px, 5vw, 45px);
     font-weight: 600;
     margin-bottom: 0.5rem;
     text-align: center;
 }
 
 .gradient-text {
-    background: linear-gradient(93deg, var(--color-primary) 24.16%, var(--color-secondary) 43.93%);
+    background: linear-gradient(93deg, #2C6159 24.16%, #1C313A 43.93%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -215,18 +190,18 @@ body {
 
 .input-group {
     width: 100%;
-    margin-bottom: var(--spacing-medium);
+    margin-bottom: 1.5rem;
 }
 
 .form-input {
     width: 100%;
     height: 60px;
-    padding: var(--spacing-small);
-    border-radius: var(--border-radius-medium);
+    padding: 1rem;
+    border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.25);
     background: rgba(217, 217, 217, 0.40);
-    font-size: var(--font-size-small);
-    color: var(--color-white);
+    font-size: 16px;
+    color: #FFF;
 }
 
 .form-input::placeholder {
@@ -237,14 +212,14 @@ body {
     width: 100%;
     height: 60px;
     border: none;
-    border-radius: var(--border-radius-medium);
-    background: linear-gradient(96deg, var(--color-primary) 21.51%, var(--color-secondary) 86.35%);
-    color: var(--color-white);
-    font-size: var(--font-size-small);
+    border-radius: 15px;
+    background: linear-gradient(96deg, #2C6159 21.51%, #1C313A 86.35%);
+    color: #FFF;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    margin-top: var(--spacing-medium);
-    transition: opacity var(--transition-default);
+    margin-top: 1.5rem;
+    transition: opacity 0.2s ease;
 }
 
 .login-submit:hover {
@@ -254,12 +229,31 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
-        padding: var(--spacing-small) var(--spacing-medium);
+        padding: 1rem 1.5rem;
+        background: rgba(28, 49, 58, 0.95);
+    }
+
+    .nav-logo {
+        gap: 0.5rem;
     }
 
     .nav-logo img {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .nav-text h2 {
+        margin-bottom: 0;
+    }
+
+    .municipality-of,
+    .conception {
+        font-size: 14px;
+    }
+
+    .tarlac,
+    .province-of {
+        font-size: 8px;
     }
 
     .mobile-menu-btn {
@@ -271,10 +265,10 @@ body {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--color-transparent-dark);
+        background: rgba(28, 49, 58, 0.95);
         flex-direction: column;
-        padding: var(--spacing-small);
-        gap: var(--spacing-small);
+        padding: 1rem;
+        gap: 1rem;
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
@@ -299,23 +293,33 @@ body {
     }
 
     .login-card {
-        padding: var(--spacing-large) var(--spacing-medium);
+        padding: 2rem 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .nav-text {
-        display: none;
+        display: block;
+    }
+
+    .municipality-of,
+    .conception {
+        font-size: 12px;
+    }
+
+    .tarlac,
+    .province-of {
+        font-size: 7px;
     }
 
     .login-container {
-        padding: var(--spacing-small);
-        margin-top: var(--spacing-large);
+        padding: 1rem;
+        margin-top: 2rem;
     }
 
     .login-card {
         width: 95%;
-        padding: var(--spacing-medium) var(--spacing-small);
+        padding: 1.5rem 1rem;
     }
 
     .tagline {
