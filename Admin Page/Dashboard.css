@@ -113,6 +113,7 @@ body {
     align-items: center;
     padding: 0;
     color: white;
+    margin-bottom: 32px;
 }
 
 .page-title h1 {
@@ -124,15 +125,6 @@ body {
 .page-title p {
     font-size: 14px;
     opacity: 0.8;
-}
-
-.content-area {
-    margin-top: 32px;
-    min-height: calc(100vh - 120px);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 /* Stats Grid */
@@ -203,8 +195,9 @@ body {
     gap: 24px;
 }
 
-/* Activities Card */
-.activities-card {
+/* Common Card Styles */
+.activities-card,
+.deadlines-card {
     background: white;
     border-radius: 20px;
     padding: 24px;
@@ -234,41 +227,50 @@ body {
     font-weight: 500;
 }
 
+/* Activities List */
 .activities-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.activity-item.skeleton {
-    height: 60px;
-    background: #f0f0f0;
-    border-radius: 10px;
-    animation: pulse 1.5s infinite;
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
 }
 
-@keyframes pulse {
-    0% { opacity: 0.6; }
-    50% { opacity: 0.8; }
-    100% { opacity: 0.6; }
+.activity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* Deadlines Card */
-.deadlines-card {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-}
-
-.new-badge {
-    background: #00A389;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+.activity-title {
+    color: #1C313A;
+    font-size: 14px;
     font-weight: 500;
 }
 
+.activity-date {
+    color: #666;
+    font-size: 12px;
+}
+
+.activity-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.activity-icon:hover {
+    opacity: 1;
+}
+
+/* Deadlines List */
 .deadlines-list {
     display: flex;
     flex-direction: column;

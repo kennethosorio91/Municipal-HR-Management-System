@@ -61,7 +61,10 @@ body {
 }
 
 .municipality-of { font-weight: 400; }
-.conception { font-weight: 700; }
+.conception { 
+    font-weight: 700;
+    margin-left: 4px;
+}
 
 .tarlac,
 .province-of {
