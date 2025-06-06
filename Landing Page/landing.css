@@ -1,0 +1,189 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: gray;
+        }
+        
+        /* ===== HEADER/NAV ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .left-side {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .seal {
+            width: 60px;
+            height: 60px;
+            background: url('seal.png') center/contain no-repeat;
+        }
+        
+        .city {
+            color: white;
+        }
+        
+        .town {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .province {
+            font-size: 0.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;  /* Start from center */
+            width: 0;   /* Start with no width */
+            height: 2px;
+            background: white;
+            transform: translateX(-50%); /* Center the growing line */
+            transition: width 0.3s ease; /* Animate only width */
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%; /* Grow to full width */
+        }
+        
+        .login-btn {
+            background: linear-gradient(to right, #2C6159, #1C313A); /* Your gradient colors */
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+        }
+        
+        /* ===== SECTIONS ===== */
+        section {
+            min-height: 100vh;
+            padding: 8rem 5% 2rem;
+            scroll-snap-align: start;
+        }
+        
+        /* Home Section */
+        .home {
+            background: url('home-bg.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .dialect {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .banner {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .lokal {
+            background: linear-gradient(to right, #2C6159, #1C313A); /* Your gradient colors */
+            -webkit-background-clip: text; /* For Safari/Chrome */
+            background-clip: text;
+            -webkit-text-fill-color: transparent; /* For Safari/Chrome */
+            color: transparent; 
+        }
+        
+        .sub-banner {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Announcements Section */
+        .announcements {
+            background: url('announcements-bg.jpg') center/cover no-repeat;
+        }
+        
+        .announcement-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Help Desk Section */
+        .help-desk {
+            background: url('helpdesk-bg.jpg') center/cover no-repeat;
+        }
+        
+        /* Login Section */
+        .login {
+            background: url('login-bg.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .banner {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+        }

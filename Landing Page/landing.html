@@ -5,41 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="#">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
     <title>LOKAL HRMS</title>
 </head>
 <body>
     <header>
         <nav>
             <div class="left-side">
-                    <div class="seal"></div>
+                <div class="seal"></div>
                 <div class="city">
-                    <div class="town">
-                        MUNICIPALITY OF CONCEPCION
-                    </div>
-                    <div class="province">
-                        PROVINCE OF TARLAC
-                    </div>
+                    <div class="town">MUNICIPALITY OF CONCEPCION</div>
+                    <div class="province">PROVINCE OF TARLAC</div>
                 </div>
             </div>
             <div class="right-side">
                 <div class="nav-links">
-                    <a href="#" class="active">HOME</a>
-                    <a href="announcements.html">ANNOUNCEMENTS</a>
-                    <a href="help-desk.html">HELP DESK</a>
-                    <a href="login.html" class="login-btn">LOGIN</a>
+                    <a href="#home" class="active">HOME</a>
+                    <a href="#announcements">ANNOUNCEMENTS</a>
+                    <a href="#help-desk">HELP DESK</a>
+                    <a href="#login" class="login-btn">LOGIN</a>
                 </div>
             </div>
         </nav>
     </header>
+    
     <main>
-        <section class="home">
+        <section class="home" id="home">
             <div class="dialect">Lúgud king Tawu, Dángal king Balen.</div>
-            <div class="banner">WELCOME TO <lokal class="span">LOKAL</lokal> <span class="hrms">HRMS</span></div>
+            <div class="banner">WELCOME TO <span class="lokal">LOKAL</span> <span class="hrms">HRMS</span></div>
             <div class="sub-banner">Simplifying Government HR Services for Employees</div>
         </section>
-        <section class="announcements">
+        
+        <section class="announcements" id="announcements">
             <div class="announcement-box">
                 <table>
                     <tr>
@@ -48,18 +46,52 @@
                         <th>FILE</th>
                         <th>DATE</th>
                     </tr>
+                    <!-- Table content would go here -->
                 </table>
             </div>
         </section>
-        <section class="help-desk"></section>
-        <section class="login">
+        
+        <section class="help-desk" id="help-desk">
+            <!-- Help desk content would go here -->
+        </section>
+        
+        <section class="login" id="login">
             <div class="login-form">
-                
+                <!-- Login form would go here -->
             </div>
         </section>
-    </main> 
+    </main>
+    
     <footer>
-
+        <!-- Footer content would go here -->
     </footer>
+
+    <script>
+        // Active link highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
