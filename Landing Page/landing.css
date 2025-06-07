@@ -17,28 +17,36 @@
         
         /* ===== HEADER/NAV ===== */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 7rem;
+        padding: 1.5rem 5%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+        z-index: 1000;
+    }
+
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         
         .left-side {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
+
+        .right-side {
+            display: flex;
+        }
         
         .seal {
             width: 60px;
             height: 60px;
-            background: url('seal.png') center/contain no-repeat;
+            background: url('assets/Seal-Concepcion-Tarlac-2.png') center/contain no-repeat;
         }
         
         .city {
@@ -46,50 +54,122 @@
         }
         
         .town {
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 200;
+            font-size: 1rem;
+            letter-spacing: 4px;
+        }
+
+        .town span{
+            font-weight: 550;
         }
         
         .province {
-            font-size: 0.8rem;
+            font-weight: 200;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+        }
+
+        .province span{
+            font-weight: 500;
+            
         }
         
         .nav-links {
             display: flex;
-            gap: 2rem;
+            align-items: center;
+            gap: 2.5rem;
         }
         
         .nav-links a {
+            display: flex;
+            align-items: center;
             color: white;
             text-decoration: none;
             font-weight: 400;
             position: relative;
-            padding-bottom: 5px;
+            padding: 10px;
+            height: 100%;
+            letter-spacing: 4px;
         }
 
-        .nav-links a::after {
+        .nav-links a:not(.login-btn)::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;  /* Start from center */
-            width: 0;   /* Start with no width */
-            height: 2px;
-            background: white;
-            transform: translateX(-50%); /* Center the growing line */
-            transition: width 0.3s ease; /* Animate only width */
+            left: 50%;
+            width: 0;
+            height: 0.2rem;
+            background: #ffffff;
+            border-radius: 10px;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%; /* Grow to full width */
+        .nav-links a:not(.login-btn):hover::after,
+        .nav-links a:not(.login-btn).active::after {
+            width: 100%;
+            font-weight: 500;
         }
         
         .login-btn {
-            background: linear-gradient(to right, #2C6159, #1C313A); /* Your gradient colors */
-            padding: 0.5rem 1.5rem;
+            position: relative;
+            padding: 10px 2rem;
             border-radius: 5px;
+            font-weight: 400;
+            border: 2px solid transparent;
+            background: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s ease, border-color 0.4s ease;
         }
-        
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(to right, #2C6159, #1C313A);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+
+        .login-btn span {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s ease;
+        }
+
+        /* Border-only default state */
+        .login-btn {
+            border: 2px solid transparent;
+        }
+
+        .login-btn::before {
+            transform: scaleX(0);
+        }
+
+        /* Hover or active: fill in with animated gradient */
+        .login-btn:hover::before,
+        .login-btn.active::before {
+            transform: scaleX(1);
+        }
+
+        .login-btn:hover,
+        .login-btn.active {
+            border-color: transparent;
+            color: white;
+        }
+
+
+
+
+    
         /* ===== SECTIONS ===== */
         section {
             min-height: 100vh;
@@ -99,7 +179,7 @@
         
         /* Home Section */
         .home {
-            background: url('home-bg.jpg') center/cover no-repeat;
+            background: url('assets/MGC.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -134,7 +214,7 @@
         
         /* Announcements Section */
         .announcements {
-            background: url('announcements-bg.jpg') center/cover no-repeat;
+            background: url('assets/MGC2.jpg') center/cover no-repeat;
         }
         
         .announcement-box {
@@ -158,12 +238,12 @@
         
         /* Help Desk Section */
         .help-desk {
-            background: url('helpdesk-bg.jpg') center/cover no-repeat;
+            background: url('assets/MGC4.jpg') center/cover no-repeat;
         }
         
         /* Login Section */
         .login {
-            background: url('login-bg.jpg') center/cover no-repeat;
+            background: url('assets/MGC3.jpg') center/cover no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
