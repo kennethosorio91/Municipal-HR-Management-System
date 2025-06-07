@@ -3,7 +3,7 @@ session_start();
 require_once '../config/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $govmail = mysqli_real_escape_string($conn, $_POST['govmail']);
+    $govmail = $_POST['govmail'];
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM users WHERE email = ?";
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        if ($password === $user['password']) {
+        if (password_verify($password, $user['password'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
+
+$conn->close();
 
 $conn->close();
 ?> 

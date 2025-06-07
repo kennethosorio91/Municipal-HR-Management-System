@@ -14,7 +14,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-container">
-                <img src="assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
+                <img src="../assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
                 <div>
                     <div class="logo-text1">Municipality of</div>
                     <div class="logo-text2">Concepcion</div>
@@ -24,25 +24,25 @@
             <nav class="nav-menu">
                 <ul>
                     <li class="active">
-                        <a href="#"><img src="assets/dashboard.png" alt="Dashboard">Dashboard</a>
+                        <a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/employee.png" alt="Employee">Employee</a>
+                        <a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/attendance.png" alt="Attendance">Attendance</a>
+                        <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/time off.png" alt="Time Off">Time Off</a>
+                        <a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
+                        <a href="#" onclick="return false;"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/reports.png" alt="Reports">Reports</a>
+                        <a href="#" onclick="return false;"><img src="../assets/reports.png" alt="Reports">Reports</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/settings.png" alt="Settings">Settings</a>
+                        <a href="#" onclick="return false;"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                 </ul>
             </nav>
@@ -57,189 +57,178 @@
                 </div>
             </header>
 
-            <div class="content-area">
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-header">
-                                <span class="stat-label">All registered staff</span>
-                                <div class="stat-icon">
-                                    <img src="assets/TotalEmployee.png" alt="Total Employees Icon">
-                                </div>
-                            </div>
-                            <div class="stat-info">
-                                <h2>Total Employees</h2>
-                                <div class="stat-number">255</div>
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">All registered staff</span>
+                            <div class="stat-icon">
+                                <img src="../assets/TotalEmployee.png" alt="Total Employees">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-header">
-                                <span class="stat-label">Today's workforce absent</span>
-                                <div class="stat-icon">
-                                    <img src="assets/TotalAbsent.png" alt="Total Absent Icon">
-                                </div>
-                            </div>
-                            <div class="stat-info">
-                                <h2>Total Absent</h2>
-                                <div class="stat-number">5</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-header">
-                                <span class="stat-label">Current active employees</span>
-                                <div class="stat-icon">
-                                    <img src="assets/ActiveRate.png" alt="Active Rate Icon">
-                                </div>
-                            </div>
-                            <div class="stat-info">
-                                <h2>Active Rate</h2>
-                                <div class="stat-number">97%</div>
-                            </div>
+                        <div class="stat-info">
+                            <h2>Total Employees</h2>
+                            <div class="stat-number">255</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Activity and Deadlines Section -->
-                <div class="bottom-grid">
-                    <!-- Recent Activities -->
-                    <div class="activities-card">
-                        <div class="card-header">
-                            <div class="header-title">
-                                <img src="assets/RecentActivities.png" alt="Recent" class="header-icon">
-                                <h3>Recent Activities</h3>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">Today's workforce absent</span>
+                            <div class="stat-icon">
+                                <img src="../assets/TotalAbsent.png" alt="Total Absent">
                             </div>
                         </div>
-                        <div class="activities-list">
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <div class="activity-title">Employee attendance verification</div>
-                                    <div class="activity-date">June 5, 2025</div>
-                                </div>
-                                <img src="assets/Edit.png" alt="Edit" class="activity-icon">
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <div class="activity-title">Monthly payroll processing</div>
-                                    <div class="activity-date">June 4, 2025</div>
-                                </div>
-                                <img src="assets/Edit.png" alt="Edit" class="activity-icon">
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <div class="activity-title">Leave request approvals</div>
-                                    <div class="activity-date">June 3, 2025</div>
-                                </div>
-                                <img src="assets/Edit.png" alt="Edit" class="activity-icon">
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <div class="activity-title">Performance evaluation reviews</div>
-                                    <div class="activity-date">June 2, 2025</div>
-                                </div>
-                                <img src="assets/Edit.png" alt="Edit" class="activity-icon">
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <div class="activity-title">New hire documentation</div>
-                                    <div class="activity-date">June 1, 2025</div>
-                                </div>
-                                <img src="assets/Edit.png" alt="Edit" class="activity-icon">
-                            </div>
+                        <div class="stat-info">
+                            <h2>Total Absent</h2>
+                            <div class="stat-number">5</div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Upcoming Deadlines -->
-                    <div class="deadlines-card">
-                        <div class="card-header">
-                            <div class="header-title">
-                                <img src="assets/Deadlines.png" alt="Deadlines" class="header-icon">
-                                <h3>Upcoming Deadlines</h3>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">Current active employees</span>
+                            <div class="stat-icon">
+                                <img src="../assets/ActiveRate.png" alt="Active Rate">
                             </div>
-                            <span class="new-badge">NEW</span>
                         </div>
-                        <div class="deadlines-list">
-                            <div class="deadline-item">
-                                <div class="deadline-status red"></div>
-                                <div class="deadline-content">
-                                    <h4>Submission of Daily Time Records</h4>
-                                    <p>June 7, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
-                            </div>
+                        <div class="stat-info">
+                            <h2>Active Rate</h2>
+                            <div class="stat-number">97%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="deadline-item">
-                                <div class="deadline-status red"></div>
-                                <div class="deadline-content">
-                                    <h4>Performance Evaluation Reports</h4>
-                                    <p>June 10, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
+            <!-- Activity and Deadlines Section -->
+            <div class="bottom-grid">
+                <!-- Recent Activities -->
+                <div class="activities-card">
+                    <div class="card-header">
+                        <div class="header-title">
+                            <img src="../assets/RecentActivities.png" alt="Recent Activities" class="header-icon">
+                            <h3>Recent Activities</h3>
+                        </div>
+                    </div>
+                    <div class="activities-list">
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-title">Employee attendance verification</div>
+                                <div class="activity-date">June 5, 2025</div>
                             </div>
+                            <img src="../assets/Edit.png" alt="Edit" class="activity-icon">
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-title">Monthly payroll processing</div>
+                                <div class="activity-date">June 4, 2025</div>
+                            </div>
+                            <img src="../assets/Edit.png" alt="Edit" class="activity-icon">
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-title">Leave request approvals</div>
+                                <div class="activity-date">June 3, 2025</div>
+                            </div>
+                            <img src="../assets/Edit.png" alt="Edit" class="activity-icon">
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-title">Performance evaluation reviews</div>
+                                <div class="activity-date">June 2, 2025</div>
+                            </div>
+                            <img src="../assets/Edit.png" alt="Edit" class="activity-icon">
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-content">
+                                <div class="activity-title">New hire documentation</div>
+                                <div class="activity-date">June 1, 2025</div>
+                            </div>
+                            <img src="../assets/Edit.png" alt="Edit" class="activity-icon">
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="deadline-item">
-                                <div class="deadline-status orange"></div>
-                                <div class="deadline-content">
-                                    <h4>New Hire Onboarding Documents</h4>
-                                    <p>June 12, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
+                <!-- Upcoming Deadlines -->
+                <div class="deadlines-card">
+                    <div class="card-header">
+                        <div class="header-title">
+                            <img src="../assets/Deadlines.png" alt="Deadlines" class="header-icon">
+                            <h3>Upcoming Deadlines</h3>
+                        </div>
+                        <span class="new-badge">NEW</span>
+                    </div>
+                    <div class="deadlines-list">
+                        <div class="deadline-item">
+                            <div class="deadline-status red"></div>
+                            <div class="deadline-content">
+                                <h4>Submission of Daily Time Records</h4>
+                                <p>June 7, 2025</p>
                             </div>
-
-                            <div class="deadline-item">
-                                <div class="deadline-status orange"></div>
-                                <div class="deadline-content">
-                                    <h4>Payroll Adjustment Requests</h4>
-                                    <p>June 14, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-status red"></div>
+                            <div class="deadline-content">
+                                <h4>Performance Evaluation Reports</h4>
+                                <p>June 10, 2025</p>
                             </div>
-
-                            <div class="deadline-item">
-                                <div class="deadline-status gray"></div>
-                                <div class="deadline-content">
-                                    <h4>Employee Training Compliance Audit</h4>
-                                    <p>June 15, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-status orange"></div>
+                            <div class="deadline-content">
+                                <h4>New Hire Onboarding Documents</h4>
+                                <p>June 12, 2025</p>
                             </div>
-
-                            <div class="deadline-item">
-                                <div class="deadline-status gray"></div>
-                                <div class="deadline-content">
-                                    <h4>Submission of Daily Time Records</h4>
-                                    <p>June 17, 2025</p>
-                                </div>
-                                <button class="edit-btn">
-                                    <img src="assets/Edit.png" alt="Edit" class="edit-icon">
-                                    Edit
-                                </button>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-status orange"></div>
+                            <div class="deadline-content">
+                                <h4>Payroll Adjustment Requests</h4>
+                                <p>June 14, 2025</p>
                             </div>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-status gray"></div>
+                            <div class="deadline-content">
+                                <h4>Employee Training Compliance Audit</h4>
+                                <p>June 15, 2025</p>
+                            </div>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-status gray"></div>
+                            <div class="deadline-content">
+                                <h4>Submission of Daily Time Records</h4>
+                                <p>June 17, 2025</p>
+                            </div>
+                            <button class="edit-btn">
+                                <img src="../assets/Edit.png" alt="Edit" class="edit-icon">
+                                Edit
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -247,4 +236,4 @@
         </main>
     </div>
 </body>
-</html> 
+</html>
