@@ -7,16 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Dashboard.css">
     <link rel="stylesheet" href="EmployeeRecords.css">
-    <script src="EmployeeRecords.js" defer></script>
 </head>
 <body>
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-container">
-                <img src="assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
+                <img src="../assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
                 <div>
                     <div class="logo-text1">Municipality of</div>
                     <div class="logo-text2">Concepcion</div>
@@ -24,26 +22,26 @@
             </div>
             <nav class="nav-menu">
                 <ul>
+                    <li>
+                        <a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
+                    </li>
                     <li class="active">
-                        <a href="#"><img src="assets/dashboard.png" alt="Dashboard">Dashboard</a>
+                        <a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/employee.png" alt="Employee">Employee</a>
+                        <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/attendance.png" alt="Attendance">Attendance</a>
+                        <a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/time off.png" alt="Time Off">Time Off</a>
+                        <a href="Payroll.html"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
+                        <a href="Report.html"><img src="../assets/reports.png" alt="Reports">Reports</a>
                     </li>
                     <li>
-                        <a href="#"><img src="assets/reports.png" alt="Reports">Reports</a>
-                    </li>
-                    <li>
-                        <a href="#"><img src="assets/settings.png" alt="Settings">Settings</a>
+                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                 </ul>
             </nav>
@@ -56,143 +54,110 @@
             </div>
             <div class="employee-stats">
                 <div class="employee-stat-card">
-                    <div class="employee-stat-number" style="color:#3BB77E;">90</div>
+                    <div class="employee-stat-number" style="color:#3BB77E;">0</div>
                     <div class="employee-stat-label">Permanent</div>
                 </div>
                 <div class="employee-stat-card">
-                    <div class="employee-stat-number" style="color:#0099FF;">90</div>
+                    <div class="employee-stat-number" style="color:#0099FF;">0</div>
                     <div class="employee-stat-label">Contractual</div>
                 </div>
                 <div class="employee-stat-card">
-                    <div class="employee-stat-number" style="color:#FF4B55;">90</div>
+                    <div class="employee-stat-number" style="color:#FF4B55;">0</div>
                     <div class="employee-stat-label">Job Order</div>
                 </div>
                 <div class="employee-stat-card">
-                    <div class="employee-stat-number" style="color:#A259FF;">90</div>
-                    <div class="employee-stat-label">COS</div>
+                    <div class="employee-stat-number" style="color:#A259FF;">0</div>
+                    <div class="employee-stat-label">Probation</div>
                 </div>
             </div>
+            
+            <!-- FIXED: Added proper IDs to search elements -->
             <div class="employee-search">
-                <input type="text" placeholder="Search employees...">
-                <select title="Employee Type">
-                    <option>All Employee Types</option>
+                <input type="text" id="searchInput" placeholder="Search employees...">
+                <select id="typeFilter" title="Employee Type">
+                    <option value="">All Employee Types</option>
                 </select>
-                <select title="Department">
-                    <option>All Departments</option>
+                <select id="departmentFilter" title="Department">
+                    <option value="">All Departments</option>
                 </select>
-                <select title="Status">
-                    <option>All Status</option>
+                <select id="statusFilter" title="Status">
+                    <option value="">All Status</option>
                 </select>
             </div>
+            
             <div class="employee-directory-wrapper">
                 <div class="employee-directory-header-row">
                     <div class="employee-directory-header-card">
                         <h2>Employee Directory</h2>
                     </div>
-                    <button class="add-employee-btn">
+                    <button class="add-employee-btn" id="addEmployeeBtn">
                         <span class="plus-sign">+</span> Add Employee
                     </button>
                 </div>
                 <div class="employee-table-card">
-                    <table class="employee-table">
-                        <thead>
-                            <tr>
-                                <th>Employee ID</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Department</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>001</td>
-                                <td>Juan Dela Cruz</td>
-                                <td>Administrative Officer III</td>
-                                <td>Human Resources</td>
-                                <td><span class="badge active">Active</span></td>
-                                <td><span class="badge active">Active</span></td>
-                                <td class="employee-actions">
-                                    <button class="employee-action-btn viewDetails"><img src="assets/viewDetails.png" alt="View Details"></button>
-                                    <button class="employee-action-btn editEmployee"><img src="assets/editEmployee.png" alt="Edit Employee"></button>
-                                    <button class="employee-action-btn document"><img src="assets/document.png" alt="Document Management"></button>
-                                    <button class="employee-action-btn archive"><img src="assets/archive.png" alt="Archive Employee"></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>Maria Santos</td>
-                                <td>Accountant II</td>
-                                <td>Financial</td>
-                                <td><span class="badge active">Active</span></td>
-                                <td><span class="badge active">Active</span></td>
-                                <td class="employee-actions">
-                                    <button class="employee-action-btn viewDetails"><img src="assets/viewDetails.png" alt="View Details"></button>
-                                    <button class="employee-action-btn editEmployee"><img src="assets/editEmployee.png" alt="Edit Employee"></button>
-                                    <button class="employee-action-btn document"><img src="assets/document.png" alt="Document Management"></button>
-                                    <button class="employee-action-btn archive"><img src="assets/archive.png" alt="Archive Employee"></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>003</td>
-                                <td>Pedro Garcia</td>
-                                <td>Driver</td>
-                                <td>General</td>
-                                <td><span class="badge onleave">On Leave</span></td>
-                                <td><span class="badge active">Active</span></td>
-                                <td class="employee-actions">
-                                    <button class="employee-action-btn viewDetails"><img src="assets/viewDetails.png" alt="View Details"></button>
-                                    <button class="employee-action-btn editEmployee"><img src="assets/editEmployee.png" alt="Edit Employee"></button>
-                                    <button class="employee-action-btn document"><img src="assets/document.png" alt="Document Management"></button>
-                                    <button class="employee-action-btn archive"><img src="assets/archive.png" alt="Archive Employee"></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>004</td>
-                                <td>Ana Reyes</td>
-                                <td>Municipal Engineer</td>
-                                <td>Engineer</td>
-                                <td><span class="badge active">Active</span></td>
-                                <td><span class="badge active">Active</span></td>
-                                <td class="employee-actions">
-                                    <button class="employee-action-btn viewDetails"><img src="assets/viewDetails.png" alt="View Details"></button>
-                                    <button class="employee-action-btn editEmployee"><img src="assets/editEmployee.png" alt="Edit Employee"></button>
-                                    <button class="employee-action-btn document"><img src="assets/document.png" alt="Document Management"></button>
-                                    <button class="employee-action-btn archive"><img src="assets/archive.png" alt="Archive Employee"></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-container" id="tableContainer">
+                        <table class="employee-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Department</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeeTableBody">
+                                <!-- Table data will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Loading and no data states -->
+                    <div id="tableLoadingState" class="table-message" style="display: none;">
+                        <p>Loading employee data...</p>
+                    </div>
+                    <div id="noDataMessage" class="table-message" style="display: none;">
+                        <p>No employee records found.</p>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
     <!-- Add Employee Modal -->
-    <div class="modal" id="addEmployeeModal">
+    <div class="modal" id="addEmployeeModal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add New Employee</h2>
-                <button class="close-modal">&times;</button>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
             </div>
             <form id="addEmployeeForm">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
-                        <input type="text" id="fullName" placeholder="Enter full name" required>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
                     </div>
                     <div class="form-group">
                         <label for="position">Position *</label>
-                        <input type="text" id="position" placeholder="Enter position" required>
+                        <input type="text" id="position" name="position" placeholder="Enter position" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="department">Department *</label>
-                        <select id="department" required>
+                        <select id="department" name="department" required>
                             <option value="">Select Department</option>
                             <option value="Human Resources">Human Resources</option>
                             <option value="Finance">Finance</option>
@@ -204,56 +169,60 @@
                             <option value="Planning">Planning</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="employmentType">Employment Type *</label>
-                        <select id="employmentType" required>
-                            <option value="">Select Employment Type</option>
-                            <option value="Permanent">Permanent</option>
-                            <option value="Job Order">Job Order</option>
-                            <option value="Contractual">Contractual</option>
-                            <option value="Probationary">Probationary</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="employment">Employment Type *</label>
+                        <select id="employment" name="employment" required>
+                            <option value="">Select Employment Type</option>
+                            <option value="Permanent">Permanent</option>
+                            <option value="Contractual">Contractual</option>
+                            <option value="Job Order">Job Order</option>
+                            <option value="Probationary">Probationary</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="status">Status</label>
-                        <select id="status">
+                        <select id="status" name="status">
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                             <option value="On Leave">On Leave</option>
                             <option value="Terminated">Terminated</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label for="dateHired">Date Hired *</label>
-                        <input type="date" id="dateHired" required>
+                        <input type="date" id="dateHired" name="dateHired" required class="date-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="employee@municipality.gov.ph" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" placeholder="employee@municipality.gov.ph" required>
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+63 912 345 6789">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" placeholder="+63 912 345 6789">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" placeholder="Enter complete address" rows="2"></textarea>
                     </div>
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="address">Address</label>
-                    <textarea id="address" placeholder="Enter complete address" rows="3"></textarea>
                 </div>
 
                 <div class="form-actions">
-                    <button type="button" class="cancel-btn">Cancel</button>
-                    <button type="submit" class="add-btn">Add Employee</button>
+                    <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="add-btn" id="submitBtn">Add Employee</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script defer src="EmployeeRecords.js"></script>
 </body>
-</html> 
+</html>
