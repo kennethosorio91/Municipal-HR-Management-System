@@ -45,12 +45,12 @@
             </h1>
             <p class="tagline text-white letter-spacing-4">Lúgud king Tawu, Dángal king Balen.</p>
             
-            <form class="login-form">
+            <form id="loginForm" class="login-form">
                 <div class="input-group">
-                    <input type="email" id="govmail" class="form-input" placeholder="Enter GovMail">
+                    <input type="email" id="govmail" name="govmail" class="form-input" placeholder="Enter GovMail" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" class="form-input" placeholder="Enter Password">
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter Password" required>
                 </div>
                 <button type="submit" class="login-submit">LOGIN</button>
             </form>
@@ -58,9 +58,43 @@
     </main>
 
     <script>
+        // Mobile menu toggle
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             this.classList.toggle('active');
             document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            console.log('Submitting form with:', {
+                email: formData.get('govmail'),
+                password: formData.get('password')
+            });
+
+            fetch('../handlers/login_handler.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    console.log('Login successful, redirecting to:', data.redirect);
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during login. Please try again.');
+            });
         });
     </script>
 </body>
