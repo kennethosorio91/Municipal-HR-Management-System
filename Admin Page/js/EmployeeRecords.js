@@ -1,4 +1,7 @@
+console.log('EmployeeRecords.js loaded'); // Test log to verify script loading
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - EmployeeRecords.js'); // Test log for DOM ready
     // Get DOM elements
     const elements = {
         modal: document.getElementById('addEmployeeModal'),
@@ -94,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const labelEl = card.querySelector('.employee-stat-label');
                 
                 if (numberEl && labelEl) {
-                    // Animate number change
                     animateNumber(numberEl, parseInt(numberEl.textContent) || 0, statData[index].count);
                     numberEl.style.color = statData[index].color;
                     labelEl.textContent = statData[index].label;
@@ -113,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             
-            // Easing function for smooth animation
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const current = Math.round(start + (range * easeOutQuart));
             
@@ -184,28 +185,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply filters to employee data
     function applyFilters() {
         const searchTerm = elements.searchInput?.value.toLowerCase() || '';
-        const typeFilter = elements.typeFilter?.value || '';
-        const departmentFilter = elements.departmentFilter?.value || '';
-        const statusFilter = elements.statusFilter?.value || '';
 
         filteredEmployees = allEmployees.filter(emp => {
-            const matchesSearch = !searchTerm || 
-                (emp.fullName || emp.name || '').toLowerCase().includes(searchTerm) ||
-                (emp.position || '').toLowerCase().includes(searchTerm) ||
-                (emp.department || '').toLowerCase().includes(searchTerm) ||
-                (emp.id || '').toString().includes(searchTerm);
+            const searchableFields = [
+                emp.fullName || emp.name || '',
+                emp.position || '',
+                emp.department || '',
+                emp.id || '',
+                emp.employment || emp.type || '',
+                emp.status || ''
+            ];
 
-            const matchesType = !typeFilter || (emp.employment || emp.type) === typeFilter;
-            const matchesDepartment = !departmentFilter || emp.department === departmentFilter;
-            const matchesStatus = !statusFilter || emp.status === statusFilter;
-
-            return matchesSearch && matchesType && matchesDepartment && matchesStatus;
+            return !searchTerm || searchableFields.some(field => 
+                field.toString().toLowerCase().includes(searchTerm)
+            );
         });
 
-        // Update stat cards with filtered data
-        updateStatCards(filteredEmployees);
-        
-        // Display filtered employees
         displayEmployees(filteredEmployees);
     }
 
@@ -269,70 +264,80 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup event listeners
     function setupEventListeners() {
-        if (elements.addBtn) elements.addBtn.onclick = () => elements.modal.style.display = 'flex';
-        if (elements.closeBtn) elements.closeBtn.onclick = closeModal;
-        if (elements.cancelBtn) elements.cancelBtn.onclick = closeModal;
-        if (elements.modal) elements.modal.onclick = (e) => e.target === elements.modal && closeModal();
-        
-        // Form submission
-        if (elements.form) {
-            elements.form.onsubmit = handleFormSubmit;
+        // Modal controls
+        if (elements.addBtn) {
+            elements.addBtn.addEventListener('click', () => elements.modal.style.display = 'flex');
         }
+        if (elements.closeBtn) {
+            elements.closeBtn.addEventListener('click', closeModal);
+        }
+        if (elements.cancelBtn) {
+            elements.cancelBtn.addEventListener('click', closeModal);
+        }
+        if (elements.form) {
+            elements.form.addEventListener('submit', handleFormSubmit);
+        }
+
+        // Add click event listeners to sortable headers
+        const sortableHeaders = document.querySelectorAll('th.sortable');
+        console.log('Found sortable headers:', sortableHeaders.length); // Debug log
+        
+        sortableHeaders.forEach(header => {
+            console.log('Adding click listener to:', header.textContent); // Debug log
+            header.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Header clicked:', this.dataset.sort); // Debug log
+                sortTable(this.dataset.sort);
+            });
+        });
     }
 
-    // Handle form submission
+    // Form submission handler
     function handleFormSubmit(e) {
         e.preventDefault();
         
-        const formData = {
-            fullName: document.getElementById('fullName')?.value.trim() || '',
-            position: document.getElementById('position')?.value.trim() || '',
-            gender: document.getElementById('gender')?.value || '',
-            department: document.getElementById('department')?.value || '',
-            employment: document.getElementById('employment')?.value || '',
-            status: document.getElementById('status')?.value || 'Active',
-            dateHired: document.getElementById('dateHired')?.value || '',
-            email: document.getElementById('email')?.value.trim() || '',
-            phone: document.getElementById('phone')?.value.trim() || '',
-            address: document.getElementById('address')?.value.trim() || ''
+        // Get form data
+        const formData = new FormData(elements.form);
+        const employeeData = {
+            fullName: formData.get('fullName'),
+            position: formData.get('position'),
+            gender: formData.get('gender'),
+            department: formData.get('department'),
+            employment: formData.get('employment'),
+            status: formData.get('status'),
+            dateHired: formData.get('dateHired'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            address: formData.get('address')
         };
 
-        // Validate required fields
-        const required = ['fullName', 'position', 'gender', 'department', 'employment', 'dateHired', 'email'];
-        const missing = required.filter(field => !formData[field]);
-        
-        if (missing.length > 0) {
-            alert(`Please fill: ${missing.join(', ')}`);
-            return;
-        }
+        // Show loading state
+        showLoading(true);
 
-        const submitBtn = elements.form.querySelector('.add-btn');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Adding...';
-        submitBtn.disabled = true;
-
+        // Send data to server
         fetch('../handlers/add_employee.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(employeeData)
         })
         .then(response => response.json())
         .then(data => {
+            showLoading(false);
             if (data.success) {
-                alert('Employee added successfully!');
+                // Close modal and reset form
                 closeModal();
-                loadEmployees(); // Reload data to update stats and table
+                // Reload employee data
+                loadEmployees();
             } else {
-                alert('Error: ' + data.message);
+                alert(data.message || 'Error adding employee');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Network error occurred.');
-        })
-        .finally(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+            showLoading(false);
+            alert('Error adding employee. Please try again.');
         });
     }
 
@@ -355,4 +360,88 @@ document.addEventListener('DOMContentLoaded', function() {
             if (elements.form) elements.form.reset();
         }
     }
+
+    // Sort table by column
+    function sortTable(column) {
+        console.log('Sorting by:', column); // Debug log
+        const table = document.querySelector('.employee-table');
+        if (!table) {
+            console.error('Table not found!');
+            return;
+        }
+
+        const tbody = table.querySelector('tbody');
+        if (!tbody) {
+            console.error('Table body not found!');
+            return;
+        }
+
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        if (rows.length === 0) {
+            console.error('No rows found in table!');
+            return;
+        }
+
+        const headers = table.querySelectorAll('th.sortable');
+        console.log('Found headers:', headers.length); // Debug log
+
+        // Remove sort classes from all headers
+        headers.forEach(header => {
+            header.classList.remove('asc', 'desc');
+        });
+
+        // Update sort direction
+        if (currentSort.column === column) {
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSort.column = column;
+            currentSort.direction = 'asc';
+        }
+
+        // Add sort class to current header
+        const currentHeader = table.querySelector(`th[data-sort="${column}"]`);
+        if (currentHeader) {
+            currentHeader.classList.add(currentSort.direction);
+        }
+
+        // Sort rows
+        rows.sort((a, b) => {
+            const aValue = a.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
+            const bValue = b.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
+
+            if (column === 'id') {
+                // Sort numbers for ID column
+                return currentSort.direction === 'asc' 
+                    ? parseInt(aValue.replace('EMP', '')) - parseInt(bValue.replace('EMP', ''))
+                    : parseInt(bValue.replace('EMP', '')) - parseInt(aValue.replace('EMP', ''));
+            } else {
+                // Sort strings for other columns
+                return currentSort.direction === 'asc'
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+            }
+        });
+
+        // Reorder rows in the table
+        rows.forEach(row => tbody.appendChild(row));
+    }
+
+    // Get column index for sorting
+    function getColumnIndex(column) {
+        const columnMap = {
+            'id': 1,
+            'name': 2,
+            'position': 3,
+            'department': 4,
+            'type': 5,
+            'status': 6
+        };
+        return columnMap[column];
+    }
+
+    // Store current sort state
+    let currentSort = {
+        column: null,
+        direction: 'asc'
+    };
 });

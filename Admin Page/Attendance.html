@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Municipality HR Management System</title>
+    <title>Attendance & DTR Monitoring - Municipality HR Management System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Attendance.css">
+    <link rel="stylesheet" href="css/admin-layout.css">
+    <link rel="stylesheet" href="css/Attendance.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
     <div class="dashboard">
@@ -20,34 +22,18 @@
                     <div class="logo-text2">Concepcion</div>
                 </div>
             </div>
-            
             <nav class="nav-menu">
                 <ul>
-                    <li>
-                        <a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a>
-                    </li>
-                    <li class="active">
-                        <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
-                    </li>
-                    <li>
-                        <a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
-                    </li>
-                    <li>
-                        <a href="Payroll.html"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
-                    </li>
-                    <li>
-                        <a href="Report.html"><img src="../assets/reports.png" alt="Reports">Reports</a>
-                    </li>
-                    <li>
-                        <a href="Settings.css"><img src="../assets/settings.png" alt="Settings">Settings</a>
-                    </li>
+                    <li><a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a></li>
+                    <li><a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a></li>
+                    <li class="active"><a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a></li>
+                    <li><a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a></li>
+                    <li><a href="Payroll.html"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a></li>
+                    <li><a href="Report.html"><img src="../assets/reports.png" alt="Reports">Reports</a></li>
+                    <li><a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a></li>
                 </ul>
             </nav>
         </aside>
-
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
@@ -55,8 +41,82 @@
                     <h1>Attendance & DTR Monitoring</h1>
                     <p>Monitor daily time records and approve attendance corrections</p>
                 </div>
+                <button class="btn btn-primary generate-report-btn">
+                    <img src="../assets/document.png" alt="Generate Report" style="width:20px;vertical-align:middle;"> Generate Monthly Report
+                </button>
             </header>
-
- 
+            <!-- Stat Cards -->
+            <div class="stats-grid attendance-stats">
+                <div class="stat-card present">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">Present Today</span>
+                            <div class="stat-icon"><img src="../assets/present.png" alt="Present"></div>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="presentCount">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card absent">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">Absent Today</span>
+                            <div class="stat-icon"><img src="../assets/absent.png" alt="Absent"></div>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="absentCount">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card late">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">Late Arrivals</span>
+                            <div class="stat-icon"><img src="../assets/latearrival.png" alt="Late"></div>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="lateCount">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card to-be-corrected">
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">To be Corrected</span>
+                            <div class="stat-icon"><img src="../assets/tobecorrected.png" alt="To be Corrected"></div>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="correctionCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Grid -->
+            <div class="attendance-main-grid">
+                <!-- Pending DTR Corrections -->
+                <section class="attendance-card corrections-card">
+                    <div class="card-header">
+                        <h2>Pending DTR Corrections</h2>
+                        <button class="btn btn-secondary view-all-corrections">VIEW ALL</button>
+                    </div>
+                    <div class="corrections-list" id="correctionsList">
+                        <!-- Corrections will be loaded here by JS -->
+                    </div>
+                </section>
+                <!-- Today's Attendance Overview -->
+                <section class="attendance-card overview-card">
+                    <div class="card-header">
+                        <h2>Today's Attendance Overview</h2>
+                        <button class="btn btn-secondary view-all-attendance">VIEW ALL</button>
+                    </div>
+                    <div class="attendance-list" id="attendanceOverview">
+                        <!-- Attendance overview will be loaded here by JS -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="js/Attendance.js"></script>
 </body>
-</html>
+</html> 
