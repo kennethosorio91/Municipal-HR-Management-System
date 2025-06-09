@@ -7,7 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="EmployeeRecords.css">
+    <link rel="stylesheet" href="css/admin-layout.css">
+    <link rel="stylesheet" href="css/EmployeeRecords.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
     <div class="dashboard">
@@ -71,18 +73,9 @@
                 </div>
             </div>
             
-            <!-- FIXED: Added proper IDs to search elements -->
+            <!-- Search Section -->
             <div class="employee-search">
                 <input type="text" id="searchInput" placeholder="Search employees...">
-                <select id="typeFilter" title="Employee Type">
-                    <option value="">All Employee Types</option>
-                </select>
-                <select id="departmentFilter" title="Department">
-                    <option value="">All Departments</option>
-                </select>
-                <select id="statusFilter" title="Status">
-                    <option value="">All Status</option>
-                </select>
             </div>
             
             <div class="employee-directory-wrapper">
@@ -99,12 +92,12 @@
                         <table class="employee-table">
                             <thead>
                                 <tr>
-                                    <th>Employee ID</th>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Department</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
+                                    <th class="sortable" data-sort="id">Employee ID</th>
+                                    <th class="sortable" data-sort="name">Name</th>
+                                    <th class="sortable" data-sort="position">Position</th>
+                                    <th class="sortable" data-sort="department">Department</th>
+                                    <th class="sortable" data-sort="type">Type</th>
+                                    <th class="sortable" data-sort="status">Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -127,7 +120,7 @@
     </div>
 
     <!-- Add Employee Modal -->
-    <div class="modal" id="addEmployeeModal" style="display: none;">
+    <div class="modal" id="addEmployeeModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add New Employee</h2>
@@ -223,6 +216,8 @@
         </div>
     </div>
 
-    <script defer src="EmployeeRecords.js"></script>
+    <!-- Scripts -->
+    <script src="js/EmployeeRecords.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>
