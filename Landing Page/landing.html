@@ -32,6 +32,7 @@
     </header>
     
     <main>
+        <!-- Home Section -->
         <section class="home" id="home">
             <div class="greetings fade-up">
                 <div class="dialect fade-up">Lúgud king Tawu, Dángal king Balen.</div>
@@ -40,65 +41,90 @@
             </div>
         </section>
         
+        <!-- Announcement Section -->
         <section class="announcements" id="announcements">
             <h1 class="banner-announcements fade-up">ANNOUNCEMENTS</h1>
             <div class="announcement-box fade-up">
                 <div class="pages">Page: <span class="current">1</span>/3</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>TITLE</th>
-                            <th>FILE</th>
-                            <th>DATE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>105</td>
-                            <td>[NEW] Biometric System Integration Now Active</td>
-                            <td></td>
-                            <td>06-04-2025</td>
-                        </tr>
-                        <tr>
-                            <td>104</td>
-                            <td>Payroll Schedule Update for June 2025</td>
-                            <td></td>
-                            <td>06-03-2025</td>
-                        </tr>
-                        <tr>
-                            <td>103</td>
-                            <td>Download Required: Updated Leave Policy Guidelines (PDF)</td>
-                            <td></td>
-                            <td>06-02-2025</td>
-                        </tr>
-                        <tr>
-                            <td>102</td>
-                            <td>System Downtime Advisory</td>
-                            <td></td>
-                            <td>06-01-2025</td>
-                        </tr>
-                        <tr>
-                            <td>101</td>
-                            <td>Employee Profile Update Deadline</td>
-                            <td></td>
-                            <td>05-31-2025</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>TITLE</th>
+                                <th>FILE</th>
+                                <th>DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>106</td>
+                                <td>Leave Requests Now Paperless</td>
+                                <td><a href="#modalAnnouncement" onclick="openAnnouncementModal()">View</a></td>
+                                <td>06-05-2025</td>
+                            </tr>
+                            <tr>
+                                <td>105</td>
+                                <td>[NEW] Biometric System Integration Now Active</td>
+                                <td><a href="#" class="download-link">View</a></td>
+                                <td>06-04-2025</td>
+                            </tr>
+                            <tr>
+                                <td>104</td>
+                                <td>Payroll Schedule Update for June 2025</td>
+                                <td>-</td>
+                                <td>06-03-2025</td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>Download Required: Updated Leave Policy Guidelines (PDF)</td>
+                                <td><a href="files/leave-guidelines.pdf" download>Download</a></td>
+                                <td>06-02-2025</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>System Downtime Advisory</td>
+                                <td>-</td>
+                                <td>06-01-2025</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
                 <div class="page-counter">
-                    <a href="#">1</a>
+                    <a href="#" class="active">1</a>
                     <a href="#">2</a>
-                    <a href="">3</a>
+                    <a href="#">3</a>
                 </div>
             </div>
         </section>
-        
+
+        <!-- Help Desk Section -->
         <section class="help-desk" id="help-desk">
             <h1 class="banner-announcements fade-up">HELP DESK</h1>
-            
+            <div class="sub-banner">
+                Need help with HR services? Submit a request or browse the FAQ.
+            </div>
+
+            <div class="help-desk-containers">
+                <div class="left-side-help">
+                    <button type="button">FAQ</button>
+                </div>
+                <div class="right-side-help">
+                    <div class="contact-container">
+                        <div class="contact-title">Contact Us</div>
+                        <form action="#" method="post">
+                            <input type="text" class="name" name="name" placeholder="Enter Name" required>
+                            <input type="email" class="email" name="email" placeholder="Enter a valid email address" required>
+                            <textarea class="message" name="message" placeholder="Enter your message..." required></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
-        
+
+        <!-- Login Section -->
         <section class="login" id="login">
             <div class="login-form fade-up">
                 <div class="system-name"><span>LOKAL</span> HRMS</div>
@@ -114,24 +140,51 @@
         <!-- Footer content would go here -->
     </footer>
 
+    <!-- Modal Announcement -->
+    <div class="announcement-modal-overlay" id="modalAnnouncement">
+        <div class="announcement-modal">
+            <span class="modal-close" onclick="closeAnnouncementModal()">&times;</span>
+            <h2>Leave Requests Now Paperless</h2>
+            <p><strong>June 29, 2025</strong></p>
+            <p>Effective July 1, 2025, all leave applications must be submitted exclusively through the LOKAL HRMS online leave form. The form is accessible via the “My Leave” section on your HRMS dashboard.</p>
+            <p>Manual/paper-based forms will no longer be accepted unless in emergency cases with prior approval.</p>
+            <p>For assistance, please visit the <a href="#help-desk">Help Desk</a> or contact us at <a href="mailto:hrsupport@concepcion.gov.ph">hrsupport@concepcion.gov.ph</a>.</p>
+            <div class="signature">
+                <strong>Juan Dela Cruz</strong><br>
+                <em>Human Resources Officer</em><br>
+                Municipality of Concepcion, Tarlac
+            </div>
+        </div>
+    </div>
+
+    <!--Modal FAQ-->
+    <div class="faq-modal-overlay" id="modalAnnouncement">
+        <div class="help-modal">
+            <h2>Frequently Asked Questions</h2>
+            <div class="search">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
-    // Active link highlighting
+        // Active link highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-links a');
             
             window.addEventListener('scroll', function() {
                 let current = '';
-                
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (pageYOffset >= (sectionTop - 100)) {
+                    if (pageYOffset >= sectionTop - 100) {
                         current = section.getAttribute('id');
                     }
                 });
-                
+
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href').includes(current)) {
@@ -139,23 +192,34 @@
                     }
                 });
             });
+
+            // Animation observer
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // Show modal only once per session
+            if (!sessionStorage.getItem("announcementShown")) {
+                document.getElementById("modalAnnouncement").style.display = "flex";
+                sessionStorage.setItem("announcementShown", "true");
+            }
         });
 
-   
-    document.addEventListener('DOMContentLoaded', () => {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    observer.unobserve(entry.target); // animate once
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
+        function openAnnouncementModal() {
+    document.getElementById("modalAnnouncement").style.display = "flex";
+}
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    });
+
+        function closeAnnouncementModal() {
+            document.getElementById("modalAnnouncement").style.display = "none";
+        }
     </script>
 </body>
 </html>
