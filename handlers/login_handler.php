@@ -1,38 +1,98 @@
 <?php
 session_start();
+header('Content-Type: application/json');
+
 require_once '../config/db_connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $govmail = $_POST['govmail'];
-    $password = $_POST['password'];
+// Get JSON input
+$input = json_decode(file_get_contents('php://input'), true);
 
+if (!isset($input['govmail']) || !isset($input['password'])) {
+    echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+    exit;
+}
+
+$email = $input['govmail'];
+$password = $input['password'];
+
+try {
+    // Get user details
     $sql = "SELECT * FROM users WHERE email = ?";
+            
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $govmail);
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
-            
-            echo json_encode(['success' => true, 'redirect' => '../Admin Page/Dashboard.html']);
+    
+    if ($result->num_rows !== 1) {
+        echo json_encode(['success' => false, 'message' => 'Invalid email or password']);
+        exit;
+    }
+    
+    $user = $result->fetch_assoc();
+    
+    // Password verification logic
+    $passwordValid = false;
+    
+    if ($user['password_reset_required']) {
+        // Check temporary passwords if password hasn't been reset
+        if ($email === 'admin@municipal.gov.ph') {
+            $passwordValid = ($password === 'Admin@123');
+        } else {
+            $passwordValid = ($password === 'concepcionlgu');
+        }
+    } else {
+        // Check against stored password if it has been changed
+        $passwordValid = ($password === $user['password']);
+    }
+    
+    if (!$passwordValid) {
+        if ($user['password_reset_required']) {
+            if ($email === 'admin@municipal.gov.ph') {
+                echo json_encode(['success' => false, 'message' => 'Invalid admin password']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Invalid password. Please use the temporary password: concepcionlgu']);
+            }
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid password']);
         }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'User not found']);
+        exit;
     }
     
-    $stmt->close();
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+    // Set session variables
+    $_SESSION['id'] = $user['id'];
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['role'] = $user['role'];
+    
+    // Update last login
+    $updateSql = "UPDATE users SET last_login = NOW() WHERE id = ?";
+    $updateStmt = $conn->prepare($updateSql);
+    $updateStmt->bind_param("i", $user['id']);
+    $updateStmt->execute();
+    
+    // Check if password reset is required
+    if ($user['password_reset_required']) {
+        echo json_encode([
+            'success' => true,
+            'redirect' => '../User Page/change_password.html',
+            'message' => 'Please change your password'
+        ]);
+    } else {
+        // Redirect based on role
+        $redirect = ($user['role'] === 'admin') ? '../Admin Page/Dashboard.html' : '../User Page/Profile.html';
+        echo json_encode([
+            'success' => true,
+            'redirect' => $redirect,
+            'message' => 'Login successful'
+        ]);
+    }
+    
+} catch (Exception $e) {
+    error_log("Login error: " . $e->getMessage());
+    echo json_encode(['success' => false, 'message' => 'An error occurred during login']);
+} finally {
+    if (isset($stmt)) $stmt->close();
+    if (isset($updateStmt)) $updateStmt->close();
+    if (isset($conn)) $conn->close();
 }
-
-$conn->close();
-
-$conn->close();
 ?> 

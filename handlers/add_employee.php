@@ -15,6 +15,18 @@ function debugLog($message) {
     error_log("[ADD_EMPLOYEE] " . $message);
 }
 
+// Helper function to format date to MySQL format
+function formatDate($date) {
+    if (empty($date)) return null;
+    $formatted = date('Y-m-d', strtotime($date));
+    return $formatted !== '1970-01-01' ? $formatted : null;
+}
+
+
+$dateHired = date('Y-m-d', strtotime($input['dateHired']));
+$birthdate = date('Y-m-d', strtotime($input['birthdate']));
+
+
 try {
     debugLog("=== STARTING ADD EMPLOYEE ===");
     debugLog("Request method: " . $_SERVER['REQUEST_METHOD']);
@@ -40,7 +52,7 @@ try {
     debugLog("Decoded input: " . print_r($input, true));
     
     // Validate required fields
-    $required_fields = ['fullName', 'position', 'gender', 'department', 'employment', 'dateHired', 'email'];
+    $required_fields = ['fullName', 'position', 'gender', 'department', 'employment', 'dateHired', 'birthdate'];
     $missing_fields = [];
     
     foreach ($required_fields as $field) {
@@ -53,6 +65,12 @@ try {
         throw new Exception("Missing required fields: " . implode(', ', $missing_fields));
     }
 
+    // Validate employment type
+    $valid_employment_types = ['Permanent', 'Contractual', 'Job Order', 'Probationary'];
+    if (!in_array($input['employment'], $valid_employment_types)) {
+        throw new Exception("Invalid employment type. Must be one of: " . implode(', ', $valid_employment_types));
+    }
+
     // Test database connection
     if (!$conn) {
         throw new Exception("Database connection failed");
@@ -60,55 +78,87 @@ try {
     
     debugLog("Database connection successful");
 
-    // Prepare values with defaults
+    // Generate municipal email
     $fullName = trim($input['fullName']);
+    $nameParts = explode(' ', strtolower($fullName));
+    $firstName = $nameParts[0];
+    $lastName = end($nameParts);
+    $email = $firstName . '.' . $lastName . '@municipal.gov.ph';
+    
+    // Prepare values with defaults
     $position = trim($input['position']);
     $gender = $input['gender'];
     $department = $input['department'];
     $employment = $input['employment'];
     $status = $input['status'] ?? 'Active';
-    $dateHired = $input['dateHired'];
-    $email = trim($input['email']);
     $phone = trim($input['phone'] ?? '');
     $address = trim($input['address'] ?? '');
-
-    debugLog("Prepared values: fullName=$fullName, position=$position, gender=$gender, department=$department, employment=$employment, status=$status, dateHired=$dateHired, email=$email, phone=$phone, address=$address");
-
-    // FIXED: Remove created_at from SQL query since it doesn't exist in your table
-    $sql = "INSERT INTO employee_records (fullName, position, gender, department, employment, status, dateHired, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-    debugLog("SQL: " . $sql);
-    
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        throw new Exception("Prepare failed: " . $conn->error);
+    // Format dates properly
+    $dateHired = date('Y-m-d', strtotime($input['dateHired']));
+    $birthdate = date('Y-m-d', strtotime($input['birthdate']));
+
+    // Validate dates
+    if ($dateHired === '1970-01-01' || !$dateHired) {
+        throw new Exception("Invalid date hired format. Please use YYYY-MM-DD format.");
+    }
+    if ($birthdate === '1970-01-01' || !$birthdate) {
+        throw new Exception("Invalid birthdate format. Please use YYYY-MM-DD format.");
     }
 
-    // Bind parameters
-    $stmt->bind_param("ssssssssss", 
-        $fullName,
-        $position,
-        $gender,
-        $department,
-        $employment,
-        $status,
-        $dateHired,
-        $email,
-        $phone,
-        $address
-    );
+    debugLog("Prepared values: fullName=$fullName, position=$position, gender=$gender, department=$department, employment=$employment, status=$status, dateHired=$dateHired, birthdate=$birthdate, email=$email, phone=$phone, address=$address");
 
-    debugLog("Parameters bound successfully");
+    // Start transaction
+    $conn->begin_transaction();
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        $employee_id = $conn->insert_id;
-        debugLog("Employee added successfully with ID: " . $employee_id);
+    try {
+        // Insert employee record
+        $sql = "INSERT INTO employee_records (fullName, position, gender, department, employment, status, dateHired, birthdate, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
+        debugLog("SQL: " . $sql);
+        
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
+
+        // Bind parameters
+        $stmt->bind_param("sssssssssss", 
+            $fullName,
+            $position,
+            $gender,
+            $department,
+            $employment,
+            $status,
+            $dateHired,
+            $birthdate,
+            $email,
+            $phone,
+            $address
+        );
+
+        $stmt->execute();
+        $employee_id = $conn->insert_id;
+
+        // Create user account with default password
+        $sql_user = "INSERT INTO users (email, password, role, created_at) VALUES (?, ?, 'employee', NOW())";
+        $stmt_user = $conn->prepare($sql_user);
+        if (!$stmt_user) {
+            throw new Exception("Prepare user insert failed: " . $conn->error);
+        }
+
+        // Use the default password 'concepcionlgu'
+        $default_password = 'concepcionlgu';
+        $stmt_user->bind_param("ss", $email, $default_password);
+        $stmt_user->execute();
+
+        // Commit transaction
+        $conn->commit();
+
         // Return success response
         $response = [
             'success' => true, 
-            'message' => 'Employee added successfully',
+            'message' => 'Employee added successfully. The employee can login using their email (' . $email . ') with the temporary password: concepcionlgu',
             'employee_id' => $employee_id,
             'data' => [
                 'id' => $employee_id,
@@ -116,15 +166,19 @@ try {
                 'position' => $position,
                 'department' => $department,
                 'employment' => $employment,
-                'status' => $status
+                'status' => $status,
+                'email' => $email,
+                'temporary_password' => 'concepcionlgu'
             ]
         ];
         
         debugLog("Response: " . json_encode($response));
         echo json_encode($response);
-        
-    } else {
-        throw new Exception("Execute failed: " . $stmt->error);
+
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $conn->rollback();
+        throw $e;
     }
 
 } catch (Exception $e) {
