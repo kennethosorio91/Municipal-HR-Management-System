@@ -129,9 +129,12 @@
             <div class="login-form fade-up">
                 <div class="system-name"><span>LOKAL</span> HRMS</div>
                 <div class="login-dialect">Lúgud king Tawu, Dángal king Balen.</div>
-                <input type="email" placeholder="Enter GovMail">
-                <input type="password" name="password" id="password" placeholder="Enter Password">
-                <button type="submit">LOGIN</button>
+                <form id="loginForm" action="handlers/login_handler.php" method="post">
+                    <input type="email" name="govmail" id="govmail" placeholder="Enter GovMail" required>
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    <button type="submit">LOGIN</button>
+                </form>
+                <div id="loginMessage" class="login-message" style="display: none;"></div>
             </div>
         </section>
     </main>
@@ -146,7 +149,7 @@
             <span class="modal-close" onclick="closeAnnouncementModal()">&times;</span>
             <h2>Leave Requests Now Paperless</h2>
             <p><strong>June 29, 2025</strong></p>
-            <p>Effective July 1, 2025, all leave applications must be submitted exclusively through the LOKAL HRMS online leave form. The form is accessible via the “My Leave” section on your HRMS dashboard.</p>
+            <p>Effective July 1, 2025, all leave applications must be submitted exclusively through the LOKAL HRMS online leave form. The form is accessible via the "My Leave" section on your HRMS dashboard.</p>
             <p>Manual/paper-based forms will no longer be accepted unless in emergency cases with prior approval.</p>
             <p>For assistance, please visit the <a href="#help-desk">Help Desk</a> or contact us at <a href="mailto:hrsupport@concepcion.gov.ph">hrsupport@concepcion.gov.ph</a>.</p>
             <div class="signature">
@@ -220,6 +223,45 @@
         function closeAnnouncementModal() {
             document.getElementById("modalAnnouncement").style.display = "none";
         }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                govmail: document.getElementById('govmail').value,
+                password: document.getElementById('password').value
+            };
+            
+            fetch('../handlers/login_handler.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messageDiv = document.getElementById('loginMessage');
+                messageDiv.style.display = 'block';
+                
+                if (data.success) {
+                    messageDiv.textContent = data.message || 'Login successful!';
+                    messageDiv.style.color = '#2C6159';
+                    window.location.href = data.redirect;
+                } else {
+                    messageDiv.textContent = data.message || 'Login failed. Please try again.';
+                    messageDiv.style.color = '#ff3333';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const messageDiv = document.getElementById('loginMessage');
+                messageDiv.style.display = 'block';
+                messageDiv.textContent = 'An error occurred. Please try again.';
+                messageDiv.style.color = '#ff3333';
+            });
+        });
     </script>
 </body>
 </html>
