@@ -305,8 +305,8 @@ document.addEventListener('DOMContentLoaded', function() {
             department: formData.get('department'),
             employment: formData.get('employment'),
             status: formData.get('status'),
-            dateHired: formData.get('dateHired'),
-            email: formData.get('email'),
+            dateHired: formatDateToMMDDYYYY(formData.get('dateHired')),
+            birthdate: formatDateToMMDDYYYY(formData.get('birthdate')),
             phone: formData.get('phone'),
             address: formData.get('address')
         };
@@ -326,6 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             showLoading(false);
             if (data.success) {
+                // Show success message with generated email
+                alert(`Employee added successfully!\nLogin credentials:\nEmail: ${data.data.email}\nPassword: ${formatDateToMMDDYYYY(employeeData.birthdate)}`);
                 // Close modal and reset form
                 closeModal();
                 // Reload employee data
@@ -339,6 +341,15 @@ document.addEventListener('DOMContentLoaded', function() {
             showLoading(false);
             alert('Error adding employee. Please try again.');
         });
+    }
+
+    // Helper function to format date to MM/DD/YYYY
+    function formatDateToMMDDYYYY(dateString) {
+        const date = new Date(dateString);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
     }
 
     // Helper functions

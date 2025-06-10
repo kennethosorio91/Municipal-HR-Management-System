@@ -12,6 +12,16 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay"></div>
+
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -192,8 +202,8 @@
                         <input type="date" id="dateHired" name="dateHired" required class="date-input">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" placeholder="employee@municipality.gov.ph" required>
+                        <label for="birthdate">Date of Birth *</label>
+                        <input type="date" id="birthdate" name="birthdate" required class="date-input">
                     </div>
                 </div>
 

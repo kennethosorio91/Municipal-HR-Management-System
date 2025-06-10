@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="css/TimeOff.css">
 </head>
 <body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay"></div>
+
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -24,26 +34,26 @@
             
             <nav class="nav-menu">
                 <ul>
-                    <li>
-                        <a href="index.php"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="employee.php"><img src="../assets/employee.png" alt="Employee">Employee</a>
-                    </li>
-                    <li>
-                        <a href="attendance.php"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
-                    </li>
                     <li class="active">
-                        <a href="timeoff.php"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
+                        <a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
                     </li>
                     <li>
-                        <a href="payroll.php"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
+                        <a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a>
                     </li>
                     <li>
-                        <a href="reports.php"><img src="../assets/reports.png" alt="Reports">Reports</a>
+                        <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li>
-                        <a href="settings.php"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                        <a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
+                    </li>
+                    <li>
+                        <a href="Payroll.html"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
+                    </li>
+                    <li>
+                        <a href="Report.html"><img src="../assets/reports.png" alt="Reports">Reports</a>
+                    </li>
+                    <li>
+                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                 </ul>
             </nav>
@@ -161,5 +171,6 @@
     </div>
 
     <script src="js/TimeOff.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html> 
