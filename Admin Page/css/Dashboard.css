@@ -11,41 +11,85 @@
 /* Stat Cards */
 .stat-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 16px rgba(44,97,89,0.08);
+    min-width: 220px;
+    height: 153px;
 }
 
 .stat-content {
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.stat-description {
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: #2C6159;
+    font-weight: 500;
+    margin: 0;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
 }
 
 .stat-info h2 {
     font-size: 16px;
     color: #1C313A;
-    margin-bottom: 8px;
+    margin: 0;
+    font-weight: 500;
+    display: none; /* Hide the h2 since we're using stat-label instead */
 }
 
 .stat-number {
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 600;
-    color: #1C313A;
+    color: #1A1A1A;
+    margin: 0;
 }
 
 .stat-icon {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .stat-icon img {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
+}
+
+.stat-icon.present { 
+    background: rgba(39, 174, 96, 0.1);
+}
+.stat-icon.absent { 
+    background: rgba(235, 87, 87, 0.1);
+}
+.stat-icon.late { 
+    background: rgba(242, 153, 74, 0.1);
+}
+.stat-icon.correction { 
+    background: rgba(47, 128, 237, 0.1);
 }
 
 /* Last Updated Text */

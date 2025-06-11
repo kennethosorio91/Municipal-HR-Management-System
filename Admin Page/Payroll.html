@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="css/admin-layout.css">
-    <link rel="stylesheet" href="css/Attendance.css">
+    <link rel="stylesheet" href="css/Payroll.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -66,7 +66,163 @@
                     <h1>Payroll & Benefits Administration</h1>
                     <p>Manage monthly payroll, bonuses, and employee benefits</p>
                 </div>
+                <div class="action-buttons">
+                    <button class="btn-primary">Process Payroll</button>
+                    <button class="btn-secondary">Export Reports</button>
+                </div>
+            </header>
+
+            <!-- Stats Cards Row -->
+            <div class="payroll-stats-row">
+                <div class="payroll-card">
+                    <div class="card-content">
+                        <h3>Monthly Payroll</h3>
+                        <div class="stat-number">₱2.8M</div>
+                        <div class="stat-icon payroll-icon">
+                            <img src="../assets/payroll.png" alt="Monthly Payroll">
+                        </div>
+                    </div>
+                </div>
+                <div class="payroll-card">
+                    <div class="card-content">
+                        <h3>Total Deductions</h3>
+                        <div class="stat-number">₱450K</div>
+                        <div class="stat-icon deductions-icon">
+                            <img src="../assets/files.png" alt="Total Deductions">
+                        </div>
+                    </div>
+                </div>
+                <div class="payroll-card">
+                    <div class="card-content">
+                        <h3>Benefits Paid</h3>
+                        <div class="stat-number">₱320K</div>
+                        <div class="stat-icon benefits-icon">
+                            <img src="../assets/check-circle-black.png" alt="Benefits Paid">
+                        </div>
+                    </div>
+                </div>
+                <div class="payroll-card">
+                    <div class="card-content">
+                        <h3>Employees Processed</h3>
+                        <div class="stat-number">127</div>
+                        <div class="stat-icon employees-icon">
+                            <img src="../assets/users.png" alt="Employees Processed">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pay Period Selector -->
+            <div class="pay-period-section">
+                <div class="pay-period-container">
+                    <label for="payPeriod">Pay period:</label>
+                    <select id="payPeriod" class="pay-period-select">
+                        <option value="december-2024">December 2024</option>
+                        <option value="november-2024">November 2024</option>
+                        <option value="october-2024">October 2024</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Payroll Details and Deduction Breakdown -->
+            <div class="payroll-content-row">
+                <div class="payroll-details-card">
+                    <div class="payroll-card-header">
+                        <h2>Payroll Details</h2>
+                        <button class="view-all-btn">VIEW ALL</button>
+                    </div>
+                    <div class="payroll-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Basic</th>
+                                    <th>Allowances</th>
+                                    <th>Deductions</th>
+                                    <th>Net Pay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <div class="employee-name">Juan Dela Cruz</div>
+                                            <div class="employee-position">Administrative Aide</div>
+                                        </div>
+                                    </td>
+                                    <td>₱25,000</td>
+                                    <td>₱5,000</td>
+                                    <td>₱8,500</td>
+                                    <td>₱23,500</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <div class="employee-name">Maria Santos</div>
+                                            <div class="employee-position">Nurse</div>
+                                        </div>
+                                    </td>
+                                    <td>₱35,000</td>
+                                    <td>₱7,000</td>
+                                    <td>₱12,000</td>
+                                    <td>₱31,500</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="employee-info">
+                                            <div class="employee-name">Ana Reyes</div>
+                                            <div class="employee-position">Engineer</div>
+                                        </div>
+                                    </td>
+                                    <td>₱45,000</td>
+                                    <td>₱8,000</td>
+                                    <td>₱15,000</td>
+                                    <td>₱41,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="deduction-breakdown-card">
+                    <div class="payroll-card-header">
+                        <h2>Deduction Breakdown</h2>
+                        <button class="view-all-btn">VIEW ALL</button>
+                    </div>
+                    <div class="deduction-list">
+                        <div class="deduction-item">
+                            <div class="deduction-info">
+                                <div class="deduction-name">GSIS Contributions</div>
+                                <div class="deduction-description">Government service insurance</div>
+                            </div>
+                            <div class="deduction-amount">₱185,000</div>
+                        </div>
+                        <div class="deduction-item">
+                            <div class="deduction-info">
+                                <div class="deduction-name">PhilHealth</div>
+                                <div class="deduction-description">Health insurance premium</div>
+                            </div>
+                            <div class="deduction-amount">₱95,000</div>
+                        </div>
+                        <div class="deduction-item">
+                            <div class="deduction-info">
+                                <div class="deduction-name">PAG-IBIG</div>
+                                <div class="deduction-description">Housing Development Fund</div>
+                            </div>
+                            <div class="deduction-amount">₱25,000</div>
+                        </div>
+                        <div class="deduction-item">
+                            <div class="deduction-info">
+                                <div class="deduction-name">Income Tax</div>
+                                <div class="deduction-description">Withholding Tax</div>
+                            </div>
+                            <div class="deduction-amount">₱150,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
     <script src="js/mobile-nav.js"></script>
 </body>
-</html> 
+</html>
