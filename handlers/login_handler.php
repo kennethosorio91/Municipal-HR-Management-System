@@ -1,6 +1,13 @@
 <?php
+// Start session first
 session_start();
+
+// Then set headers
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: http://localhost'); // Replace with your actual domain
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 require_once '../config/db_connect.php';
 
