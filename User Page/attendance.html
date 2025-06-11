@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - Municipality HR Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/attendance.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay"></div>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
+                <div>
+                    <div class="logo-text1">Municipality of</div>
+                    <div class="logo-text2">Concepcion</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li>
+                        <a href="profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
+                    </li>
+                    <li class="active">
+                        <a href="attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="leave.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
+                    </li>
+                    <li>
+                        <a href="payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
+                    </li>
+                    <li>
+                        <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
+                    </li>
+                    <li>
+                        <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
+                    </li>
+                    <li>
+                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                    </li>
+                </ul>
+                <div class="logout-container">
+                    <button id="logoutBtn" class="logout-btn">
+                        <img src="../assets/log-out.png" alt="Logout">
+                        Logout
+                    </button>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1>My Attendance</h1>
+                    <p>Track your daily time records and attendance history</p>
+                </div>
+            </header>
+
+            <!-- Today's Time Record Card -->
+            <div class="time-record-section">
+                <div class="time-record-header">
+                    <img src="../assets/clock-green.png" alt="Clock Icon">
+                    <h2>Today's Time Record</h2>
+                </div>
+                
+                <div class="time-cards">
+                    <div class="time-card">
+                        <span class="time-label">Time In</span>
+                        <span class="time-value">8:00 AM</span>
+                    </div>
+                    <div class="time-card">
+                        <span class="time-label">Status</span>
+                        <span class="status-badge present">Present</span>
+                    </div>
+                    <div class="time-card">
+                        <span class="time-label">Time Out</span>
+                        <span class="time-value">5:00 PM</span>
+                    </div>
+                </div>
+
+                <div class="time-actions">
+                    <button class="time-btn time-in">
+                        <img src="../assets/check-circle-white.png" alt="Time In">
+                        Time In
+                    </button>
+                    <button class="time-btn time-out">
+                        <img src="../assets/check-circle-black.png" alt="Time Out">
+                        Time Out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-container">
+                    <label for="monthFilter">Filter by Month:</label>
+                    <div class="select-wrapper">
+                        <select id="monthFilter">
+                            <option value="2025-01">January 2025</option>
+                            <option value="2024-12">December 2024</option>
+                            <option value="2024-11">November 2024</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance History -->
+            <div class="history-section">
+                <div class="history-header">
+                    <img src="../assets/calendar.png" alt="Calendar">
+                    <h2>Attendance History</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Total Hrs</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024-12-06</td>
+                                <td>07:45 AM</td>
+                                <td>05:00 PM</td>
+                                <td>9:15</td>
+                                <td><span class="status-badge active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024-12-05</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>0:00</td>
+                                <td><span class="status-badge absent">Absent</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024-12-04</td>
+                                <td>08:15 AM</td>
+                                <td>05:00 PM</td>
+                                <td>8:45</td>
+                                <td><span class="status-badge late">Late</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024-12-03</td>
+                                <td>07:30 AM</td>
+                                <td>05:10 PM</td>
+                                <td>9:40</td>
+                                <td><span class="status-badge active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html> 

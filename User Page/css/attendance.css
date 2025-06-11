@@ -1,0 +1,366 @@
+/* Profile Page Specific Styles */
+
+/* Card Grid Layout */
+.card-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+
+.time-record-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 20px 0;
+}
+
+.time-record-card {
+    background: #F3F4F6;
+    padding: 20px;
+    border-radius: 12px;
+    width: 180px;
+    text-align: center;
+}
+
+.time-label {
+    color: #6B7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.time-value {
+    color: #1F2937;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Time Record Section */
+.time-record-section {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    width: 1094px;
+    height: 371px;
+    margin-bottom: 24px;
+}
+
+.time-record-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.time-record-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.time-record-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.time-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 64px;
+}
+
+.time-card {
+    background: #F3F4F6;
+    border-radius: 16px;
+    padding: 24px 48px;
+    text-align: center;
+    min-width: 250px;
+}
+
+.time-label {
+    display: block;
+    color: #6B7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.time-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #059669;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-badge.present {
+    background: #DCFCE7;
+    color: #059669;
+}
+
+.status-badge.active {
+    background: #DCFCE7;
+    color: #059669;
+}
+
+.status-badge.absent {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+.status-badge.late {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.time-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.time-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.time-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.time-btn.time-in {
+    background: #059669;
+    color: white;
+}
+
+.time-btn.time-out {
+    background: #F3F4F6;
+    color: #374151;
+}
+
+/* Filter Section */
+.filter-section {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    width: 1092.733px;
+    height: 74px;
+    margin-bottom: 24px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-container label {
+    font-size: 14px;
+    color: #374151;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 200px;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    color: #1F2937;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #6B7280;
+    pointer-events: none;
+}
+
+/* Attendance History Section */
+.history-section {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    width: 1093.733px;
+    height: 515.947px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.history-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.history-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-table th {
+    text-align: left;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.attendance-table td {
+    padding: 16px;
+    font-size: 14px;
+    color: #1F2937;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .time-record-section,
+    .filter-section,
+    .history-section {
+        width: 100%;
+        height: auto;
+    }
+
+    .time-cards {
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .time-card {
+        min-width: 180px;
+        flex: 1;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .time-record-section {
+        padding: 20px;
+    }
+
+    .time-cards {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .time-card {
+        width: 100%;
+        min-width: unset;
+        padding: 16px;
+    }
+
+    .time-value {
+        font-size: 20px;
+    }
+
+    .time-actions {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .time-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filter-section {
+        height: auto;
+        padding: 16px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .select-wrapper {
+        width: 100%;
+    }
+
+    .history-section {
+        padding: 16px;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-record-section,
+    .filter-section,
+    .history-section {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .time-card {
+        padding: 12px;
+    }
+
+    .time-value {
+        font-size: 18px;
+    }
+
+    .time-btn {
+        padding: 10px 16px;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 12px 8px;
+        font-size: 13px;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
