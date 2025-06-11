@@ -93,7 +93,7 @@ try {
     $status = $input['status'] ?? 'Active';
     $phone = trim($input['phone'] ?? '');
     $address = trim($input['address'] ?? '');
-    
+
     // Format dates properly
     $dateHired = date('Y-m-d', strtotime($input['dateHired']));
     $birthdate = date('Y-m-d', strtotime($input['birthdate']));
@@ -114,28 +114,28 @@ try {
     try {
         // Insert employee record
         $sql = "INSERT INTO employee_records (fullName, position, gender, department, employment, status, dateHired, birthdate, email, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        debugLog("SQL: " . $sql);
-        
-        $stmt = $conn->prepare($sql);
-        if (!$stmt) {
-            throw new Exception("Prepare failed: " . $conn->error);
-        }
+    
+    debugLog("SQL: " . $sql);
+    
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . $conn->error);
+    }
 
-        // Bind parameters
+    // Bind parameters
         $stmt->bind_param("sssssssssss", 
-            $fullName,
-            $position,
-            $gender,
-            $department,
-            $employment,
-            $status,
-            $dateHired,
+        $fullName,
+        $position,
+        $gender,
+        $department,
+        $employment,
+        $status,
+        $dateHired,
             $birthdate,
-            $email,
-            $phone,
-            $address
-        );
+        $email,
+        $phone,
+        $address
+    );
 
         $stmt->execute();
         $employee_id = $conn->insert_id;
@@ -154,7 +154,7 @@ try {
 
         // Commit transaction
         $conn->commit();
-
+        
         // Return success response
         $response = [
             'success' => true, 
@@ -174,7 +174,7 @@ try {
         
         debugLog("Response: " . json_encode($response));
         echo json_encode($response);
-
+        
     } catch (Exception $e) {
         // Rollback transaction on error
         $conn->rollback();
