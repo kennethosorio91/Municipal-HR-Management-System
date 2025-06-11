@@ -72,110 +72,213 @@
                     <h1>My Attendance</h1>
                     <p>Track your daily time records and attendance history</p>
                 </div>
+                <button class="request-correction-btn">
+                    <img src="../assets/edit.png" alt="Edit">
+                    Request Correction
+                </button>
             </header>
 
-            <!-- Today's Time Record Card -->
-            <div class="time-record-section">
-                <div class="time-record-header">
-                    <img src="../assets/clock-green.png" alt="Clock Icon">
-                    <h2>Today's Time Record</h2>
-                </div>
-                
-                <div class="time-cards">
-                    <div class="time-card">
-                        <span class="time-label">Time In</span>
-                        <span class="time-value">8:00 AM</span>
-                    </div>
-                    <div class="time-card">
-                        <span class="time-label">Status</span>
-                        <span class="status-badge present">Present</span>
-                    </div>
-                    <div class="time-card">
-                        <span class="time-label">Time Out</span>
-                        <span class="time-value">5:00 PM</span>
+                <!-- Correction Request Modal -->
+                <div class="modal-overlay" id="correctionModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Request Attendance Correction</h2>
+                            <button class="close-modal">×</button>
+                        </div>
+                        <form id="correctionForm" class="correction-form">
+                            <div class="form-group">
+                                <label for="correctionDate">Date</label>
+                                <div class="input-with-icon">
+                                    <input type="date" id="correctionDate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="correctionType">Correction Type</label>
+                                <div class="select-wrapper">
+                                    <select id="correctionType" required>
+                                        <option value="">Select correction type</option>
+                                        <option value="missed_in">Missed Time In</option>
+                                        <option value="missed_out">Missed Time Out</option>
+                                        <option value="system_error">System Error</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="correctTimeIn">Correct Time In</label>
+                                <div class="input-with-icon">
+                                    <input type="time" id="correctTimeIn">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="correctTimeOut">Correct Time Out</label>
+                                <div class="input-with-icon">
+                                    <input type="time" id="correctTimeOut">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reason">Reason</label>
+                                <textarea id="reason" placeholder="Explain the reason for correction" required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">Submit Request</button>
+                        </form>
                     </div>
                 </div>
 
-                <div class="time-actions">
-                    <button class="time-btn time-in">
-                        <img src="../assets/check-circle-white.png" alt="Time In">
-                        Time In
-                    </button>
-                    <button class="time-btn time-out">
-                        <img src="../assets/check-circle-black.png" alt="Time Out">
-                        Time Out
-                    </button>
-                </div>
-            </div>
+                <!-- Today's Time Record Card -->
+                <div class="time-record-section">
+                    <div class="time-record-header">
+                        <img src="../assets/clock-green.png" alt="Clock Icon">
+                        <h2>Today's Time Record</h2>
+                    </div>
+                    
+                    <div class="time-cards">
+                        <div class="time-card">
+                            <span class="time-label">Time In</span>
+                            <span class="time-value">8:00 AM</span>
+                        </div>
+                        <div class="time-card">
+                            <span class="time-label">Status</span>
+                            <span class="status-badge present">Present</span>
+                        </div>
+                        <div class="time-card">
+                            <span class="time-label">Time Out</span>
+                            <span class="time-value">5:00 PM</span>
+                        </div>
+                    </div>
 
-            <!-- Filter Section -->
-            <div class="filter-section">
-                <div class="filter-container">
-                    <label for="monthFilter">Filter by Month:</label>
-                    <div class="select-wrapper">
-                        <select id="monthFilter">
-                            <option value="2025-01">January 2025</option>
-                            <option value="2024-12">December 2024</option>
-                            <option value="2024-11">November 2024</option>
-                        </select>
+                    <div class="time-actions">
+                        <button class="time-btn time-in">
+                            <img src="../assets/check-circle-white.png" alt="Time In">
+                            Time In
+                        </button>
+                        <button class="time-btn time-out">
+                            <img src="../assets/check-circle-black.png" alt="Time Out">
+                            Time Out
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Attendance History -->
-            <div class="history-section">
-                <div class="history-header">
-                    <img src="../assets/calendar.png" alt="Calendar">
-                    <h2>Attendance History</h2>
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-container">
+                        <label for="monthFilter">Filter by Month:</label>
+                        <div class="select-wrapper">
+                            <select id="monthFilter">
+                                <option value="2025-01">January 2025</option>
+                                <option value="2024-12">December 2024</option>
+                                <option value="2024-11">November 2024</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="table-container">
-                    <table class="attendance-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Total Hrs</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2024-12-06</td>
-                                <td>07:45 AM</td>
-                                <td>05:00 PM</td>
-                                <td>9:15</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-12-05</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>0:00</td>
-                                <td><span class="status-badge absent">Absent</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-12-04</td>
-                                <td>08:15 AM</td>
-                                <td>05:00 PM</td>
-                                <td>8:45</td>
-                                <td><span class="status-badge late">Late</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-12-03</td>
-                                <td>07:30 AM</td>
-                                <td>05:10 PM</td>
-                                <td>9:40</td>
-                                <td><span class="status-badge active">Active</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- Attendance History -->
+                <div class="history-section">
+                    <div class="history-header">
+                        <img src="../assets/calendar.png" alt="Calendar">
+                        <h2>Attendance History</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Total Hrs</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-12-06</td>
+                                    <td>07:45 AM</td>
+                                    <td>05:00 PM</td>
+                                    <td>9:15</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-05</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>0:00</td>
+                                    <td><span class="status-badge absent">Absent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-04</td>
+                                    <td>08:15 AM</td>
+                                    <td>05:00 PM</td>
+                                    <td>8:45</td>
+                                    <td><span class="status-badge late">Late</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-03</td>
+                                    <td>07:30 AM</td>
+                                    <td>05:10 PM</td>
+                                    <td>9:40</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
-    </div>
+
 
     <script src="js/mobile-nav.js"></script>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('correctionModal');
+        const openModalBtn = document.querySelector('.request-correction-btn');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const correctionForm = document.getElementById('correctionForm');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        correctionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                date: document.getElementById('correctionDate').value,
+                correctionType: document.getElementById('correctionType').value,
+                timeIn: document.getElementById('correctTimeIn').value,
+                timeOut: document.getElementById('correctTimeOut').value,
+                reason: document.getElementById('reason').value
+            };
+
+            // Here you would typically send this data to your server
+            console.log('Correction request:', formData);
+            
+            // Close modal and show success message
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            alert('Correction request submitted successfully!');
+            correctionForm.reset();
+        });
+    </script>
 </body>
 </html> 
