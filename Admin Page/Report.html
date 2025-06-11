@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="css/admin-layout.css">
-    <link rel="stylesheet" href="css/Attendance.css">
+    <link rel="stylesheet" href="css/Report.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -66,7 +66,141 @@
                     <h1>Reports & Compliance</h1>
                     <p>Generate CSC, GSIS, BIR Reports and ensure regulatory compliance</p>
                 </div>
+                <div class="action-buttons">
+                    <button class="btn-primary">Customize Report</button>
+                    <button class="btn-secondary">Export All Reports</button>
+                </div>
+            </header>
+
+            <!-- Stats Cards Row -->
+            <div class="report-cards-row">
+                <div class="report-card">
+                    <div class="card-content">
+                        <h3>Monthly Reports</h3>
+                        <div class="stat-number">12</div>
+                        <div class="stat-icon present">
+                            <img src="../assets/reports.png" alt="Monthly Reports">
+                        </div>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <div class="card-content">
+                        <h3>Compliance Rate</h3>
+                        <div class="stat-number">98%</div>
+                        <div class="stat-icon late">
+                            <img src="../assets/check-circle-black.png" alt="Compliance Rate">
+                        </div>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <div class="card-content">
+                        <h3>Pending Submissions</h3>
+                        <div class="stat-number">3</div>
+                        <div class="stat-icon correction">
+                            <img src="../assets/calendar.png" alt="Pending Submissions">
+                        </div>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <div class="card-content">
+                        <h3>Generated Reports</h3>
+                        <div class="stat-number">156</div>
+                        <div class="stat-icon absent">
+                            <img src="../assets/download.png" alt="Generated Reports">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Row -->
+            <div class="report-content-row">
+                <div class="government-compliance-card">
+                    <div class="report-card-header">
+                        <h2>Government Compliance Reports</h2>
+                    </div>
+                    <div class="compliance-list">
+                        <div class="compliance-item">
+                            <div class="compliance-info">
+                                <div class="compliance-title">CSC Plantilla Report</div>
+                                <div class="compliance-description">Civil Service Commission plantilla positions</div>
+                                <div class="compliance-details">
+                                    <span class="deadline">Deadline: Monthly</span>
+                                    <span class="last-date">Last: Dec 15, 2024</span>
+                                </div>
+                            </div>
+                            <div class="compliance-actions">
+                                <span class="status-badge generated">Generated</span>
+                                <button class="generate-btn">Generate</button>
+                                <button class="view-history-btn">View History</button>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <div class="compliance-info">
+                                <div class="compliance-title">GSIS Contributions</div>
+                                <div class="compliance-description">Government Service Insurance System monthly report</div>
+                                <div class="compliance-details">
+                                    <span class="deadline">Deadline: Monthly</span>
+                                    <span class="last-date">Last: Nov 15, 2024</span>
+                                </div>
+                            </div>
+                            <div class="compliance-actions">
+                                <span class="status-badge pending">Pending</span>
+                                <button class="generate-btn">Generate</button>
+                                <button class="view-history-btn">View History</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-analysis-card">
+                    <div class="report-card-header">
+                        <h2>Quick Analysis</h2>
+                    </div>
+                    <div class="analysis-list">
+                        <div class="analysis-item employee-stats">
+                            <div class="analysis-icon">
+                                <img src="../assets/users.png" alt="Employee Statistics">
+                            </div>
+                            <div class="analysis-info">
+                                <div class="analysis-title">Employee Statistics</div>
+                                <div class="analysis-data">
+                                    <div class="data-point">Total Employees: 127</div>
+                                    <div class="data-point">Active: 125 | On Leave: 2</div>
+                                    <div class="data-point">New Hires (Dec): 3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analysis-item attendance-overview">
+                            <div class="analysis-icon">
+                                <img src="../assets/attendance.png" alt="Attendance Overview">
+                            </div>
+                            <div class="analysis-info">
+                                <div class="analysis-title">Attendance Overview</div>
+                                <div class="analysis-data">
+                                    <div class="data-point">Average Attendance: 98.5%</div>
+                                    <div class="data-point">Late Arrivals: 12</div>
+                                    <div class="data-point">Perfect Attendance: 89</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analysis-item payroll-summary">
+                            <div class="analysis-icon">
+                                <img src="../assets/payroll.png" alt="Payroll Summary">
+                            </div>
+                            <div class="analysis-info">
+                                <div class="analysis-title">Payroll Summary</div>
+                                <div class="analysis-data">
+                                    <div class="data-point">Monthly Payroll: ₱2.8M</div>
+                                    <div class="data-point">Benefits Paid: ₱320K</div>
+                                    <div class="data-point">Tax Withheld: ₱450K</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
     <script src="js/mobile-nav.js"></script>
 </body>
-</html> 
+</html>
