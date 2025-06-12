@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave & Travel Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="css/admin-layout.css">
+    <link rel="stylesheet" href="css/TravelManagement.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay"></div>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
+                <div>
+                    <div class="logo-text1">Municipality of</div>
+                    <div class="logo-text2">Concepcion</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li>
+                        <a href="Dashboard.html"><img src="../assets/dashboard.png" alt="Dashboard">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="EmployeeRecords.html"><img src="../assets/employee.png" alt="Employee">Employee</a>
+                    </li>
+                    <li>
+                        <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
+                    </li>
+                    <li class="active">
+                        <a href="TravelManagement.html"><img src="../assets/time off.png" alt="Time Off">Time Off</a>
+                    </li>
+                    <li>
+                        <a href="Payroll.html"><img src="../assets/payroll.png" alt="Payroll">Payroll & Benefits</a>
+                    </li>
+                    <li>
+                        <a href="Report.html"><img src="../assets/reports.png" alt="Reports">Reports</a>
+                    </li>
+                    <li>
+                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1>Leave & Travel Management</h1>
+                    <p>Municipality HR Management System Overview</p>
+                </div>
+            </header>
+
+            <div class="leave-request-row">
+                <div class="travel-card">
+                    <div class="card-content">
+                        <h3>Total Leave Request</h3>
+                        <div class="stat-number">250</div>
+                        <div class="stat-icon present">
+                            <img src="../assets/calendar.png" alt="Total Leave Request">
+                        </div>
+                    </div>
+                </div>
+                <div class="travel-card">
+                    <div class="card-content">
+                        <h3>Average Leave Days</h3>
+                        <div class="stat-number">5</div>
+                        <div class="stat-icon absent">
+                            <img src="../assets/clock-blue.png" alt="Average Leave Days">
+                        </div>
+                    </div>
+                </div>
+                <div class="travel-card">
+                    <div class="card-content">
+                        <h3>Total Orders</h3>
+                        <div class="stat-number">3</div>
+                        <div class="stat-icon late">
+                            <img src="../assets/map-pin.png" alt="Total Orders">
+                        </div>
+                    </div>
+                </div>
+                <div class="travel-card">
+                    <div class="card-content">
+                        <h3>To be Approved</h3>
+                        <div class="stat-number">3</div>
+                        <div class="stat-icon correction">
+                            <img src="../assets/document-orange.png" alt="To be Approved">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="employee-search">
+                <input type="text" id="searchInput" placeholder="Search by employee name or ID...">
+            </div>
+            <div class="leave-request-card">
+                <div class="leave-request-card-header">
+                    <h2>Leave Request</h2>
+                    <button class="view-all-btn">VIEW ALL</button>
+                </div>
+                <div class="leave-request-list">
+                    <div class="leave-request-item">
+                        <div class="leave-request-main">
+                            <div class="leave-request-emp">
+                                <span class="leave-request-name">Juan Dela Cruz</span>
+                                <span class="leave-request-id">(EMP 001)</span>
+                            </div>
+                            <div class="leave-request-details">
+                                <div>
+                                    <span class="leave-request-label">Leave Type</span>
+                                    <span class="leave-request-value">Vacation Type</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Duration</span>
+                                    <span class="leave-request-value">December 20–22, 2025 (3 Days)</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Reason</span>
+                                    <span class="leave-request-value">Family Vacation</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Available Credits:</span>
+                                    <span class="leave-request-value">15 Days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leave-request-actions">
+                            <button class="approve-btn">Approve</button>
+                            <button class="reject-btn">Reject</button>
+                        </div>
+                    </div>
+                    <div class="leave-request-item">
+                        <div class="leave-request-main">
+                            <div class="leave-request-emp">
+                                <span class="leave-request-name">Maria Santos</span>
+                                <span class="leave-request-id">(EMP 002)</span>
+                            </div>
+                            <div class="leave-request-details">
+                                <div>
+                                    <span class="leave-request-label">Leave Type</span>
+                                    <span class="leave-request-value">Sick Leave</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Duration</span>
+                                    <span class="leave-request-value">December 18, 2025 (1 Day)</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Reason</span>
+                                    <span class="leave-request-value">Medical Appointment</span>
+                                </div>
+                                <div>
+                                    <span class="leave-request-label">Available Credits:</span>
+                                    <span class="leave-request-value">12 Days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leave-request-actions">
+                            <span class="status-badge approved">Approved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html> 
