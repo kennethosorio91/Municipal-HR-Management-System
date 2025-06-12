@@ -6,9 +6,8 @@
     <title>User Announcement</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css">
-    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/announcement.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -47,12 +46,8 @@
                     </li>
                     <li>
                         <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
-                    </li>
-                    <li class="active">
+                    </li>                    <li class="active">
                         <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
-                    </li>
-                    <li>
-                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                     <li>
                         <button id="logoutBtn" class="logout-btn">
@@ -62,16 +57,138 @@
                     </li>
                 </ul>
             </nav>
-        </aside>        <!-- Main Content -->
+        </aside>
+
+        <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
                 <div class="page-title">
                     <h1>Announcements & Notifications</h1>
                     <p>Stay updated with municipal announcements and events</p>
                 </div>
+                <div class="header-filter">
+                    <select class="announcement-filter" id="announcementFilter">
+                        <option value="all">All Announcements</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="notice">Notice</option>
+                        <option value="update">Update</option>
+                    </select>
+                </div>
             </header>
 
-            <!-- Content goes here -->
+            <div class="announcement-content">
+                <!-- Recent Announcements Section -->
+                <div class="announcements-section">
+                    <div class="section-header">
+                        <img src="../assets/bell.png" alt="Announcements">
+                        <h2>Recent Announcements</h2>
+                    </div>
+                    
+                    <div class="announcement-item urgent">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Year-End Bonus Distribution</h3>
+                            <span class="announcement-type urgent">Urgent</span>
+                        </div>
+                        <p class="announcement-content-text">
+                            Year-end bonus will be distributed on December 20, 2024. Please ensure 
+                            your bank details are updated.
+                        </p>
+                        <div class="announcement-date">2024-12-03</div>
+                    </div>
+
+                    <div class="announcement-item notice">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Holiday Schedule for December 2024</h3>
+                            <span class="announcement-type notice">Notice</span>
+                        </div>
+                        <p class="announcement-content-text">
+                            Please be advised of the new holiday schedule. December 24 (Christmas 
+                            Eve) is 12 (Rizal Day). December 25 (Free leave - Special Non-
+                            Working Day).
+                        </p>
+                        <div class="announcement-date">2024-12-02</div>
+                    </div>
+
+                    <div class="announcement-item notice">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">Mandatory Health and Safety Training</h3>
+                            <span class="announcement-type notice">Notice</span>
+                        </div>
+                        <p class="announcement-content-text">
+                            All employees are required to attend the health and safety training scheduled 
+                            for December 15, 2024, at 2:00 PM in the conference room.
+                        </p>
+                        <div class="announcement-date">2024-11-30</div>
+                    </div>
+
+                    <div class="announcement-item update">
+                        <div class="announcement-header">
+                            <h3 class="announcement-title">New Employee Handbook Released</h3>
+                            <span class="announcement-type update">Update</span>
+                        </div>
+                        <p class="announcement-content-text">
+                            The updated Employee Handbook (Version 2024.2) is now available for download 
+                            from the HR portal. Please review the updated policies.
+                        </p>
+                        <div class="announcement-date">2024-12-01</div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Content -->
+                <div class="sidebar-content">
+                    <!-- Upcoming Events -->
+                    <div class="events-section">
+                        <div class="section-header">
+                            <img src="../assets/calendar.png" alt="Events">
+                            <h2>Upcoming Events</h2>
+                        </div>
+                        
+                        <div class="event-item">
+                            <h3 class="event-title">Christmas Party</h3>
+                            <p class="event-details">2024-12-20 at 6:00 PM</p>
+                            <p class="event-location">Municipal Multi-purpose Hall</p>
+                        </div>
+
+                        <div class="event-item">
+                            <h3 class="event-title">Year-End Team Building</h3>
+                            <p class="event-details">2024-12-28 at 8:00 AM</p>
+                            <p class="event-location">Concepcion Park</p>
+                        </div>
+
+                        <div class="event-item">
+                            <h3 class="event-title">New Year's Flag Ceremony</h3>
+                            <p class="event-details">2025-01-02 at 8:00 AM</p>
+                            <p class="event-location">Municipal Hall Lobby</p>
+                        </div>
+                    </div>
+
+                    <!-- December Birthdays -->
+                    <div class="birthdays-section">
+                        <div class="section-header">
+                            <img src="../assets/users.png" alt="Birthdays">
+                            <h2>December Birthdays</h2>
+                        </div>
+                        
+                        <div class="birthday-item">
+                            <h3 class="birthday-name">Maria Santos</h3>
+                            <p class="birthday-position">Records Officer</p>
+                            <span class="birthday-date">December 12</span>
+                        </div>
+
+                        <div class="birthday-item">
+                            <h3 class="birthday-name">Pedro Garcia</h3>
+                            <p class="birthday-position">Engineering</p>
+                            <span class="birthday-date">December 16</span>
+                        </div>
+
+                        <div class="birthday-item">
+                            <h3 class="birthday-name">Ana Reyes</h3>
+                            <p class="birthday-position">Accounting</p>
+                            <span class="birthday-date">December 18</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Logout Confirmation Modal -->
@@ -89,9 +206,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="js/mobile-nav.js"></script>
+    </div>    <script src="js/mobile-nav.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/announcement.js"></script>
 </body>
 </html> 

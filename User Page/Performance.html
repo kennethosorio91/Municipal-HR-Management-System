@@ -6,9 +6,8 @@
     <title>Performance & Training</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css">
-    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/performance.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -47,12 +46,8 @@
                     </li>
                     <li class="active">
                         <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
-                    </li>
-                    <li>
+                    </li>                    <li>
                         <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
-                    </li>
-                    <li>
-                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                     <li>
                         <button id="logoutBtn" class="logout-btn">
@@ -62,18 +57,143 @@
                     </li>
                 </ul>
             </nav>
-        </aside>
-
-        <!-- Main Content -->
+        </aside>        <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
                 <div class="page-title">
                     <h1>Performance & Training</h1>
                     <p>View your performance ratings and manage training records</p>
                 </div>
+                <div class="header-actions">
+                    <button class="btn-request-training">
+                        <img src="../assets/check-circle-white.png" alt="Request">
+                        Request Training
+                    </button>
+                    <button class="btn-request-col">
+                        <img src="../assets/document.png" alt="COL">
+                        Request COL
+                    </button>
+                </div>
             </header>
 
-            <!-- Content goes here -->
+            <!-- Performance Evaluation Section -->
+            <div class="performance-section">
+                <div class="performance-header">
+                    <img src="../assets/performance.png" alt="Performance">
+                    <h2>Performance Evaluation (IPCR/OPCR)</h2>
+                </div>
+                <div class="performance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>IPCR Score</th>
+                                <th>OPCR Score</th>
+                                <th>Overall Score</th>
+                                <th>Rating</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024</td>
+                                <td><span class="score-cell score-excellent">4.8</span></td>
+                                <td><span class="score-cell score-excellent">4.2</span></td>
+                                <td><span class="score-cell score-excellent">4.35</span></td>
+                                <td><span class="rating-badge rating-outstanding">Outstanding</span></td>
+                                <td><span class="status-badge complete">Complete</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023</td>
+                                <td><span class="score-cell score-good">4.0</span></td>
+                                <td><span class="score-cell score-excellent">4.5</span></td>
+                                <td><span class="score-cell score-good">4.1</span></td>
+                                <td><span class="rating-badge rating-very-satisfactory">Very Satisfactory</span></td>
+                                <td><span class="status-badge complete">Complete</span></td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td><span class="score-cell score-satisfactory">3.5</span></td>
+                                <td><span class="score-cell score-satisfactory">3.8</span></td>
+                                <td><span class="score-cell score-satisfactory">3.6</span></td>
+                                <td><span class="rating-badge rating-satisfactory">Satisfactory</span></td>
+                                <td><span class="status-badge complete">Complete</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Training & Seminars Section -->
+            <div class="training-section">
+                <div class="training-header">
+                    <img src="../assets/briefcase.png" alt="Training">
+                    <h2>Training & Seminars</h2>
+                </div>
+
+                <!-- Leadership Development Program -->
+                <div class="training-item">
+                    <div class="training-info">
+                        <div class="training-title">Leadership Development Program</div>
+                        <div class="training-details">
+                            <div class="training-provider">Provider: CSC Central Office</div>
+                        </div>
+                        <div class="training-date">Date & Hours: 2024-11-15 (40 hrs.)</div>
+                    </div>
+                    <div class="training-actions">
+                        <div class="certificate-info">
+                            <div class="certificate-status">Certificate Available</div>
+                        </div>
+                        <span class="status-badge complete">Complete</span>
+                        <a href="#" class="btn-download-cert">
+                            <img src="../assets/download.png" alt="Download">
+                            Download Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Digital Governance Training -->
+                <div class="training-item">
+                    <div class="training-info">
+                        <div class="training-title">Digital Governance Training</div>
+                        <div class="training-details">
+                            <div class="training-provider">Provider: DILG</div>
+                        </div>
+                        <div class="training-date">Date & Hours: 2024-04-22 (24 hrs.)</div>
+                    </div>
+                    <div class="training-actions">
+                        <div class="certificate-info">
+                            <div class="certificate-status">Certificate Available</div>
+                        </div>
+                        <span class="status-badge complete">Complete</span>
+                        <a href="#" class="btn-download-cert">
+                            <img src="../assets/download.png" alt="Download">
+                            Download Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Management Seminar -->
+                <div class="training-item">
+                    <div class="training-info">
+                        <div class="training-title">Project Management Seminar</div>
+                        <div class="training-details">
+                            <div class="training-provider">Provider: PMI</div>
+                        </div>
+                        <div class="training-date">Date & Hours: 2024-12-25 (16 hrs.)</div>
+                    </div>
+                    <div class="training-actions">
+                        <div class="certificate-info">
+                            <div class="certificate-status">Certificate Pending</div>
+                        </div>
+                        <span class="status-badge pending">Enrolled</span>
+                        <a href="#" class="btn-download-cert" style="opacity: 0.5; pointer-events: none;">
+                            <img src="../assets/download.png" alt="Download">
+                            Download Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Logout Confirmation Modal -->
@@ -91,9 +211,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="js/mobile-nav.js"></script>
+    </div>    <script src="js/mobile-nav.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/performance.js"></script>
 </body>
 </html> 

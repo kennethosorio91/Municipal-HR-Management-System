@@ -6,9 +6,8 @@
     <title>Payslip & Benefits</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css">
-    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/payslip.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -47,12 +46,8 @@
                     </li>
                     <li>
                         <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
-                    </li>
-                    <li>
+                    </li>                    <li>
                         <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
-                    </li>
-                    <li>
-                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                     <li>
                         <button id="logoutBtn" class="logout-btn">
@@ -62,18 +57,194 @@
                     </li>
                 </ul>
             </nav>
-        </aside>
-
-        <!-- Main Content -->
+        </aside>        <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
                 <div class="page-title">
                     <h1>My Payslips & Benefits</h1>
                     <p>View and download your salary details and benefits</p>
                 </div>
+                <div class="header-actions">
+                    <button class="btn-download-payslip">
+                        <img src="../assets/download.png" alt="Download">
+                        Download Current Payslip
+                    </button>
+                </div>
             </header>
 
-            <!-- Content goes here -->
+            <!-- Current Payslip Section -->
+            <div class="current-payslip-section">
+                <div class="payslip-header">
+                    <img src="../assets/payroll.png" alt="Payroll">
+                    <h2>Current Payslip - December 2024</h2>
+                    <div class="payslip-period">December 2024</div>
+                </div>
+                
+                <div class="payslip-content">
+                    <!-- Earnings Section -->
+                    <div class="earnings-section">
+                        <div class="section-title">Earnings</div>
+                        <div class="payslip-item">
+                            <span class="item-label">Basic Salary</span>
+                            <span class="item-amount">₱25,000</span>
+                        </div>
+                        <div class="payslip-item">
+                            <span class="item-label">Allowances</span>
+                            <span class="item-amount">₱5,000</span>
+                        </div>
+                        <div class="payslip-item">
+                            <span class="item-label">Overtime</span>
+                            <span class="item-amount">₱1,500</span>
+                        </div>
+                        <div class="payslip-item gross-pay">
+                            <span class="item-label">Gross Pay</span>
+                            <span class="item-amount">₱31,500</span>
+                        </div>
+                    </div>
+
+                    <!-- Deductions Section -->
+                    <div class="deductions-section">
+                        <div class="section-title">Deductions</div>
+                        <div class="payslip-item">
+                            <span class="item-label">GSIS</span>
+                            <span class="item-amount">₱2,500</span>
+                        </div>
+                        <div class="payslip-item">
+                            <span class="item-label">PhilHealth</span>
+                            <span class="item-amount">₱875</span>
+                        </div>
+                        <div class="payslip-item">
+                            <span class="item-label">Pag-IBIG</span>
+                            <span class="item-amount">₱200</span>
+                        </div>
+                        <div class="payslip-item">
+                            <span class="item-label">Income Tax</span>
+                            <span class="item-amount">₱3,100</span>
+                        </div>
+                        <div class="payslip-item total-deductions">
+                            <span class="item-label">Total Deductions</span>
+                            <span class="item-amount">₱6,675</span>
+                        </div>
+                    </div>
+
+                    <!-- Net Pay Section -->
+                    <div class="net-pay-section">
+                        <div class="section-title">Net Pay</div>
+                        <div class="net-pay-amount">₱25,825</div>
+                        <div class="net-pay-label">For December 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payslip History Section -->
+            <div class="payslip-history-section">
+                <div class="history-header">
+                    <div class="history-title">
+                        <img src="../assets/calendar.png" alt="Calendar">
+                        <h2>Payslip History</h2>
+                    </div>
+                    <div class="history-filter">
+                        <select id="payslipFilter">
+                            <option value="december-2024">December 2024</option>
+                            <option value="november-2024">November 2024</option>
+                            <option value="october-2024">October 2024</option>
+                            <option value="september-2024">September 2024</option>
+                            <option value="august-2024">August 2024</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="history-list">
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h3>November 2024</h3>
+                            <p>Net Pay: ₱25,110</p>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-view">View</button>
+                            <button class="btn-download">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h3>October 2024</h3>
+                            <p>Net Pay: ₱25,850</p>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-view">View</button>
+                            <button class="btn-download">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h3>September 2024</h3>
+                            <p>Net Pay: ₱25,828</p>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-view">View</button>
+                            <button class="btn-download">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h3>August 2024</h3>
+                            <p>Net Pay: ₱25,100</p>
+                        </div>
+                        <div class="history-actions">
+                            <button class="btn-view">View</button>
+                            <button class="btn-download">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits & Bonuses Section -->
+            <div class="benefits-section">                <div class="benefits-header">
+                    <img src="../assets/briefcase.png" alt="Benefits">
+                    <h2>Benefits & Bonuses</h2>
+                </div>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-info">
+                            <h3>13th Month Pay</h3>
+                            <div class="benefit-amount">₱25,000</div>
+                            <div class="benefit-date">2024-12-15</div>
+                        </div>
+                        <div class="benefit-status paid">Paid</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-info">
+                            <h3>Year-End Bonus</h3>
+                            <div class="benefit-amount">₱15,000</div>
+                            <div class="benefit-date">2024-12-20</div>
+                        </div>
+                        <div class="benefit-status pending">Pending</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-info">
+                            <h3>PERA</h3>
+                            <div class="benefit-amount">₱2,000</div>
+                            <div class="benefit-date">Monthly</div>
+                        </div>
+                        <div class="benefit-status monthly">Monthly</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-info">
+                            <h3>Clothing Allowance</h3>
+                            <div class="benefit-amount">₱6,000</div>
+                            <div class="benefit-date">2024-08-15</div>
+                        </div>
+                        <div class="benefit-status paid">Paid</div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Logout Confirmation Modal -->
@@ -91,9 +262,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="js/mobile-nav.js"></script>
+    </div>    <script src="js/mobile-nav.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/payslip.js"></script>
 </body>
-</html> 
+</html>
