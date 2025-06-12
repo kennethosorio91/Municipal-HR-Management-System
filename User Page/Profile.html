@@ -166,8 +166,7 @@
                     <header class="card-header">
                         <img src="../assets/files.png" alt="Document Management">
                         <h2>Document Management</h2>
-                    </header>
-                    <div class="document-grid">
+                    </header>                    <div class="document-grid">
                         <div class="document-item">
                             <div class="document-info">
                                 <span class="document-title">Transcript of Records</span>
@@ -177,35 +176,14 @@
                         </div>
                         <div class="document-item">
                             <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
+                                <span class="document-title">Birth Certificate</span>
                                 <span class="document-status">Status: Approved</span>
                             </div>
                             <button class="download-btn">Download</button>
                         </div>
                         <div class="document-item">
                             <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
+                                <span class="document-title">Employment Contract</span>
                                 <span class="document-status">Status: Approved</span>
                             </div>
                             <button class="download-btn">Download</button>
@@ -262,10 +240,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        // Fetch user profile data
+    </div>    <script>
         function loadProfile() {
             fetch('../handlers/get_user_profile.php', {
                 method: 'GET',
@@ -275,14 +250,11 @@
                 }
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
             .then(data => {
                 if (data.success) {
-                    // Update personal information
                     document.getElementById('fullName').value = data.data.fullName;
                     document.getElementById('position').value = data.data.position;
                     document.getElementById('department').value = data.data.department;
@@ -291,7 +263,6 @@
                     document.getElementById('phone').value = data.data.phone || 'Not provided';
                     document.getElementById('address').value = data.data.address || 'Not provided';
 
-                    // Update employment details
                     document.getElementById('status').textContent = data.data.status;
                     document.getElementById('status').className = 'status-badge ' + data.data.status.toLowerCase();
                     document.getElementById('dateHired').textContent = data.data.dateHired;
@@ -305,10 +276,9 @@
                 console.error('Error:', error);
                 alert('An error occurred while loading profile information.');
             });
-        }        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProfile();
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
     </script>
 
     <!-- Add mobile navigation JavaScript -->

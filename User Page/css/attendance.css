@@ -1,5 +1,48 @@
 /* Attendance Page Specific Styles */
 
+/* Test User Selector */
+.user-selector-test {
+    display: flex;
+    align-items: center;
+    background: #F8FAFC;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    margin-right: 20px;
+}
+
+.user-selector-test select {
+    background: white;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #2D3748;
+    min-width: 200px;
+}
+
+.user-selector-test select:focus {
+    outline: none;
+    border-color: #2C6159;
+    box-shadow: 0 0 0 3px rgba(44, 97, 89, 0.1);
+}
+
+/* Status badge improvements */
+.status-badge.present {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16A34A;
+}
+
+.status-badge.late {
+    background: rgba(249, 115, 22, 0.1);
+    color: #EA580C;
+}
+
+.status-badge.absent {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+}
+
 /* Header Section */
 .top-bar {
     display: flex;

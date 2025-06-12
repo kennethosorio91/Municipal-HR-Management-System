@@ -1,13 +1,10 @@
-/* Shared Logout Functionality */
 document.addEventListener('DOMContentLoaded', function() {
-    // Logout functionality
     const logoutModal = document.getElementById('logoutModal');
     const logoutBtn = document.getElementById('logoutBtn');
     const cancelLogoutBtn = document.getElementById('cancelLogout');
     const confirmLogoutBtn = document.getElementById('confirmLogout');
 
     if (logoutBtn && logoutModal) {
-        // Logout modal handlers
         logoutBtn.addEventListener('click', () => {
             logoutModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -22,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (confirmLogoutBtn) {
             confirmLogoutBtn.addEventListener('click', () => {
-                // Send logout request to server
                 fetch('../handlers/logout.php', {
                     method: 'POST',
                     credentials: 'include',
@@ -33,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Redirect to login page
                         window.location.href = '../index.html';
                     } else {
                         alert('Logout failed. Please try again.');
@@ -43,13 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     console.error('Logout error:', error);
-                    // Redirect anyway for security
                     window.location.href = '../index.html';
                 });
             });
         }
 
-        // Close logout modal when clicking outside
         logoutModal.addEventListener('click', (e) => {
             if (e.target === logoutModal) {
                 logoutModal.classList.remove('active');
