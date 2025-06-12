@@ -11,7 +11,7 @@
 /* Body and Main Layout */
 body {
     min-height: 100vh;
-    background: linear-gradient(281deg, #1C313A 5.01%, #2C6159 62.04%);
+    background: linear-gradient(281deg, #005174 5.01%, #088C78 62.04%);
 }
 
 .dashboard {
