@@ -68,6 +68,7 @@ try {
     
     // Set session variables
     $_SESSION['id'] = $user['id'];
+    $_SESSION['user_id'] = $user['id']; // For attendance system compatibility
     $_SESSION['email'] = $user['email'];
     $_SESSION['role'] = $user['role'];
     
