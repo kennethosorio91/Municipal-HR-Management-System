@@ -55,6 +55,9 @@
                     <li>
                         <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
+                    <li>
+                        <a href="#" id="logout-btn"><img src="../assets/log-out.png" alt="Logout">Logout</a>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -62,7 +65,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
-                <div class="page-title">
+                <div class="employee-header">
                     <h1>Leave & Travel Management</h1>
                     <p>Municipality HR Management System Overview</p>
                 </div>
@@ -181,6 +184,19 @@
         </main>
     </div>
 
+    <!-- Logout Modal -->
+    <div id="logout-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-actions">
+                <button id="cancel-logout" class="cancel-btn">Cancel</button>
+                <button id="confirm-logout" class="confirm-btn">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/logout.js"></script>
     <script src="js/mobile-nav.js"></script>
 </body>
 </html> 

@@ -31,29 +31,28 @@
                     <div class="logo-text2">Concepcion</div>
                 </div>
             </div>
-            
-            <nav class="nav-menu">
+              <nav class="nav-menu">
                 <ul>
                     <li>
-                        <a href="Profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
+                        <a href="profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
                     </li>
                     <li>
                         <a href="attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li class="active">
-                        <a href="LeaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
+                        <a href="leaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
                     </li>
                     <li>
-                        <a href="Payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
+                        <a href="payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
                     </li>
                     <li>
-                        <a href="Performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
+                        <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
                     </li>
                     <li>
-                        <a href="Announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
+                        <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
                     </li>
                     <li>
-                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                     <li>
                         <button id="logoutBtn" class="logout-btn">
@@ -74,7 +73,27 @@
                 </div>
             </header>
 
+            <!-- Content goes here -->
+        </main>
+
+        <!-- Logout Confirmation Modal -->
+        <div class="modal-overlay" id="logoutModal">
+            <div class="modal-content logout-modal">
+                <div class="modal-header">
+                    <h2>Confirm Logout</h2>
+                </div>
+                <div class="logout-content">
+                    <p>Are you sure you want to logout? You will be redirected to the login page.</p>
+                    <div class="logout-actions">
+                        <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                        <button class="confirm-btn" id="confirmLogout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/mobile-nav.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 </html> 

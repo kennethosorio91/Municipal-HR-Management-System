@@ -312,58 +312,6 @@
         }        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             loadProfile();
-            
-            // Logout functionality
-            const logoutModal = document.getElementById('logoutModal');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const cancelLogoutBtn = document.getElementById('cancelLogout');
-            const confirmLogoutBtn = document.getElementById('confirmLogout');
-
-            // Logout modal handlers
-            logoutBtn.addEventListener('click', () => {
-                logoutModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-
-            cancelLogoutBtn.addEventListener('click', () => {
-                logoutModal.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-
-            confirmLogoutBtn.addEventListener('click', () => {
-                // Send logout request to server
-                fetch('../handlers/logout.php', {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Redirect to login page
-                        window.location.href = '../index.html';
-                    } else {
-                        alert('Logout failed. Please try again.');
-                        logoutModal.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                })
-                .catch(error => {
-                    console.error('Logout error:', error);
-                    // Redirect anyway for security
-                    window.location.href = '../index.html';
-                });
-            });
-
-            // Close logout modal when clicking outside
-            logoutModal.addEventListener('click', (e) => {
-                if (e.target === logoutModal) {
-                    logoutModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
         });
     </script>
 
@@ -371,5 +319,6 @@
     <script src="js/mobile-nav.js"></script>
     <script src="js/profile.js"></script>
     <script src="js/shared.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 </html> 
