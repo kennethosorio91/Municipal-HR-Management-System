@@ -1,0 +1,278 @@
+/* Leave & Travel Page Styles */
+
+/* Top Bar Layout */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.page-title {
+    color: white;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.page-title p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Header Action Buttons */
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-apply-leave, .btn-travel-order {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-apply-leave {
+    background: #27AE60;
+    color: white;
+}
+
+.btn-apply-leave:hover {
+    background: #219A52;
+}
+
+.btn-travel-order {
+    background: white;
+    color: #2C6159;
+    border: 1px solid #E5E7EB;
+}
+
+.btn-travel-order:hover {
+    background: #F9FAFB;
+}
+
+.btn-apply-leave img, .btn-travel-order img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Leave Credits Balance Section */
+.leave-credits-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(44, 97, 89, 0.08);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.leave-credits-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.leave-credits-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.leave-credits-header h2 {
+    color: #2C6159;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.leave-credits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.leave-credit-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leave-credit-type {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+.leave-credit-days {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2C6159;
+    margin-bottom: 4px;
+}
+
+.leave-credit-label {
+    font-size: 12px;
+    color: #9CA3AF;
+}
+
+/* Applications and Orders Sections */
+.applications-section, .travel-orders-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(44, 97, 89, 0.08);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.section-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.section-header h2 {
+    color: #2C6159;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Application and Order Items */
+.application-item, .travel-order-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.application-item:hover, .travel-order-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.application-info, .travel-order-info {
+    flex: 1;
+}
+
+.application-type, .travel-order-type {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 4px;
+}
+
+.application-details, .travel-order-details {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 8px;
+}
+
+.detail-item {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.detail-label {
+    font-weight: 500;
+}
+
+.application-reason, .travel-order-reason {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 8px;
+}
+
+.application-date, .travel-order-date {
+    font-size: 12px;
+    color: #9CA3AF;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: transform 0.2s ease;
+}
+
+.status-badge:hover {
+    transform: scale(1.05);
+}
+
+.status-badge.pending {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.status-badge.approved {
+    background: #D1FAE5;
+    color: #059669;
+}
+
+.status-badge.ongoing {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .btn-apply-leave, .btn-travel-order {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .leave-credits-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+    }
+    
+    .application-item, .travel-order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .application-details, .travel-order-details {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

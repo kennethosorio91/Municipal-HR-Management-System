@@ -6,9 +6,8 @@
     <title>Leave & Travel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css">
-    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/leaveTravel.css">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -59,8 +58,7 @@
                             <img src="../assets/log-out.png" alt="Logout">
                             Logout
                         </button>
-                    </li>
-                </ul>
+                    </li>                </ul>
             </nav>
         </aside>
 
@@ -71,9 +69,150 @@
                     <h1>Leave & Travel</h1>
                     <p>Apply for leave and official travel orders</p>
                 </div>
+                <div class="header-actions">
+                    <button class="btn-apply-leave">
+                        <img src="../assets/check-circle-white.png" alt="Apply">
+                        Apply Leave
+                    </button>
+                    <button class="btn-travel-order">
+                        <img src="../assets/map-pin.png" alt="Travel">
+                        Request Travel Order
+                    </button>
+                </div>
             </header>
 
-            <!-- Content goes here -->
+            <!-- Leave Credits Balance Section -->
+            <div class="leave-credits-section">
+                <div class="leave-credits-header">
+                    <img src="../assets/calendar.png" alt="Calendar">
+                    <h2>Leave Credits Balance</h2>
+                </div>
+                <div class="leave-credits-grid">
+                    <div class="leave-credit-card">
+                        <div class="leave-credit-type">Vacation Leave</div>
+                        <div class="leave-credit-days">15</div>
+                        <div class="leave-credit-label">days available</div>
+                    </div>
+                    <div class="leave-credit-card">
+                        <div class="leave-credit-type">Sick Leave</div>
+                        <div class="leave-credit-days">12</div>
+                        <div class="leave-credit-label">days available</div>
+                    </div>
+                    <div class="leave-credit-card">
+                        <div class="leave-credit-type">Emergency Leave</div>
+                        <div class="leave-credit-days">3</div>
+                        <div class="leave-credit-label">days available</div>
+                    </div>
+                    <div class="leave-credit-card">
+                        <div class="leave-credit-type">Maternity Leave</div>
+                        <div class="leave-credit-days">60</div>
+                        <div class="leave-credit-label">days available</div>
+                    </div>
+                    <div class="leave-credit-card">
+                        <div class="leave-credit-type">Study Leave</div>
+                        <div class="leave-credit-days">5</div>
+                        <div class="leave-credit-label">days available</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Leave Applications Section -->
+            <div class="applications-section">
+                <div class="section-header">
+                    <img src="../assets/calendar.png" alt="Applications">
+                    <h2>My Leave Applications</h2>
+                </div>
+                
+                <div class="application-item">
+                    <div class="application-info">
+                        <div class="application-type">Vacation Leave</div>
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Duration:</span>
+                                2024-12-23 to 2024-12-27
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Reason:</span>
+                                Family Vacation
+                            </div>
+                        </div>
+                        <div class="application-date">Date Applied: 2024-12-05</div>
+                    </div>
+                    <div class="status-badge pending">Pending</div>
+                </div>
+
+                <div class="application-item">
+                    <div class="application-info">
+                        <div class="application-type">Sick Leave</div>
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Duration:</span>
+                                2024-11-15 to 2024-11-18
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Reason:</span>
+                                Medical Appointment
+                            </div>
+                        </div>
+                        <div class="application-date">Date Applied: 2024-11-04</div>
+                    </div>
+                    <div class="status-badge approved">Approved</div>
+                </div>
+
+                <div class="application-item">
+                    <div class="application-info">
+                        <div class="application-type">Emergency Leave</div>
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Duration:</span>
+                                2024-10-28 to 2024-10-29
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Reason:</span>
+                                Family Emergency
+                            </div>
+                        </div>
+                        <div class="application-date">Date Applied: 2024-10-28</div>
+                    </div>
+                    <div class="status-badge approved">Approved</div>
+                </div>
+            </div>
+
+            <!-- Official Travel Orders Section -->
+            <div class="travel-orders-section">
+                <div class="section-header">
+                    <img src="../assets/map-pin.png" alt="Travel Orders">
+                    <h2>Official Travel Orders</h2>
+                </div>
+                
+                <div class="travel-order-item">
+                    <div class="travel-order-info">
+                        <div class="travel-order-type">Provincial Capital</div>
+                        <div class="travel-order-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Purpose:</span>
+                                Training Seminar
+                            </div>
+                        </div>
+                        <div class="travel-order-date">Travel Dates: 2024-12-15 to 2024-12-17</div>
+                    </div>
+                    <div class="status-badge approved">Approved</div>
+                </div>
+
+                <div class="travel-order-item">
+                    <div class="travel-order-info">
+                        <div class="travel-order-type">Regional Office</div>
+                        <div class="travel-order-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Purpose:</span>
+                                Quarterly Meeting
+                            </div>
+                        </div>
+                        <div class="travel-order-date">Travel Dates: 2024-11-28 to 2024-11-29</div>
+                    </div>
+                    <div class="status-badge ongoing">Ongoing</div>
+                </div>
+            </div>
         </main>
 
         <!-- Logout Confirmation Modal -->
@@ -91,9 +230,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="js/mobile-nav.js"></script>
+    </div>    <script src="js/mobile-nav.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/leaveTravel.js"></script>
 </body>
 </html> 
