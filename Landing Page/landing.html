@@ -39,6 +39,24 @@
                 <h1 class="banner fade-up">WELCOME TO <span class="lokal">LOKAL</span> <span class="hrms">HRMS</span></h1>
                 <div class="sub-banner fade-up">Simplifying Government HR Services for Employees</div>
             </div>
+            <div class="municipal-stats fade-up">
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-title">Employees Managed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">18</div>
+                    <div class="stat-title">Departments Supported</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1,500</div>
+                    <div class="stat-title">Annual HR Transactions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">180+</div>
+                    <div class="stat-title">Active HR Records</div>
+                </div>
+            </div>
         </section>
         
         <!-- Announcement Section -->
@@ -56,39 +74,7 @@
                                 <th>DATE</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>106</td>
-                                <td>Leave Requests Now Paperless</td>
-                                <td><a href="#modalAnnouncement" onclick="openAnnouncementModal()">View</a></td>
-                                <td>06-05-2025</td>
-                            </tr>
-                            <tr>
-                                <td>105</td>
-                                <td>[NEW] Biometric System Integration Now Active</td>
-                                <td><a href="#" class="download-link">View</a></td>
-                                <td>06-04-2025</td>
-                            </tr>
-                            <tr>
-                                <td>104</td>
-                                <td>Payroll Schedule Update for June 2025</td>
-                                <td>-</td>
-                                <td>06-03-2025</td>
-                            </tr>
-                            <tr>
-                                <td>103</td>
-                                <td>Download Required: Updated Leave Policy Guidelines (PDF)</td>
-                                <td><a href="files/leave-guidelines.pdf" download>Download</a></td>
-                                <td>06-02-2025</td>
-                            </tr>
-                            <tr>
-                                <td>102</td>
-                                <td>System Downtime Advisory</td>
-                                <td>-</td>
-                                <td>06-01-2025</td>
-                            </tr>
-                        </tbody>
-
+                        <tbody></tbody>
                     </table>
                 </div>
                 <div class="page-counter">
@@ -98,27 +84,31 @@
                 </div>
             </div>
         </section>
+        <div class="announcement-modal-overlay" id="modalAnnouncement">
+            <div class="announcement-modal"></div>
+        </div>
 
         <!-- Help Desk Section -->
         <section class="help-desk" id="help-desk">
-            <h1 class="banner-announcements fade-up">HELP DESK</h1>
-            <div class="sub-banner">
-                Need help with HR services? Submit a request or browse the FAQ.
-            </div>
-
-            <div class="help-desk-containers">
-                <div class="left-side-help">
-                    <button type="button">FAQ</button>
-                </div>
-                <div class="right-side-help">
-                    <div class="contact-container">
-                        <div class="contact-title">Contact Us</div>
-                        <form action="#" method="post">
-                            <input type="text" class="name" name="name" placeholder="Enter Name" required>
-                            <input type="email" class="email" name="email" placeholder="Enter a valid email address" required>
-                            <textarea class="message" name="message" placeholder="Enter your message..." required></textarea>
-                            <button type="submit">Submit</button>
-                        </form>
+            <div class="help-desk-content fade-up">
+                <div class="help-desk-containers">
+                    <div class="left-side-help fade-up">
+                        <h1 class="banner-announcements fade-up">HELP DESK</h1>
+                        <div class="sub-banner">
+                            <span class="typing-text">Need help with HR services? Submit a request or browse the FAQ.</span>
+                        </div>
+                        <button type="button" class="faq-button" onclick="openFAQModal()">FAQ</button>
+                    </div>
+                    <div class="right-side-help fade-up">
+                        <div class="contact-container">
+                            <div class="contact-title">Contact Us</div>
+                            <form action="#" method="post">
+                                <input type="text" class="name" name="name" placeholder="Enter Name" required>
+                                <input type="email" class="email" name="email" placeholder="Enter a valid email address" required>
+                                <textarea class="message" name="message" placeholder="Enter your message..." required></textarea>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +122,7 @@
                 <form id="loginForm" action="handlers/login_handler.php" method="post">
                     <input type="email" name="govmail" id="govmail" placeholder="Enter GovMail" required>
                     <input type="password" name="password" id="password" placeholder="Enter Password" required>
-                <button type="submit">LOGIN</button>
+                    <button type="submit">LOGIN</button>
                 </form>
                 <div id="loginMessage" class="login-message" style="display: none;"></div>
             </div>
@@ -143,32 +133,53 @@
         <!-- Footer content would go here -->
     </footer>
 
-    <!-- Modal Announcement -->
-    <div class="announcement-modal-overlay" id="modalAnnouncement">
-        <div class="announcement-modal">
-            <span class="modal-close" onclick="closeAnnouncementModal()">&times;</span>
-            <h2>Leave Requests Now Paperless</h2>
-            <p><strong>June 29, 2025</strong></p>
-            <p>Effective July 1, 2025, all leave applications must be submitted exclusively through the LOKAL HRMS online leave form. The form is accessible via the "My Leave" section on your HRMS dashboard.</p>
-            <p>Manual/paper-based forms will no longer be accepted unless in emergency cases with prior approval.</p>
-            <p>For assistance, please visit the <a href="#help-desk">Help Desk</a> or contact us at <a href="mailto:hrsupport@concepcion.gov.ph">hrsupport@concepcion.gov.ph</a>.</p>
-            <div class="signature">
-                <strong>Juan Dela Cruz</strong><br>
-                <em>Human Resources Officer</em><br>
-                Municipality of Concepcion, Tarlac
-            </div>
-        </div>
-    </div>
-
-    <!--Modal FAQ-->
-    <div class="faq-modal-overlay" id="modalAnnouncement">
+    <!-- FAQ Modal -->
+    <div class="faq-modal-overlay" id="modalFAQ">
         <div class="help-modal">
             <h2>Frequently Asked Questions</h2>
             <div class="search">
                 <input type="text" placeholder="Search">
                 <button type="submit">Search</button>
             </div>
-
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        How do I file a leave request?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        You can submit your leave request by logging into the HRMS and going to the "Leave Management" section. Be sure to attach the necessary documents if required.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        I forgot to clock in/out. What should I do?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Please contact your supervisor or the HR department to report the issue. They will guide you on the next steps.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        Where can I update my contact or personal information?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        You can update your contact or personal information by logging into the HRMS and navigating to the "Profile" section.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        How do I access my payslip or salary history?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        You can access your payslip or salary history by logging into the HRMS and going to the "Payroll" section.
+                    </div>
+                </div>
+            </div>
+            <button class="close-modal" onclick="closeFAQModal()">×</button>
         </div>
     </div>
 
@@ -208,21 +219,93 @@
 
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // Show modal only once per session
+            // Show announcement modal only once per session
             if (!sessionStorage.getItem("announcementShown")) {
                 document.getElementById("modalAnnouncement").style.display = "flex";
                 sessionStorage.setItem("announcementShown", "true");
             }
         });
 
-        function openAnnouncementModal() {
-    document.getElementById("modalAnnouncement").style.display = "flex";
-}
+        // Announcement Pagination and Modal
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        const announcements = [
+            { no: 106, title: "Leave Requests Now Paperless", file: "files/leave-guide.pdf", date: "06-05-2025", content: "Effective July 1, 2025, all leave applications must be submitted exclusively through the LOKAL HRMS online leave form. Manual/paper-based forms will no longer be accepted unless in emergency cases with prior approval." },
+            { no: 105, title: "[NEW] Biometric System Integration Now Active", file: "files/biometric-guide.pdf", date: "06-04-2025", content: "The biometric system is now integrated. Refer to the guide for setup instructions." },
+            { no: 104, title: "Payroll Schedule Update for June 2025", file: null, date: "06-03-2025", content: "Payroll will be released on the 15th and 30th of June. Check the schedule for details." },
+            { no: 103, title: "Download Required: Updated Leave Policy Guidelines (PDF)", file: "files/leave-policy.pdf", date: "06-02-2025", content: "New leave policy guidelines are available. Download and review the updated document." },
+            { no: 102, title: "System Downtime Advisory", file: null, date: "06-01-2025", content: "System maintenance scheduled from 12 AM to 4 AM on 06-15-2025. Plan accordingly." },
+            { no: 101, title: "Training Session for New HRMS Features", file: "files/training-guide.pdf", date: "05-31-2025", content: "Training scheduled for June 20, 2025. Details in the guide." },
+            { no: 100, title: "Holiday Pay Guidelines Updated", file: null, date: "05-30-2025", content: "Refer to HR for updated holiday pay policies effective immediately." },
+            { no: 99, title: "New Employee Orientation Schedule", file: "files/orientation.pdf", date: "05-29-2025", content: "Orientation for new hires on June 10, 2025. See the schedule." },
+            { no: 98, title: "Annual Performance Review Deadline", file: null, date: "05-28-2025", content: "Submit reviews by June 15, 2025. Late submissions will not be accepted." },
+            { no: 97, title: "Updated Benefits Enrollment Form", file: "files/benefits-form.pdf", date: "05-27-2025", content: "New benefits form available for download. Submit by June 30, 2025." }
+        ];
 
+        function displayAnnouncements(page) {
+            const tbody = document.querySelector('#announcements table tbody');
+            tbody.innerHTML = '';
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedItems = announcements.slice(start, end);
+
+            paginatedItems.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.no}</td>
+                    <td>${item.title}</td>
+                    <td>${item.file ? `<a href="${item.file}" download>Download</a>` : '-'}</td>
+                    <td>${item.date}</td>
+                `;
+                row.addEventListener('click', () => openAnnouncementModal(item));
+                tbody.appendChild(row);
+            });
+
+            document.querySelector('.current').textContent = page;
+            updatePageButtons();
+        }
+
+        function updatePageButtons() {
+            const totalPages = Math.ceil(announcements.length / rowsPerPage);
+            const pageLinks = document.querySelectorAll('.page-counter a');
+            pageLinks.forEach(link => link.classList.remove('active'));
+            pageLinks[currentPage - 1].classList.add('active');
+
+            pageLinks.forEach((link, index) => {
+                link.textContent = index + 1;
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    currentPage = index + 1;
+                    displayAnnouncements(currentPage);
+                };
+            });
+        }
+
+        function openAnnouncementModal(item) {
+            const modal = document.getElementById("modalAnnouncement");
+            const modalContent = modal.querySelector('.announcement-modal');
+            modalContent.innerHTML = `
+                <span class="modal-close" onclick="closeAnnouncementModal()">×</span>
+                <h2>${item.title}</h2>
+                <p><strong>${item.date}</strong></p>
+                <p>${item.content}</p>
+                ${item.file ? `<p><a href="${item.file}" download>Download File</a></p>` : ''}
+                <div class="signature">
+                    <strong>Juan Dela Cruz</strong><br>
+                    <em>Human Resources Officer</em><br>
+                    Municipality of Concepcion, Tarlac
+                </div>
+            `;
+            modal.style.display = "flex";
+        }
 
         function closeAnnouncementModal() {
             document.getElementById("modalAnnouncement").style.display = "none";
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayAnnouncements(currentPage);
+        });
 
         // Login form handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -262,6 +345,150 @@
                 messageDiv.style.color = '#ff3333';
             });
         });
+
+        // Typing animation
+        const typingTexts = [
+            "Need help with HR services?",
+            "Submit a request today!",
+            "Browse the FAQ for assistance.",
+            "Contact us for support."
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingElement = document.querySelector('.typing-text');
+
+        function type() {
+            if (charIndex < typingTexts[textIndex].length) {
+                typingElement.textContent += typingTexts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typingElement.textContent = typingTexts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 50);
+            } else {
+                textIndex = (textIndex + 1) % typingTexts.length;
+                setTimeout(type, 500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typingElement) {
+                setTimeout(type, 1000);
+            }
+        });
+
+        // FAQ Modal functions
+        function openFAQModal() {
+            const modal = document.getElementById("modalFAQ");
+            modal.style.display = "flex";
+            // Reset active states when opening
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        }
+
+        function closeFAQModal() {
+            document.getElementById("modalFAQ").style.display = "none";
+        }
     </script>
+
+    <style>
+        /* Modal Styles */
+        .announcement-modal-overlay, .faq-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .announcement-modal, .help-modal {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-close, .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .faq-list {
+            margin-top: 20px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        .faq-question {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 10px;
+            display: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-question span {
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+        /* Ensure this matches your existing landing.css styles */
+        .faq-button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
 </body>
 </html>
