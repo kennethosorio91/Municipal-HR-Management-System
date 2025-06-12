@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Municipality HR Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay"></div>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../assets/municipality logo.png" alt="Municipality of Concepcion Logo" class="logo">
+                <div>
+                    <div class="logo-text1">Municipality of</div>
+                    <div class="logo-text2">Concepcion</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="Profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
+                    </li>
+                    <li>
+                        <a href="attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
+                    </li>
+                    <li>
+                        <a href="leaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
+                    </li>
+                    <li>
+                        <a href="payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
+                    </li>
+                    <li>
+                        <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
+                    </li>
+                    <li>
+                        <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
+                    </li>
+                    <li>
+                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                    </li>
+                    <li>
+                        <button id="logoutBtn" class="logout-btn">
+                            <img src="../assets/log-out.png" alt="Logout">
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1>Leave and Travel</h1>
+                    <p>Apply for leave and official travel orders</p>
+                </div>
+            </header>
+
+
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html> 
