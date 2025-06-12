@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css?v=1">
-    <link rel="stylesheet" href="css/profile.css?v=1">
+    <link rel="stylesheet" href="css/user-layout.css">
+    <link rel="stylesheet" href="css/profile.css?">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -31,8 +31,7 @@
                     <div class="logo-text2">Concepcion</div>
                 </div>
             </div>
-            
-            <nav class="nav-menu">
+              <nav class="nav-menu">
                 <ul>
                     <li class="active">
                         <a href="Profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
@@ -41,19 +40,19 @@
                         <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li>
-                        <a href="leaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
+                        <a href="LeaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
                     </li>
                     <li>
-                        <a href="payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
+                        <a href="Payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
                     </li>
                     <li>
-                        <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
+                        <a href="Performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
                     </li>
                     <li>
-                        <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
+                        <a href="Announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
                     </li>
                     <li>
-                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
                     </li>
                     <li>
                         <button id="logoutBtn" class="logout-btn">
@@ -248,10 +247,26 @@
                                 <a href="#" class="download-link">Download</a>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </div>                </section>
             </div>
         </main>
+
+        <!-- Logout Confirmation Modal -->
+        <div class="modal-overlay" id="logoutModal">
+            <div class="modal-content logout-modal">
+                <div class="modal-header">
+                    <h2>Confirm Logout</h2>
+                </div>
+                <div class="logout-content">
+                    <p>Are you sure you want to logout? You will be redirected to the login page.</p>
+                    <div class="logout-actions">
+                        <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                        <button class="confirm-btn" id="confirmLogout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Fetch user profile data
@@ -294,11 +309,61 @@
                 console.error('Error:', error);
                 alert('An error occurred while loading profile information.');
             });
-        }
-
-        // Initialize page
+        }        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             loadProfile();
+            
+            // Logout functionality
+            const logoutModal = document.getElementById('logoutModal');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const cancelLogoutBtn = document.getElementById('cancelLogout');
+            const confirmLogoutBtn = document.getElementById('confirmLogout');
+
+            // Logout modal handlers
+            logoutBtn.addEventListener('click', () => {
+                logoutModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            cancelLogoutBtn.addEventListener('click', () => {
+                logoutModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            confirmLogoutBtn.addEventListener('click', () => {
+                // Send logout request to server
+                fetch('../handlers/logout.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect to login page
+                        window.location.href = '../index.html';
+                    } else {
+                        alert('Logout failed. Please try again.');
+                        logoutModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    // Redirect anyway for security
+                    window.location.href = '../index.html';
+                });
+            });
+
+            // Close logout modal when clicking outside
+            logoutModal.addEventListener('click', (e) => {
+                if (e.target === logoutModal) {
+                    logoutModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
         });
     </script>
 

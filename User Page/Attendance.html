@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance - Municipality HR Management System</title>
+    <title>Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/user-layout.css?v=1">
-    <link rel="stylesheet" href="css/attendance.css?v=1">
+    <link rel="stylesheet" href="css/user-layout.css?">
+    <link rel="stylesheet" href="css/attendance.css?">
 </head>
 <body>
     <!-- Mobile Menu Button -->
@@ -31,8 +31,7 @@
                     <div class="logo-text2">Concepcion</div>
                 </div>
             </div>
-            
-            <nav class="nav-menu">
+              <nav class="nav-menu">
                 <ul>
                     <li>
                         <a href="Profile.html"><img src="../assets/users.png" alt="Profile">Profile</a>
@@ -41,27 +40,26 @@
                         <a href="Attendance.html"><img src="../assets/attendance.png" alt="Attendance">Attendance</a>
                     </li>
                     <li>
-                        <a href="leaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
+                        <a href="LeaveTravel.html"><img src="../assets/time off.png" alt="Leave">Leave & Travel</a>
                     </li>
                     <li>
-                        <a href="payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
+                        <a href="Payslip.html"><img src="../assets/payroll.png" alt="Payslip">Payslip</a>
                     </li>
                     <li>
-                        <a href="performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
+                        <a href="Performance.html"><img src="../assets/performance.png" alt="Performance">Performance</a>
                     </li>
                     <li>
-                        <a href="announcement.html"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
+                        <a href="Announcement.htl"><img src="../assets/bell.png" alt="Announcement">Announcement</a>
                     </li>
                     <li>
-                        <a href="settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                        <a href="Settings.html"><img src="../assets/settings.png" alt="Settings">Settings</a>
+                    </li>                    <li>
+                        <button id="logoutBtn" class="logout-btn">
+                            <img src="../assets/log-out.png" alt="Logout">
+                            Logout
+                        </button>
                     </li>
                 </ul>
-                <div class="logout-container">
-                    <button id="logoutBtn" class="logout-btn">
-                        <img src="../assets/log-out.png" alt="Logout">
-                        Logout
-                    </button>
-                </div>
             </nav>
         </aside>
 
@@ -76,9 +74,7 @@
                     <img src="../assets/edit.png" alt="Edit">
                     Request Correction
                 </button>
-            </header>
-
-                <!-- Correction Request Modal -->
+            </header>                <!-- Correction Request Modal -->
                 <div class="modal-overlay" id="correctionModal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -126,6 +122,22 @@
 
                             <button type="submit" class="submit-btn">Submit Request</button>
                         </form>
+                    </div>
+                </div>
+
+                <!-- Logout Confirmation Modal -->
+                <div class="modal-overlay" id="logoutModal">
+                    <div class="modal-content logout-modal">
+                        <div class="modal-header">
+                            <h2>Confirm Logout</h2>
+                        </div>
+                        <div class="logout-content">
+                            <p>Are you sure you want to logout? You will be redirected to the login page.</p>
+                            <div class="logout-actions">
+                                <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                                <button class="confirm-btn" id="confirmLogout">Logout</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -232,15 +244,20 @@
         </main>
 
 
-    <script src="js/mobile-nav.js"></script>
-
-    <script>
+    <script src="js/mobile-nav.js"></script>    <script>
         // Modal functionality
         const modal = document.getElementById('correctionModal');
         const openModalBtn = document.querySelector('.request-correction-btn');
         const closeModalBtn = document.querySelector('.close-modal');
         const correctionForm = document.getElementById('correctionForm');
 
+        // Logout functionality
+        const logoutModal = document.getElementById('logoutModal');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const cancelLogoutBtn = document.getElementById('cancelLogout');
+        const confirmLogoutBtn = document.getElementById('confirmLogout');
+
+        // Correction modal handlers
         openModalBtn.addEventListener('click', () => {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -278,6 +295,52 @@
             document.body.style.overflow = '';
             alert('Correction request submitted successfully!');
             correctionForm.reset();
+        });
+
+        // Logout modal handlers
+        logoutBtn.addEventListener('click', () => {
+            logoutModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        cancelLogoutBtn.addEventListener('click', () => {
+            logoutModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        confirmLogoutBtn.addEventListener('click', () => {
+            // Send logout request to server
+            fetch('../handlers/logout.php', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to login page
+                    window.location.href = '../index.html';
+                } else {
+                    alert('Logout failed. Please try again.');
+                    logoutModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            })
+            .catch(error => {
+                console.error('Logout error:', error);
+                // Redirect anyway for security
+                window.location.href = '../index.html';
+            });
+        });
+
+        // Close logout modal when clicking outside
+        logoutModal.addEventListener('click', (e) => {
+            if (e.target === logoutModal) {
+                logoutModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
     </script>
 </body>
