@@ -4,38 +4,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsCards = document.querySelectorAll('.settings-card');
     const contentSections = document.querySelectorAll('.content-section');
 
-    // Initialize page (show work-schedule by default)
-    showSection('work-schedule');
+    // Show default section (help-desk)
+    document.getElementById('help-desk').style.display = 'block';
+    settingsCards[0].classList.add('active');
 
     // Add click event listeners to navigation cards
     settingsCards.forEach(card => {
         card.addEventListener('click', function() {
-            const targetSetting = this.dataset.setting;
+            const setting = this.dataset.setting;
             
-            // Remove active class from all cards
+            // Update active card
             settingsCards.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to clicked card
             this.classList.add('active');
             
-            // Show corresponding content section
-            showSection(targetSetting);
+            // Show selected content section
+            contentSections.forEach(section => {
+                section.style.display = section.id === setting ? 'block' : 'none';
+            });
+
+            // Load tickets if help-desk section is selected
+            if (setting === 'help-desk') {
+                loadContactTickets();
+            }
         });
     });
-
-    // Function to show specific content section
-    function showSection(sectionId) {
-        // Hide all content sections
-        contentSections.forEach(section => {
-            section.style.display = 'none';
-        });
-        
-        // Show target section
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-        }
-    }
 
     // User Management Form Handler
     const createUserForm = document.querySelector('.create-user-form');
@@ -193,4 +185,45 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add any additional helper functionality here
         // For example, form validation helpers, tooltips, etc.
     }
+
+    // Function to load contact tickets
+    function loadContactTickets() {
+        fetch('../handlers/contact_tickets_handler.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    displayTickets(data.tickets);
+                } else {
+                    console.error('Error loading tickets:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to display tickets in the table
+    function displayTickets(tickets) {
+        const ticketTable = document.getElementById('ticketTable').getElementsByTagName('tbody')[0];
+        ticketTable.innerHTML = ''; // Clear existing tickets
+
+        tickets.forEach(ticket => {
+            const row = ticketTable.insertRow();
+            row.innerHTML = `
+                <td>${ticket.name}</td>
+                <td>${ticket.email}</td>
+                <td>${ticket.message}</td>
+                <td>${ticket.created_at}</td>
+            `;
+        });
+    }
+
+    // Search functionality
+    document.getElementById('ticketSearch').addEventListener('input', function(e) {
+        const searchText = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#ticketTable tbody tr');
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchText) ? '' : 'none';
+        });
+    });
 });

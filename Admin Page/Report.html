@@ -152,6 +152,36 @@
                                 <button class="view-history-btn">View History</button>
                             </div>
                         </div>
+                        <div class="compliance-item">
+                            <div class="compliance-info">
+                                <div class="compliance-title">BIR 1604CF</div>
+                                <div class="compliance-description">Bureau of Internal Revenue certificate of compensation</div>
+                                <div class="compliance-details">
+                                    <span class="deadline">Deadline: Monthly</span>
+                                    <span class="last-date">Last: Dec 10, 2024</span>
+                                </div>
+                            </div>
+                            <div class="compliance-actions">
+                                <span class="status-badge generated">Generated</span>
+                                <button class="generate-btn">Generate</button>
+                                <button class="view-history-btn">View History</button>
+                            </div>
+                        </div>
+                        <div class="compliance-item">
+                            <div class="compliance-info">
+                                <div class="compliance-title">PhilHealth MDR</div>
+                                <div class="compliance-description">Philippine Health Insurance Corporation member data report</div>
+                                <div class="compliance-details">
+                                    <span class="deadline">Deadline: Monthly</span>
+                                    <span class="last-date">Last: Nov 30, 2024</span>
+                                </div>
+                            </div>
+                            <div class="compliance-actions">
+                                <span class="status-badge overdue">Overdue</span>
+                                <button class="generate-btn">Generate</button>
+                                <button class="view-history-btn">View History</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -161,9 +191,6 @@
                     </div>
                     <div class="analysis-list">
                         <div class="analysis-item employee-stats">
-                            <div class="analysis-icon">
-                                <img src="../assets/users.png" alt="Employee Statistics">
-                            </div>
                             <div class="analysis-info">
                                 <div class="analysis-title">Employee Statistics</div>
                                 <div class="analysis-data">
@@ -174,9 +201,6 @@
                             </div>
                         </div>
                         <div class="analysis-item attendance-overview">
-                            <div class="analysis-icon">
-                                <img src="../assets/attendance.png" alt="Attendance Overview">
-                            </div>
                             <div class="analysis-info">
                                 <div class="analysis-title">Attendance Overview</div>
                                 <div class="analysis-data">
@@ -187,9 +211,6 @@
                             </div>
                         </div>
                         <div class="analysis-item payroll-summary">
-                            <div class="analysis-icon">
-                                <img src="../assets/payroll.png" alt="Payroll Summary">
-                            </div>
                             <div class="analysis-info">
                                 <div class="analysis-title">Payroll Summary</div>
                                 <div class="analysis-data">
@@ -207,8 +228,13 @@
     <!-- Logout Modal -->
     <div id="logout-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3>Confirm Logout</h3>
-            <p>Are you sure you want to logout?</p>
+            <div class="modal-header">
+                <h3>Confirm Logout</h3>
+                <button class="close-modal" id="close-logout">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
             <div class="modal-actions">
                 <button id="cancel-logout" class="cancel-btn">Cancel</button>
                 <button id="confirm-logout" class="confirm-btn">Logout</button>
@@ -216,7 +242,199 @@
         </div>
     </div>
 
+    <!-- Customize Report Modal -->
+    <div id="customize-modal" class="modal-overlay">
+        <div class="modal-content customize-modal">
+            <div class="modal-header">
+                <h3>Customize Report</h3>
+                <button class="close-modal" id="close-customize">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="customize-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="report-type">Report Type</label>
+                            <select id="report-type" required>
+                                <option value="">Select Report Type</option>
+                                <option value="attendance">Attendance Report</option>
+                                <option value="payroll">Payroll Report</option>
+                                <option value="employee">Employee Report</option>
+                                <option value="compliance">Compliance Report</option>
+                                <option value="performance">Performance Report</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date-range">Date Range</label>
+                            <select id="date-range" required>
+                                <option value="">Select Date Range</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="quarter">This Quarter</option>
+                                <option value="year">This Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row custom-date-range">
+                        <div class="form-group">
+                            <label for="start-date">Start Date</label>
+                            <input type="date" id="start-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">End Date</label>
+                            <input type="date" id="end-date">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="departments">Departments</label>
+                            <select id="departments" multiple>
+                                <option value="all">All Departments</option>
+                                <option value="admin">Administration</option>
+                                <option value="finance">Finance</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="health">Health Services</option>
+                                <option value="social">Social Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="export-format">Export Format</label>
+                            <select id="export-format" required>
+                                <option value="">Select Format</option>
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additional-filters">Additional Filters</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="include-charts"> Include Charts</label>
+                            <label><input type="checkbox" id="include-summary"> Include Summary</label>
+                            <label><input type="checkbox" id="include-details"> Include Detailed Breakdown</label>
+                            <label><input type="checkbox" id="confidential"> Mark as Confidential</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="cancel-customize">Cancel</button>
+                <button type="submit" class="confirm-btn" id="generate-custom-report">Generate Report</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export All Reports Modal -->
+    <div id="export-all-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export All Reports</h3>
+                <button class="close-modal" id="close-export-all">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This will generate and download all available reports for the current month.</p>
+                <div class="export-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">Generating reports... 0%</div>
+                </div>
+                <div class="export-list">
+                    <div class="export-item">
+                        <span class="export-name">Attendance Report</span>
+                        <span class="export-status">Ready</span>
+                    </div>
+                    <div class="export-item">
+                        <span class="export-name">Payroll Report</span>
+                        <span class="export-status">Ready</span>
+                    </div>
+                    <div class="export-item">
+                        <span class="export-name">Employee Report</span>
+                        <span class="export-status">Ready</span>
+                    </div>
+                    <div class="export-item">
+                        <span class="export-name">Compliance Report</span>
+                        <span class="export-status">Ready</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="cancel-export-all">Cancel</button>
+                <button type="button" class="confirm-btn" id="start-export-all">Start Export</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report History Modal -->
+    <div id="history-modal" class="modal-overlay">
+        <div class="modal-content history-modal">
+            <div class="modal-header">
+                <h3>Report History</h3>
+                <button class="close-modal" id="close-history">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content-with-filters">
+                    <div class="filter-section-horizontal">
+                        <div class="filter-title-section">
+                            <h4 id="filter-report-type">Report History</h4>
+                            <span id="results-count" class="results-count">Loading...</span>
+                        </div>
+                        <div class="filter-controls-row">
+                            <div class="filter-group">
+                                <label for="date-filter">Time Range</label>
+                                <select id="date-filter">
+                                    <option value="all">All Time</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="quarter">This Quarter</option>
+                                    <option value="year">This Year</option>
+                                    <option value="custom">Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="status-filter">Status</label>
+                                <select id="status-filter">
+                                    <option value="all">All Status</option>
+                                    <option value="generated">Generated</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="submitted">Submitted</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+                            <div class="filter-group custom-date-inputs">
+                                <label for="start-date-filter">Start Date</label>
+                                <input type="date" id="start-date-filter">
+                            </div>
+                            <div class="filter-group custom-date-inputs">
+                                <label for="end-date-filter">End Date</label>
+                                <input type="date" id="end-date-filter">
+                            </div>
+                            <div class="filter-actions">
+                                <button class="apply-filters-btn">Apply Filters</button>
+                                <button class="clear-filters-btn">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="close-history-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
     <script src="js/logout.js"></script>
     <script src="js/mobile-nav.js"></script>
+    <script src="js/Reports.js"></script>
 </body>
 </html>

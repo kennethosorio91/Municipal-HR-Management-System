@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.tableBody.innerHTML = employees.map(emp => {
             const data = {
                 id: emp.id || 'N/A',
-                name: emp.fullName || 'N/A',
+                name: emp.fullName || emp.name || 'N/A',
                 position: emp.position || 'N/A',
                 department: emp.department || 'N/A',
                 employment: emp.employment || 'N/A',
@@ -239,17 +239,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return `
                 <tr>
-                    <td style="font-weight: 600; text-align: center;">${data.id}</td>
-                    <td>${data.name}</td>
-                    <td style="text-align: center;">${data.position}</td>
-                    <td style="text-align: center;">${data.department}</td>
-                    <td style="text-align: center;">
+                    <td class="text-center">${data.id}</td>
+                    <td class="text-left">${data.name}</td>
+                    <td class="text-center">${data.position}</td>
+                    <td class="text-center">${data.department}</td>
+                    <td class="text-center">
                         <span class="badge" data-type="${employmentClass}">${data.employment}</span>
                     </td>
-                    <td style="text-align: center;">
+                    <td class="text-center">
                         <span class="badge ${statusClass}">${data.status}</span>
                     </td>
-                    <td style="text-align: center;">
+                    <td class="text-center">
                         <div class="employee-actions">
                             <button class="action-btn view-btn" data-id="${data.id}" data-action="view" title="View Employee Details">
                                 <img src="../assets/viewDetails.png" alt="View">
@@ -257,10 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <button class="action-btn edit-btn" data-id="${data.id}" data-action="edit" title="Edit Employee">
                                 <img src="../assets/editEmployee.png" alt="Edit">
                             </button>
-                            <button class="action-btn files-btn" data-id="${data.id}" data-action="files" title="Manage Files">
-                                <img src="../assets/document.png" alt="Files">
-                            </button>
-                            <button class="action-btn archive-btn" data-id="${data.id}" data-action="archive" title="Archive Employee">
+                            <button class="action-btn archive-btn" data-id="${data.id}" data-name="${data.name}" data-action="archive" title="Archive Employee">
                                 <img src="../assets/archive.png" alt="Archive">
                             </button>
                         </div>
@@ -275,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const action = btn.dataset.action;
                 const employeeId = btn.dataset.id;
+                const employeeName = btn.dataset.name;
                 
                 switch(action) {
                     case 'view':
@@ -283,15 +281,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     case 'edit':
                         openEditModal(employeeId);
                         break;
-                    case 'files':
-                        openFilesModal(employeeId);
-                        break;
                     case 'archive':
-                        openArchiveModal(employeeId);
+                        openArchiveModal(employeeId, employeeName);
                         break;
                 }
             };
         });
+    }
+
+    // Helper functions
+    function showLoading(show) {
+        if (elements.loading) elements.loading.style.display = show ? 'block' : 'none';
+        if (elements.noData) elements.noData.style.display = 'none';
+    }
+
+    function showNoData(message = 'No employee records found.') {
+        if (elements.noData) {
+            elements.noData.style.display = 'block';
+            elements.noData.innerHTML = `<td colspan="7"><p>${message}</p></td>`;
+        }
+        if (elements.tableBody) {
+            elements.tableBody.innerHTML = '';
+        }
     }
 
     // Setup event listeners
@@ -409,22 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${month}/${day}/${year}`;
     }
 
-    // Helper functions
-    function showLoading(show) {
-        if (elements.loading) elements.loading.style.display = show ? 'block' : 'none';
-        if (elements.noData) elements.noData.style.display = 'none';
-    }
-
-    function showNoData(message = 'No employee records found.') {
-        if (elements.noData) {
-            elements.noData.style.display = 'block';
-            elements.noData.innerHTML = `<td colspan="7"><p>${message}</p></td>`;
-        }
-        if (elements.tableBody) {
-            elements.tableBody.innerHTML = '';
-        }
-    }
-
     // Sort table by column
     function sortTable(column) {
         const table = document.querySelector('.employee-table');
@@ -530,22 +525,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const modal = createViewModal(employee);
         document.body.appendChild(modal);
-        modal.style.display = 'flex';
         
-        // Add click outside to close functionality
+        // Show modal with animation
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+
+        // Setup close handlers
         setupModalCloseHandlers(modal);
     }
 
     function createViewModal(employee) {
         const modal = document.createElement('div');
-        modal.className = 'employee-modal-overlay';
+        modal.className = 'modal-overlay';
         modal.innerHTML = `
-            <div class="employee-modal view-modal">
+            <div class="modal-content">
+                <button class="close-modal">&times;</button>
                 <div class="modal-header">
                     <h2>Employee Details</h2>
-                    <button class="close-modal" onclick="closeEmployeeModal(this)">&times;</button>
                 </div>
-                <div class="modal-content">
                     <p class="modal-subtitle">View employee information and employee details</p>
                     <div class="employee-details-grid">
                         <div class="detail-item">
@@ -584,15 +582,45 @@ document.addEventListener('DOMContentLoaded', function() {
                             <label>Phone</label>
                             <span>${employee.phone || 'N/A'}</span>
                         </div>
-                        <div class="detail-item detail-item-full">
+                    <div class="detail-item">
                             <label>Address</label>
                             <span>${employee.address || 'N/A'}</span>
-                        </div>
                     </div>
                 </div>
             </div>
         `;
         return modal;
+    }
+
+    function setupModalCloseHandlers(modal) {
+        const closeBtn = modal.querySelector('.close-modal');
+        
+        // Close button click
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(modal));
+        }
+        
+        // Click outside modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
+        
+        // Escape key press
+        document.addEventListener('keydown', function escapeHandler(e) {
+            if (e.key === 'Escape') {
+                closeModal(modal);
+                document.removeEventListener('keydown', escapeHandler);
+            }
+        });
+    }
+
+    function closeModal(modal) {
+        modal.classList.remove('active');
+        modal.addEventListener('transitionend', () => {
+            modal.remove();
+        }, { once: true });
     }
 
     function openEditModal(employeeId) {
@@ -604,251 +632,209 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const modal = createEditModal(employee);
         document.body.appendChild(modal);
-        modal.style.display = 'flex';
         
-        // Add click outside to close functionality
-        setupModalCloseHandlers(modal);
-    }
+        // Show modal with animation
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
 
-    function openFilesModal(employeeId) {
-        const employee = allEmployees.find(emp => emp.id === employeeId);
-        if (!employee) {
-            alert('Employee not found');
-            return;
-        }
-
-        const modal = createFilesModal(employee);
-        document.body.appendChild(modal);
-        modal.style.display = 'flex';
-        
-        // Add click outside to close functionality
-        setupModalCloseHandlers(modal);
-    }
-
-    function openArchiveModal(employeeId) {
-        const employee = allEmployees.find(emp => emp.id === employeeId);
-        if (!employee) {
-            alert('Employee not found');
-            return;
-        }
-
-        const modal = createArchiveModal(employee);
-        document.body.appendChild(modal);
-        modal.style.display = 'flex';
-        
-        // Add click outside to close functionality
+        // Setup close handlers
         setupModalCloseHandlers(modal);
     }
 
     function createEditModal(employee) {
         const modal = document.createElement('div');
-        modal.className = 'employee-modal-overlay';
+        modal.className = 'modal-overlay';
         modal.innerHTML = `
-            <div class="employee-modal edit-modal">
+            <div class="modal-content">
+                <button class="close-modal">&times;</button>
                 <div class="modal-header">
-                    <h2>Employee Details</h2>
-                    <button class="close-modal" onclick="closeEmployeeModal(this)">&times;</button>
+                    <h2>Edit Employee</h2>
                 </div>
-                <div class="modal-content">
-                    <p class="modal-subtitle">View employee information and employee details</p>
-                    <form class="edit-employee-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="editEmployeeId">Employee ID</label>
-                                <div class="form-field-display">${employee.id || 'EMP001'}</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="editFullName">Full Name</label>
-                                <input type="text" id="editFullName" name="fullName" value="${employee.fullName || employee.name || ''}" class="form-field">
-                            </div>
-                            <div class="form-group">
-                                <label for="editPosition">Position</label>
-                                <div class="form-field-display">${employee.position || 'Administrative Officer III'}</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="editDepartment">Department</label>
-                                <select id="editDepartment" name="department" class="form-field">
-                                    <option value="Human Resources" ${employee.department === 'Human Resources' ? 'selected' : ''}>Human Resources</option>
-                                    <option value="Finance" ${employee.department === 'Finance' ? 'selected' : ''}>Finance</option>
-                                    <option value="Engineering" ${employee.department === 'Engineering' ? 'selected' : ''}>Engineering</option>
-                                    <option value="General Services" ${employee.department === 'General Services' ? 'selected' : ''}>General Services</option>
-                                    <option value="Health" ${employee.department === 'Health' ? 'selected' : ''}>Health</option>
-                                    <option value="Agriculture" ${employee.department === 'Agriculture' ? 'selected' : ''}>Agriculture</option>
-                                    <option value="Legal" ${employee.department === 'Legal' ? 'selected' : ''}>Legal</option>
-                                    <option value="Planning" ${employee.department === 'Planning' ? 'selected' : ''}>Planning</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editEmployeeType">Employee Type</label>
-                                <select id="editEmployeeType" name="employment" class="form-field">
-                                    <option value="Permanent" ${employee.employment === 'Permanent' ? 'selected' : ''}>Permanent</option>
-                                    <option value="Contractual" ${employee.employment === 'Contractual' ? 'selected' : ''}>Contractual</option>
-                                    <option value="Job Order" ${employee.employment === 'Job Order' ? 'selected' : ''}>Job Order</option>
-                                    <option value="Probationary" ${employee.employment === 'Probationary' ? 'selected' : ''}>Probationary</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editStatus">Status</label>
-                                <select id="editStatus" name="status" class="form-field">
-                                    <option value="Active" ${employee.status === 'Active' ? 'selected' : ''}>Active</option>
-                                    <option value="Inactive" ${employee.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
-                                    <option value="On Leave" ${employee.status === 'On Leave' ? 'selected' : ''}>On Leave</option>
-                                    <option value="Terminated" ${employee.status === 'Terminated' ? 'selected' : ''}>Terminated</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editEmail">Email</label>
-                                <input type="email" id="editEmail" name="email" value="${employee.email || ''}" class="form-field">
-                            </div>
-                            <div class="form-group">
-                                <label for="editPhone">Phone</label>
-                                <input type="tel" id="editPhone" name="phone" value="${employee.phone || ''}" class="form-field">
-                            </div>
-                            <div class="form-group form-group-full">
-                                <label for="editAddress">Address</label>
-                                <input type="text" id="editAddress" name="address" value="${employee.address || ''}" class="form-field">
-                            </div>
+                <p class="modal-subtitle">Update employee information and details</p>
+                <form id="editEmployeeForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" value="${employee.fullName || employee.name || ''}" required>
                         </div>
-                        <div class="modal-actions">
-                            <button type="button" class="btn-cancel" onclick="closeEmployeeModal(this)">Cancel</button>
-                            <button type="submit" class="btn-save">Save Changes</button>
+                        <div class="form-group">
+                            <label for="employmentType">Employee Type</label>
+                            <select id="employmentType" name="employmentType" required>
+                                <option value="Permanent" ${employee.employment === 'Permanent' ? 'selected' : ''}>Permanent</option>
+                                <option value="Contractual" ${employee.employment === 'Contractual' ? 'selected' : ''}>Contractual</option>
+                                <option value="Job Order" ${employee.employment === 'Job Order' ? 'selected' : ''}>Job Order</option>
+                                <option value="Probationary" ${employee.employment === 'Probationary' ? 'selected' : ''}>Probationary</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
-            </div>
-        `;
-        return modal;
-    }
-
-    function createFilesModal(employee) {
-        const modal = document.createElement('div');
-        modal.className = 'employee-modal-overlay';
-        modal.innerHTML = `
-            <div class="employee-modal files-modal">
-                <div class="modal-header">
-                    <h2>Document Management - ${employee.fullName || employee.name || 'Employee'}</h2>
-                    <button class="close-modal" onclick="closeEmployeeModal(this)">&times;</button>
-                </div>
-                <div class="modal-content">
-                    <p class="modal-subtitle">Manage CSC Forms, Appointment Papers, and Service Records</p>
-                    <div class="document-categories">
-                        <div class="document-category">
-                            <h3>CSC Forms</h3>
-                            <div class="document-items">
-                                <div class="document-item">
-                                    <span class="document-name">PDS (Personal Data Sheet)</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                                <div class="document-item">
-                                    <span class="document-name">CS Form 212</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                            </div>
-                            <button class="save-changes-btn">Save Changes</button>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select id="department" name="department" required>
+                                <option value="Human Resources" ${employee.department === 'Human Resources' ? 'selected' : ''}>Human Resources</option>
+                                <option value="Finance" ${employee.department === 'Finance' ? 'selected' : ''}>Finance</option>
+                                <option value="Engineering" ${employee.department === 'Engineering' ? 'selected' : ''}>Engineering</option>
+                                <option value="General Services" ${employee.department === 'General Services' ? 'selected' : ''}>General Services</option>
+                                <option value="Health" ${employee.department === 'Health' ? 'selected' : ''}>Health</option>
+                                <option value="Agriculture" ${employee.department === 'Agriculture' ? 'selected' : ''}>Agriculture</option>
+                                <option value="Legal" ${employee.department === 'Legal' ? 'selected' : ''}>Legal</option>
+                                <option value="Planning" ${employee.department === 'Planning' ? 'selected' : ''}>Planning</option>
+                            </select>
                         </div>
-                        <div class="document-category">
-                            <h3>Appointment Papers</h3>
-                            <div class="document-items">
-                                <div class="document-item">
-                                    <span class="document-name">Original Appointment</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                                <div class="document-item">
-                                    <span class="document-name">Promotion Order</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                            </div>
-                            <button class="save-changes-btn">Save Changes</button>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" name="status" required>
+                                <option value="Active" ${employee.status === 'Active' ? 'selected' : ''}>Active</option>
+                                <option value="On Leave" ${employee.status === 'On Leave' ? 'selected' : ''}>On Leave</option>
+                                <option value="Terminated" ${employee.status === 'Terminated' ? 'selected' : ''}>Terminated</option>
+                            </select>
                         </div>
-                        <div class="document-category">
-                            <h3>Service Records</h3>
-                            <div class="document-items">
-                                <div class="document-item">
-                                    <span class="document-name">Service Record 2024</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                                <div class="document-item">
-                                    <span class="document-name">Service Record 2023</span>
-                                    <button class="document-view-btn">View</button>
-                                </div>
-                            </div>
-                            <button class="save-changes-btn">Save Changes</button>
+                        <div class="form-group">
+                            <label for="position">Position</label>
+                            <input type="text" id="position" name="position" value="${employee.position || ''}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="${employee.email || ''}" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" value="${employee.phone || ''}" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" value="${employee.address || ''}" required>
                         </div>
                     </div>
+                </form>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
                 </div>
             </div>
         `;
+
+        // Setup form submission
+        const form = modal.querySelector('#editEmployeeForm');
+        form.addEventListener('submit', (e) => handleEditFormSubmit(e, employee.id));
+
+        // Setup cancel button
+        const cancelBtn = modal.querySelector('.btn-cancel');
+        cancelBtn.addEventListener('click', () => closeModal(modal));
+
         return modal;
     }
 
-    function createArchiveModal(employee) {
+    function handleEditFormSubmit(e, employeeId) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const formData = new FormData(form);
+        
+        const updatedEmployee = {
+            id: employeeId,
+            fullName: formData.get('fullName'),
+            position: formData.get('position'),
+            department: formData.get('department'),
+            employment: formData.get('employmentType'),
+            status: formData.get('status'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            address: formData.get('address')
+        };
+
+        // Show loading state
+        showLoading(true);
+
+        // Send update to server
+        fetch('../handlers/update_employee.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedEmployee)
+        })
+        .then(response => response.json())
+        .then(data => {
+            showLoading(false);
+            if (data.success) {
+                // Close modal
+                const modal = form.closest('.modal-overlay');
+                closeModal(modal);
+                
+                // Refresh employee list
+                loadEmployees();
+                
+                // Show success message
+                alert('Employee updated successfully!');
+            } else {
+                alert(data.message || 'Error updating employee');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showLoading(false);
+            alert('Error updating employee. Please try again.');
+        });
+    }
+
+    function openArchiveModal(employeeId, employeeName) {
         const modal = document.createElement('div');
-        modal.className = 'employee-modal-overlay';
+        modal.className = 'modal-overlay';
         modal.innerHTML = `
-            <div class="employee-modal archive-modal">
-                <div class="modal-header">
+            <div class="modal-content archive-modal">
                     <h2>Archive Employee</h2>
-                    <button class="close-modal" onclick="closeEmployeeModal(this)">&times;</button>
-                </div>
-                <div class="modal-content">
-                    <div class="archive-content">
-                        <p class="archive-question">Are you sure you want to archive <strong>${employee.fullName || employee.name || 'this employee'}</strong>? This action will move the employee to the archived list and they will no longer appear in the active employee directory.</p>
-                        <div class="archive-actions">
-                            <button type="button" class="btn-cancel" onclick="closeEmployeeModal(this)">Cancel</button>
-                            <button type="button" class="btn-archive" onclick="confirmArchive('${employee.id}')">Archive Employee</button>
-                        </div>
-                    </div>
+                <p class="archive-message">Are you sure you want to archive ${employeeName}? This action will move the employee to the archived list and they will no longer appear in the active employee directory.</p>
+                <div class="modal-actions">
+                    <button class="btn-cancel">Cancel</button>
+                    <button class="btn-archive">Archive Employee</button>
                 </div>
             </div>
         `;
-        return modal;
-    }
 
-    // Setup modal close handlers
-    function setupModalCloseHandlers(modal) {
-        // Close modal when clicking outside the modal content
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
+        document.body.appendChild(modal);
         
-        // Prevent modal from closing when clicking inside the modal content
-        const modalContent = modal.querySelector('.employee-modal');
-        if (modalContent) {
-            modalContent.addEventListener('click', function(e) {
-                e.stopPropagation();
+        // Show modal with animation
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+
+        // Setup button handlers
+        const cancelBtn = modal.querySelector('.btn-cancel');
+        const archiveBtn = modal.querySelector('.btn-archive');
+
+        cancelBtn.addEventListener('click', () => closeModal(modal));
+        
+        archiveBtn.addEventListener('click', () => {
+            // Show loading state
+            showLoading(true);
+
+            // Send archive request to server
+            fetch('../handlers/archive_employee.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: employeeId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                showLoading(false);
+                if (data.success) {
+                    closeModal(modal);
+                    loadEmployees(); // Refresh the employee list
+                    alert('Employee archived successfully');
+                } else {
+                    alert(data.message || 'Error archiving employee');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showLoading(false);
+                alert('Error archiving employee. Please try again.');
             });
-        }
-        
-        // Close modal with Escape key
-        document.addEventListener('keydown', function escapeHandler(e) {
-            if (e.key === 'Escape') {
-                modal.remove();
-                document.removeEventListener('keydown', escapeHandler);
-            }
         });
-    }
 
-    // Global function to close modals
-    window.closeEmployeeModal = function(button) {
-        const modal = button.closest('.employee-modal-overlay');
-        if (modal) {
-            modal.remove();
-        }
-    }
-
-    // Global function to confirm archive
-    window.confirmArchive = function(employeeId) {
-        const reason = document.getElementById('archiveReason').value;
-        
-        // Here you would normally send the data to your backend
-        alert('Employee archived successfully!\n\nNote: This is a demo. In a real system, the employee would be moved to archived records.');
-        
-        // Close the modal
-        const modal = document.querySelector('.employee-modal-overlay');
-        if (modal) {
-            modal.remove();
-        }
+        // Setup close handlers
+        setupModalCloseHandlers(modal);
     }
 });

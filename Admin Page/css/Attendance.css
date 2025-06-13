@@ -245,3 +245,10 @@ img {
     width: 24px;
     height: 24px;
 }
+
+.loading-message {
+  color: #6B7280;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}

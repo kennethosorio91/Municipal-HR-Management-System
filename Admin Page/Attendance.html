@@ -11,6 +11,22 @@
     <link rel="stylesheet" href="css/Attendance.css">
 </head>
 <body>
+    <!-- Check Admin Role -->
+    <script>
+        // Check if user is admin before loading the page
+        fetch('../handlers/check_session.php')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.loggedIn || data.role !== 'admin') {
+                    window.location.href = '../index.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking session:', error);
+                window.location.href = '../index.html';
+            });
+    </script>
+
     <!-- Mobile Menu Button -->
     <button id="mobile-menu-button" aria-label="Toggle navigation menu">
         <span></span>
@@ -79,7 +95,7 @@
                 <div class="attendance-card">
                     <div class="card-content">
                         <h3>Present Today</h3>
-                        <div class="stat-number">250</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-icon present">
                             <img src="../assets/TotalEmployee.png" alt="Total Employees Present">
                         </div>
@@ -88,7 +104,7 @@
                 <div class="attendance-card">
                     <div class="card-content">
                         <h3>Absent Today</h3>
-                        <div class="stat-number">5</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-icon absent">
                             <img src="../assets/TotalAbsent.png" alt="Total Employees Absent">
                         </div>
@@ -97,7 +113,7 @@
                 <div class="attendance-card">
                     <div class="card-content">
                         <h3>Late Arrivals</h3>
-                        <div class="stat-number">3</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-icon late">
                             <img src="../assets/latearrival.png" alt="Late Arrivals">
                         </div>
@@ -106,7 +122,7 @@
                 <div class="attendance-card">
                     <div class="card-content">
                         <h3>To be Corrected</h3>
-                        <div class="stat-number">3</div>
+                        <div class="stat-number">0</div>
                         <div class="stat-icon correction">
                             <img src="../assets/tobecorrected.png" alt="To be Corrected">
                         </div>
@@ -121,36 +137,7 @@
                         <button class="view-all-btn">VIEW ALL</button>
                     </div>
                     <div class="corrections-list">
-                        <div class="correction-item">
-                            <div class="correction-details">
-                                <h4>Juan Dela Cruz</h4>
-                                <p class="correction-reason">Forgot to timeout</p>
-                            </div>
-                            <div class="correction-date">Date: 12-15-2024</div>
-                            <div class="correction-actions">
-                                <button class="approve-btn">Approve</button>
-                                <button class="reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        <div class="correction-item">
-                            <div class="correction-details">
-                                <h4>Mark Santos</h4>
-                                <p class="correction-reason">Network error during time-in</p>
-                            </div>
-                            <div class="correction-date">Date: 12-15-2024</div>
-                            <div class="correction-actions">
-                                <button class="approve-btn">Approve</button>
-                                <button class="reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        <div class="correction-item">
-                            <div class="correction-details">
-                                <h4>Pedro Garcia</h4>
-                                <p class="correction-reason">Early departure - Medical</p>
-                            </div>
-                            <div class="correction-date">Date: 12-15-2024</div>
-                            <div class="status-badge approved">Approved</div>
-                        </div>
+                        <div class="loading-message">Loading corrections...</div>
                     </div>
                 </div>
                 <div class="attendance-huge-card">
@@ -159,34 +146,7 @@
                         <button class="view-all-btn">VIEW ALL</button>
                     </div>
                     <div class="attendance-list">
-                        <div class="attendance-item">
-                            <div class="employee-details">
-                                <h4>Juan Dela Cruz</h4>
-                                <p>In: 7:40 A.M. | Out: 5:30 P.M.</p>
-                            </div>
-                            <div class="status-badge present">Present</div>
-                        </div>
-                        <div class="attendance-item">
-                            <div class="employee-details">
-                                <h4>Maria Santos</h4>
-                                <p>In: - | Out: -</p>
-                            </div>
-                            <div class="status-badge absent">Absent</div>
-                        </div>
-                        <div class="attendance-item">
-                            <div class="employee-details">
-                                <h4>Pedro Garcia</h4>
-                                <p>In: 7:40 A.M. | Out: 5:30 P.M.</p>
-                            </div>
-                            <div class="status-badge present">Present</div>
-                        </div>
-                        <div class="attendance-item">
-                            <div class="employee-details">
-                                <h4>Ana Reyes</h4>
-                                <p>In: 7:40 A.M. | Out: 5:30 P.M.</p>
-                            </div>
-                            <div class="status-badge present">Present</div>
-                        </div>
+                        <div class="loading-message">Loading attendance records...</div>
                     </div>
                 </div>
             </div>
@@ -205,8 +165,9 @@
         </div>
     </div>
 
-    <script src="js/logout.js"></script>
+    <!-- Load scripts in correct order -->
     <script src="js/mobile-nav.js"></script>
-    <script src="js/admin-attendance.js"></script>
+    <script src="js/Attendance.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 </html> 

@@ -102,19 +102,6 @@
 }
 
 /* Bottom Grid */
-.bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 24px;
-}
-
-/* Cards */
-.activities-card, .deadlines-card {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-}
-
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -139,113 +126,204 @@
     font-weight: 500;
 }
 
-/* Activities */
-.activities-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* Department Chart Styles */
+.department-chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(44,97,89,0.08);
+    margin-bottom: 24px;
 }
 
-.activity-item {
+.chart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    margin-bottom: 20px;
 }
 
-.activity-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.activity-title {
-    color: #1C313A;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.activity-date {
-    color: #666;
-    font-size: 12px;
-}
-
-.activity-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    cursor: pointer;
-}
-
-.activity-icon:hover {
-    opacity: 1;
-}
-
-/* Deadlines */
-.deadlines-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.deadline-item {
+.chart-title {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 12px 0;
+    gap: 12px;
 }
 
-.deadline-status {
-    width: 8px;
-    height: 8px;
+.chart-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(44,97,89,0.1);
     border-radius: 50%;
+    padding: 6px;
 }
 
-.deadline-status.red { background: #FF4B55; }
-.deadline-status.orange { background: #FF974A; }
-.deadline-status.gray { background: #98A2B3; }
-
-.deadline-content {
-    flex: 1;
+.chart-icon img {
+    width: 20px;
+    height: 20px;
 }
 
-.deadline-content h4 {
+.chart-title h3 {
     color: #1C313A;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
-    margin-bottom: 4px;
+    margin: 0;
 }
 
-.deadline-content p {
+.department-total {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 16px;
+    text-align: right;
+}
+
+.department-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.department-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.department-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.department-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.department-count {
+    font-size: 14px;
     color: #666;
-    font-size: 12px;
+    font-weight: 500;
 }
 
-.edit-btn {
+.bar-container {
+    width: 100%;
+    height: 12px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.error-message {
+    text-align: center;
+    padding: 30px;
+    color: #FF4B55;
+    font-size: 14px;
+}
+
+/* Employment Type Chart Styles */
+.employment-type-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(44,97,89,0.08);
+    margin-bottom: 24px;
+}
+
+#employmentTypeChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 10px 0;
+}
+
+.employment-type-chart {
+    margin: 0 auto;
+    display: block;
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.legend-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: none;
-    border: none;
-    color: #1C313A;
-    font-size: 14px;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    min-width: 120px;
+    position: relative;
 }
 
-.edit-btn:hover {
-    opacity: 1;
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    display: block;
+    flex-shrink: 0;
 }
 
-.edit-icon {
-    width: 16px;
-    height: 16px;
+.legend-label {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+    margin-right: auto;
 }
 
-/* Enhanced responsiveness for Dashboard */
+.legend-value {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+    margin-right: 6px;
+}
+
+.legend-percentage {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+    min-width: 46px;
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chart-legend {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .legend-item {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
 @media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -269,11 +347,6 @@
         font-size: 14px;
     }
     
-    .bottom-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
     .stat-number {
         font-size: 28px;
     }
@@ -295,5 +368,11 @@
     
     .page-title h1 {
         font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .department-chart-card {
+        padding: 16px;
     }
 }

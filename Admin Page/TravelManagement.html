@@ -75,7 +75,7 @@
                 <div class="travel-card">
                     <div class="card-content">
                         <h3>Total Leave Request</h3>
-                        <div class="stat-number">250</div>
+                        <div class="stat-number">9</div>
                         <div class="stat-icon present">
                             <img src="../assets/calendar.png" alt="Total Leave Request">
                         </div>
@@ -196,7 +196,28 @@
         </div>
     </div>
 
+    <!-- Application Details Modal -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content details-modal">
+            <div class="modal-header">
+                <h2 id="detailsTitle">Application Details</h2>
+                <button class="close-modal" id="closeDetails">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="detailsContent">
+                    <!-- Details will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="reject-btn" id="rejectApplication">Reject</button>
+                <button class="approve-btn" id="approveApplication">Approve</button>
+                <button class="cancel-btn" id="closeDetailsBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/logout.js"></script>
     <script src="js/mobile-nav.js"></script>
+    <script src="js/TravelManagement.js"></script>
 </body>
-</html> 
+</html>

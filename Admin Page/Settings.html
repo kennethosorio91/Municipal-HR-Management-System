@@ -64,6 +64,7 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <!-- Top Bar -->
             <header class="top-bar">
                 <div class="employee-header">
                     <h1>System Settings</h1>
@@ -74,11 +75,11 @@
                 </button>
             </header>
 
-            <!-- Settings Navigation Cards -->
+            <!-- Top Section - Settings Navigation Cards -->
             <div class="settings-nav-cards">
-                <div class="settings-card" data-setting="user-management">
-                    <img src="../assets/users.png" alt="User Management">
-                    <span>User Management</span>
+                <div class="settings-card" data-setting="help-desk">
+                    <img src="../assets/users.png" alt="Help Desk">
+                    <span>Help Desk</span>
                 </div>
                 <div class="settings-card active" data-setting="work-schedule">
                     <img src="../assets/calendar.png" alt="Work Schedule">
@@ -98,116 +99,101 @@
                 </div>
             </div>
 
-            <!-- Dynamic Content Area -->
+            <!-- Middle Section - Main Settings Content -->
             <div class="settings-content">
-                <!-- User Management Content -->
-                <div class="content-section" id="user-management" style="display: none;">
-                    <div class="content-grid">
-                        <div class="create-user-section">
-                            <h2>User Management</h2>
-                            <h3>Create New User</h3>
-                            <form class="create-user-form">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" id="username" placeholder="Enter username">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select id="role">
-                                        <option value="">Select role</option>
-                                        <option value="admin">Administrator</option>
-                                        <option value="hr">HR Manager</option>
-                                        <option value="supervisor">Supervisor</option>
+                <!-- Help Desk Content -->
+                <div class="content-section" id="help-desk" style="display: none;">
+                    <h2>Help Desk</h2>
+                    <div class="help-desk-layout">
+                        <!-- Contact Us Tickets -->
+                        <div class="contact-tickets">
+                            <div class="section-header">
+                                <h3>Contact Us Tickets</h3>
+                                <div class="ticket-filters">
+                                    <input type="text" id="ticketSearch" placeholder="Search tickets...">
+                                    <select id="ticketSort">
+                                        <option value="newest">Newest First</option>
+                                        <option value="oldest">Oldest First</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="create-btn">Create User</button>
-                            </form>
-                        </div>
-                        <div class="user-roles-section">
-                            <h3>User Roles & Permissions</h3>
-                            <div class="role-item">
-                                <div class="role-info">
-                                    <div class="role-name">Administrator</div>
-                                    <div class="role-desc">Full system access</div>
-                                </div>
-                                <div class="user-count">5 Users</div>
                             </div>
-                            <div class="role-item">
-                                <div class="role-info">
-                                    <div class="role-name">HR Manager</div>
-                                    <div class="role-desc">HR operations access</div>
-                                </div>
-                                <div class="user-count">8 Users</div>
-                            </div>
-                            <div class="role-item">
-                                <div class="role-info">
-                                    <div class="role-name">Supervisor</div>
-                                    <div class="role-desc">Department management</div>
-                                </div>
-                                <div class="user-count">15 Users</div>
+                            <div class="table-container">
+                                <table id="ticketTable" class="ticket-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Message</th>
+                                            <th>Time Sent</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Tickets will be dynamically loaded here -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- System Information Card -->
-                    <div class="system-info-card">
-                        <h2>System Information</h2>
-                        <div class="system-info-grid">
-                            <div class="info-section">
-                                <h3>Current Configuration</h3>
-                                <div class="info-row">
-                                    <span>Total Users:</span>
-                                    <span>127</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Active Sessions:</span>
-                                    <span>45</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Last Backup:</span>
-                                    <span>Today, 2:00 AM</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>System Version:</span>
-                                    <span>v2.1.0</span>
-                                </div>
+
+                        <!-- Help Tickets -->
+                        <div class="tickets-list">
+                            <h3>System Help Tickets</h3>
+                            <div class="ticket-filters">
+                                <select id="ticket-status-filter">
+                                    <option value="all">All Tickets</option>
+                                    <option value="open">Open</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                </select>
+                                <select id="ticket-priority-filter">
+                                    <option value="all">All Priorities</option>
+                                    <option value="high">High Priority</option>
+                                    <option value="medium">Medium Priority</option>
+                                    <option value="low">Low Priority</option>
+                                </select>
                             </div>
-                            <div class="info-section">
-                                <h3>Security Status</h3>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>SSL Certificate Valid</span>
+                            <div class="tickets-container">
+                                <div class="ticket-item">
+                                    <div class="ticket-header">
+                                        <span class="ticket-id">#TK001</span>
+                                        <span class="ticket-priority high">High Priority</span>
+                                    </div>
+                                    <div class="ticket-content">
+                                        <h4>Cannot Access Employee Records</h4>
+                                        <p>Having trouble accessing the employee records module...</p>
+                                    </div>
+                                    <div class="ticket-footer">
+                                        <span class="ticket-date">Jan 15, 2024</span>
+                                        <span class="ticket-status open">Open</span>
+                                    </div>
                                 </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Data Encryption Active</span>
+                                <div class="ticket-item">
+                                    <div class="ticket-header">
+                                        <span class="ticket-id">#TK002</span>
+                                        <span class="ticket-priority medium">Medium Priority</span>
+                                    </div>
+                                    <div class="ticket-content">
+                                        <h4>Payroll Report Error</h4>
+                                        <p>Error generating monthly payroll report...</p>
+                                    </div>
+                                    <div class="ticket-footer">
+                                        <span class="ticket-date">Jan 14, 2024</span>
+                                        <span class="ticket-status in-progress">In Progress</span>
+                                    </div>
                                 </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Automated Backup Running</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator warning"></div>
-                                    <span>Password Policy: Standard</span>
-                                </div>
-                            </div>
-                            <div class="info-section">
-                                <h3>Recent Activity</h3>
-                                <div class="activity-item">
-                                    <span>Last login: Admin User (2 mins ago)</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>Backup completed: 2:15 AM</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>New user created: 3 hours ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>System update: Yesterday</span>
+                                <div class="ticket-item">
+                                    <div class="ticket-header">
+                                        <span class="ticket-id">#TK003</span>
+                                        <span class="ticket-priority low">Low Priority</span>
+                                    </div>
+                                    <div class="ticket-content">
+                                        <h4>Update Profile Picture</h4>
+                                        <p>Need assistance updating profile picture...</p>
+                                    </div>
+                                    <div class="ticket-footer">
+                                        <span class="ticket-date">Jan 13, 2024</span>
+                                        <span class="ticket-status resolved">Resolved</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -216,151 +202,85 @@
 
                 <!-- Work Schedule Content -->
                 <div class="content-section" id="work-schedule">
+                    <h2>Work Schedule Configuration</h2>
                     <div class="work-schedule-layout">
-                        <h2>Work Schedule Configuration</h2>
-                        <div class="schedule-content-grid">
-                            <div class="regular-schedule">
-                                <h3>Regular Schedule</h3>
-                                <div class="schedule-inputs">
-                                    <div class="time-row">
-                                        <label>Start Time</label>
-                                        <input type="time" value="08:00" class="time-input">
-                                    </div>
-                                    <div class="time-row">
-                                        <label>End Time</label>
-                                        <input type="time" value="17:00" class="time-input">
-                                    </div>
+                        <div class="regular-schedule">
+                            <h3>Regular Schedule</h3>
+                            <div class="schedule-inputs">
+                                <div class="form-group">
+                                    <label for="start-time">Start Time</label>
+                                    <input type="time" id="start-time" value="08:00" aria-label="Start Time">
                                 </div>
-                                
-                                <div class="lunch-section">
-                                    <label>Lunch Break Duration</label>
-                                    <select class="lunch-select">
-                                        <option value="1">1 hour</option>
-                                        <option value="0.5">30 minutes</option>
-                                        <option value="1.5">1.5 hours</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="working-days">
-                                    <label>Working Days</label>
-                                    <div class="days-checkboxes">
-                                        <label class="day-checkbox">
-                                            <input type="checkbox" checked>
-                                            <span>Mon</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox" checked>
-                                            <span>Tue</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox" checked>
-                                            <span>Wed</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox" checked>
-                                            <span>Thu</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox" checked>
-                                            <span>Fri</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox">
-                                            <span>Sat</span>
-                                        </label>
-                                        <label class="day-checkbox">
-                                            <input type="checkbox">
-                                            <span>Sun</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <button class="save-schedule-btn">Save Schedule Settings</button>
-                            </div>
-                            
-                            <div class="flexible-schedules">
-                                <h3>Flexible Schedules</h3>
-                                <div class="flex-schedule-item">
-                                    <div class="flex-info">
-                                        <h4>Flexi-time</h4>
-                                        <p>07:00 AM - 09:00 AM start</p>
-                                    </div>
-                                    <button class="configure-btn">Configure</button>
-                                </div>
-                                <div class="flex-schedule-item">
-                                    <div class="flex-info">
-                                        <h4>Compressed Work Week</h4>
-                                        <p>4 days, 10 hours each</p>
-                                    </div>
-                                    <button class="configure-btn">Configure</button>
-                                </div>
-                                <div class="flex-schedule-item">
-                                    <div class="flex-info">
-                                        <h4>Shift Work</h4>
-                                        <p>Multiple Shifts</p>
-                                    </div>
-                                    <button class="configure-btn">Configure</button>
+                                <div class="form-group">
+                                    <label for="end-time">End Time</label>
+                                    <input type="time" id="end-time" value="17:00" aria-label="End Time">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="lunch-duration">Lunch Break Duration</label>
+                                <select id="lunch-duration" aria-label="Lunch Break Duration">
+                                    <option value="1">1 hour</option>
+                                    <option value="0.5">30 minutes</option>
+                                    <option value="1.5">1.5 hours</option>
+                                </select>
+                            </div>
+                            <div class="working-days">
+                                <label>Working Days</label>
+                                <div class="days-checkboxes">
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span>Mon</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span>Tue</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span>Wed</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span>Thu</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span>Fri</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox">
+                                        <span>Sat</span>
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox">
+                                        <span>Sun</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="save-schedule-btn">Save Schedule Settings</button>
                         </div>
-                    </div>
-                    
-                    <!-- System Information Card -->
-                    <div class="system-info-card">
-                        <h2>System Information</h2>
-                        <div class="system-info-grid">
-                            <div class="info-section">
-                                <h3>Current Configuration</h3>
-                                <div class="info-row">
-                                    <span>Total Users:</span>
-                                    <span>127</span>
+                        <div class="flexible-schedules">
+                            <h3>Flexible Schedules</h3>
+                            <div class="flex-schedule-item">
+                                <div class="flex-info">
+                                    <h4>Flexi-time</h4>
+                                    <p>07:00 AM - 09:00 AM start</p>
                                 </div>
-                                <div class="info-row">
-                                    <span>Active Sessions:</span>
-                                    <span>45</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Last Backup:</span>
-                                    <span>Today, 2:00 AM</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>System Version:</span>
-                                    <span>v2.1.0</span>
-                                </div>
+                                <button class="configure-btn">Configure</button>
                             </div>
-                            <div class="info-section">
-                                <h3>Security Status</h3>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>SSL Certificate Valid</span>
+                            <div class="flex-schedule-item">
+                                <div class="flex-info">
+                                    <h4>Compressed Work Week</h4>
+                                    <p>4 days, 10 hours each</p>
                                 </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Data Encryption Active</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Automated Backup Running</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator warning"></div>
-                                    <span>Password Policy: Standard</span>
-                                </div>
+                                <button class="configure-btn">Configure</button>
                             </div>
-                            <div class="info-section">
-                                <h3>Recent Activity</h3>
-                                <div class="activity-item">
-                                    <span>Last login: Admin User (2 mins ago)</span>
+                            <div class="flex-schedule-item">
+                                <div class="flex-info">
+                                    <h4>Shift Work</h4>
+                                    <p>Multiple Shifts</p>
                                 </div>
-                                <div class="activity-item">
-                                    <span>Backup completed: 2:15 AM</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>New user created: 3 hours ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>System update: Yesterday</span>
-                                </div>
+                                <button class="configure-btn">Configure</button>
                             </div>
                         </div>
                     </div>
@@ -368,125 +288,58 @@
 
                 <!-- Holiday Setup Content -->
                 <div class="content-section" id="holiday-setup" style="display: none;">
+                    <h2>Holiday Configuration</h2>
                     <div class="holiday-layout">
-                        <h2>Holiday Configuration</h2>
-                        <div class="holiday-content-grid">
-                            <div class="add-holiday-section">
-                                <h3>Add Holiday</h3>
-                                <div class="holiday-form">
-                                    <div class="form-group">
-                                        <label>Holiday Name</label>
-                                        <input type="text" placeholder="Enter holiday name" class="holiday-name-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Date</label>
-                                        <input type="date" class="holiday-date-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Type</label>
-                                        <select class="holiday-type-select">
-                                            <option value="">Select Type</option>
-                                            <option value="regular">Regular</option>
-                                            <option value="special">Special</option>
-                                            <option value="local">Local</option>
-                                        </select>
-                                    </div>
-                                    <button class="add-holiday-btn">Add Holiday</button>
-                                </div>
+                        <div class="add-holiday-section">
+                            <h3>Add Holiday</h3>
+                            <div class="form-group">
+                                <label for="holiday-name">Holiday Name</label>
+                                <input type="text" id="holiday-name" placeholder="Enter holiday name">
                             </div>
-                            
-                            <div class="holiday-list-section">
-                                <h3>2024 Holiday</h3>
-                                <div class="holidays-list">
-                                    <div class="holiday-item">
-                                        <div class="holiday-info">
-                                            <div class="holiday-name">New Year's Day</div>
-                                            <div class="holiday-date">Jan 1 - Regular</div>
-                                        </div>
-                                        <button class="edit-holiday-btn">Edit</button>
-                                    </div>
-                                    <div class="holiday-item">
-                                        <div class="holiday-info">
-                                            <div class="holiday-name">People Power Anniversary</div>
-                                            <div class="holiday-date">Feb 25 - Special</div>
-                                        </div>
-                                        <button class="edit-holiday-btn">Edit</button>
-                                    </div>
-                                    <div class="holiday-item">
-                                        <div class="holiday-info">
-                                            <div class="holiday-name">Maundy Thursday</div>
-                                            <div class="holiday-date">Mar 28 - Regular</div>
-                                        </div>
-                                        <button class="edit-holiday-btn">Edit</button>
-                                    </div>
-                                    <div class="holiday-item">
-                                        <div class="holiday-info">
-                                            <div class="holiday-name">Good Friday</div>
-                                            <div class="holiday-date">Mar 29 - Regular</div>
-                                        </div>
-                                        <button class="edit-holiday-btn">Edit</button>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="holiday-date">Date</label>
+                                <input type="date" id="holiday-date">
                             </div>
+                            <div class="form-group">
+                                <label for="holiday-type">Type</label>
+                                <select id="holiday-type">
+                                    <option value="">Select Type</option>
+                                    <option value="regular">Regular</option>
+                                    <option value="special">Special</option>
+                                    <option value="local">Local</option>
+                                </select>
+                            </div>
+                            <button class="add-holiday-btn">Add Holiday</button>
                         </div>
-                    </div>
-                    
-                    <!-- System Information Card -->
-                    <div class="system-info-card">
-                        <h2>System Information</h2>
-                        <div class="system-info-grid">
-                            <div class="info-section">
-                                <h3>Current Configuration</h3>
-                                <div class="info-row">
-                                    <span>Total Users:</span>
-                                    <span>127</span>
+                        <div class="holiday-list-section">
+                            <h3>2024 Holiday</h3>
+                            <div class="holiday-item">
+                                <div class="holiday-info">
+                                    <div class="holiday-name">New Year's Day</div>
+                                    <div class="holiday-date">Jan 1 - Regular</div>
                                 </div>
-                                <div class="info-row">
-                                    <span>Active Sessions:</span>
-                                    <span>45</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Last Backup:</span>
-                                    <span>Today, 2:00 AM</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>System Version:</span>
-                                    <span>v2.1.0</span>
-                                </div>
+                                <button class="edit-btn">Edit</button>
                             </div>
-                            <div class="info-section">
-                                <h3>Security Status</h3>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>SSL Certificate Valid</span>
+                            <div class="holiday-item">
+                                <div class="holiday-info">
+                                    <div class="holiday-name">People Power Anniversary</div>
+                                    <div class="holiday-date">Feb 25 - Special</div>
                                 </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Data Encryption Active</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Automated Backup Running</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator warning"></div>
-                                    <span>Password Policy: Standard</span>
-                                </div>
+                                <button class="edit-btn">Edit</button>
                             </div>
-                            <div class="info-section">
-                                <h3>Recent Activity</h3>
-                                <div class="activity-item">
-                                    <span>Last login: Admin User (2 mins ago)</span>
+                            <div class="holiday-item">
+                                <div class="holiday-info">
+                                    <div class="holiday-name">Maundy Thursday</div>
+                                    <div class="holiday-date">Mar 28 - Regular</div>
                                 </div>
-                                <div class="activity-item">
-                                    <span>Backup completed: 2:15 AM</span>
+                                <button class="edit-btn">Edit</button>
+                            </div>
+                            <div class="holiday-item">
+                                <div class="holiday-info">
+                                    <div class="holiday-name">Good Friday</div>
+                                    <div class="holiday-date">Mar 29 - Regular</div>
                                 </div>
-                                <div class="activity-item">
-                                    <span>New user created: 3 hours ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>System update: Yesterday</span>
-                                </div>
+                                <button class="edit-btn">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -494,127 +347,60 @@
 
                 <!-- Security & Backup Content -->
                 <div class="content-section" id="security-backup" style="display: none;">
+                    <h2>Security & Backup</h2>
                     <div class="security-layout">
-                        <h2>Security & Backup</h2>
-                        <div class="security-content-grid">
-                            <div class="security-settings">
-                                <h3>Security Settings</h3>
-                                <div class="security-form">
-                                    <div class="form-group">
-                                        <label>Password Policy</label>
-                                        <select class="password-policy-select">
-                                            <option value="standard">Standard (8 chars, mixed case)</option>
-                                            <option value="strong">Strong (12 chars, special chars)</option>
-                                            <option value="enterprise">Enterprise (16 chars, all requirements)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Session Timeout</label>
-                                        <select class="session-timeout-select">
-                                            <option value="1">1 hour</option>
-                                            <option value="2">2 hours</option>
-                                            <option value="4">4 hours</option>
-                                            <option value="8">8 hours</option>
-                                        </select>
-                                    </div>
-                                    <div class="security-options">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" checked>
-                                            <span>Require two-factor authentication</span>
-                                        </label>
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" checked>
-                                            <span>Log all user activities</span>
-                                        </label>
-                                    </div>
-                                    <button class="save-security-btn">Save Security Settings</button>
-                                </div>
+                        <div class="security-settings">
+                            <h3>Security Settings</h3>
+                            <div class="form-group">
+                                <label for="password-policy">Password Policy</label>
+                                <select id="password-policy">
+                                    <option value="standard">Standard (8 chars, mixed case)</option>
+                                    <option value="strong">Strong (12 chars, special chars)</option>
+                                    <option value="enterprise">Enterprise (16 chars, all requirements)</option>
+                                </select>
                             </div>
-                            
-                            <div class="backup-settings">
-                                <h3>Backup & Recovery</h3>
-                                <div class="backup-form">
-                                    <div class="form-group">
-                                        <label>Backup Frequency</label>
-                                        <select class="backup-frequency-select">
-                                            <option value="daily">Daily</option>
-                                            <option value="weekly">Weekly</option>
-                                            <option value="monthly">Monthly</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Backup Time</label>
-                                        <input type="time" value="02:00" class="backup-time-input">
-                                    </div>
-                                    <div class="backup-options">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" checked>
-                                            <span>Auto-delete backups older than 30 days</span>
-                                        </label>
-                                    </div>
-                                    <button class="create-backup-btn">Create Backup Now</button>
-                                </div>
+                            <div class="form-group">
+                                <label for="session-timeout">Session Timeout</label>
+                                <select id="session-timeout">
+                                    <option value="1">1 hour</option>
+                                    <option value="2">2 hours</option>
+                                    <option value="4">4 hours</option>
+                                    <option value="8">8 hours</option>
+                                </select>
                             </div>
+                            <div class="security-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Require two-factor authentication</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Log all user activities</span>
+                                </label>
+                            </div>
+                            <button class="save-security-btn">Save Security Settings</button>
                         </div>
-                    </div>
-                    
-                    <!-- System Information Card -->
-                    <div class="system-info-card">
-                        <h2>System Information</h2>
-                        <div class="system-info-grid">
-                            <div class="info-section">
-                                <h3>Current Configuration</h3>
-                                <div class="info-row">
-                                    <span>Total Users:</span>
-                                    <span>127</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Active Sessions:</span>
-                                    <span>45</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Last Backup:</span>
-                                    <span>Today, 2:00 AM</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>System Version:</span>
-                                    <span>v2.1.0</span>
-                                </div>
+                        <div class="backup-settings">
+                            <h3>Backup & Recovery</h3>
+                            <div class="form-group">
+                                <label for="backup-frequency">Backup Frequency</label>
+                                <select id="backup-frequency">
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
                             </div>
-                            <div class="info-section">
-                                <h3>Security Status</h3>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>SSL Certificate Valid</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Data Encryption Active</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Automated Backup Running</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator warning"></div>
-                                    <span>Password Policy: Standard</span>
-                                </div>
+                            <div class="form-group">
+                                <label for="backup-time">Backup Time</label>
+                                <input type="time" id="backup-time" value="02:00">
                             </div>
-                            <div class="info-section">
-                                <h3>Recent Activity</h3>
-                                <div class="activity-item">
-                                    <span>Last login: Admin User (2 mins ago)</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>Backup completed: 2:15 AM</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>New user created: 3 hours ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>System update: Yesterday</span>
-                                </div>
+                            <div class="backup-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span>Auto-delete backups older than 30 days</span>
+                                </label>
                             </div>
+                            <button class="create-backup-btn">Create Backup Now</button>
                         </div>
                     </div>
                 </div>
@@ -665,64 +451,64 @@
                         </div>
                         <button class="save-notifications-btn">Save Notification Settings</button>
                     </div>
-                    
-                    <!-- System Information Card -->
-                    <div class="system-info-card">
-                        <h2>System Information</h2>
-                        <div class="system-info-grid">
-                            <div class="info-section">
-                                <h3>Current Configuration</h3>
-                                <div class="info-row">
-                                    <span>Total Users:</span>
-                                    <span>127</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Active Sessions:</span>
-                                    <span>45</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>Last Backup:</span>
-                                    <span>Today, 2:00 AM</span>
-                                </div>
-                                <div class="info-row">
-                                    <span>System Version:</span>
-                                    <span>v2.1.0</span>
-                                </div>
-                            </div>
-                            <div class="info-section">
-                                <h3>Security Status</h3>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>SSL Certificate Valid</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Data Encryption Active</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator success"></div>
-                                    <span>Automated Backup Running</span>
-                                </div>
-                                <div class="status-item">
-                                    <div class="status-indicator warning"></div>
-                                    <span>Password Policy: Standard</span>
-                                </div>
-                            </div>
-                            <div class="info-section">
-                                <h3>Recent Activity</h3>
-                                <div class="activity-item">
-                                    <span>Last login: Admin User (2 mins ago)</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>Backup completed: 2:15 AM</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>New user created: 3 hours ago</span>
-                                </div>
-                                <div class="activity-item">
-                                    <span>System update: Yesterday</span>
-                                </div>
-                            </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section - System Information -->
+            <div class="system-info-card">
+                <h2>System Information</h2>
+                <div class="system-info-grid">
+                    <div class="info-section">
+                        <h3>Current Configuration</h3>
+                        <div class="info-row">
+                            <span>Total Users:</span>
+                            <span>127</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Active Sessions:</span>
+                            <span>45</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Last Backup:</span>
+                            <span>Today, 2:00 AM</span>
+                        </div>
+                        <div class="info-row">
+                            <span>System Version:</span>
+                            <span>v2.1.0</span>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h3>Security Status</h3>
+                        <div class="status-item">
+                            <div class="status-indicator success"></div>
+                            <span>SSL Certificate Valid</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator success"></div>
+                            <span>Data Encryption Active</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator success"></div>
+                            <span>Automated Backup Running</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator warning"></div>
+                            <span>Password Policy: Standard</span>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-item">
+                            <span>Last login: Admin User (2 mins ago)</span>
+                        </div>
+                        <div class="activity-item">
+                            <span>Backup completed: 2:15 AM</span>
+                        </div>
+                        <div class="activity-item">
+                            <span>New user created: 3 hours ago</span>
+                        </div>
+                        <div class="activity-item">
+                            <span>System update: Yesterday</span>
                         </div>
                     </div>
                 </div>
