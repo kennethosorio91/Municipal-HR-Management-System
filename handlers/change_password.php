@@ -1,77 +1,115 @@
 <?php
 session_start();
-header('Content-Type: application/json');
-
 require_once '../config/db_connect.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['id'])) {
-    echo json_encode(['success' => false, 'message' => 'You must be logged in to change your password']);
+header('Content-Type: application/json');
+
+// Check if database connection exists
+if (!isset($conn)) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed'
+    ]);
     exit;
 }
 
-// Get JSON input
-$input = json_decode(file_get_contents('php://input'), true);
-
-if (!isset($input['currentPassword']) || !isset($input['newPassword'])) {
-    echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+// Check if user is authenticated
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['reset_user_id'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Not authenticated'
+    ]);
     exit;
 }
 
-$currentPassword = $input['currentPassword'];
-$newPassword = $input['newPassword'];
-$userId = $_SESSION['id'];
-$userEmail = $_SESSION['email'];
+// Get the POST data
+$data = json_decode(file_get_contents('php://input'), true);
+$newPassword = $data['newPassword'];
+
+// Get user ID (either from regular session or reset session)
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : $_SESSION['reset_user_id'];
 
 try {
-    // Verify current password
-    $passwordValid = false;
+    // Get user information
+    $stmt = $conn->prepare("SELECT password_reset_required, password FROM users WHERE id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
     
-    if ($userEmail === 'admin@municipal.gov.ph') {
-        $passwordValid = ($currentPassword === 'Admin@123');
-    } else {
-        $passwordValid = ($currentPassword === 'concepcionlgu');
-    }
-    
-    if (!$passwordValid) {
-        if ($userEmail === 'admin@municipal.gov.ph') {
-            echo json_encode(['success' => false, 'message' => 'Current password is incorrect']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Current password is incorrect. Use: concepcionlgu']);
-        }
-        exit;
-    }
-    
-    // Validate new password
-    if (strlen($newPassword) < 8) {
-        echo json_encode(['success' => false, 'message' => 'New password must be at least 8 characters long']);
-        exit;
-    }
-    
-    // Update password
-    $updateSql = "UPDATE users SET password = ?, password_reset_required = FALSE WHERE id = ?";
-    $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("si", $newPassword, $userId);
-    
-    if ($updateStmt->execute()) {
-        // Clear the session
-        session_destroy();
-        
+    if (!$user) {
         echo json_encode([
-            'success' => true, 
-            'message' => 'Password changed successfully. Please login with your new password.',
-            'redirect' => '../Landing Page/landing.html'
+            'success' => false,
+            'message' => 'User not found'
         ]);
-    } else {
-        throw new Exception("Error updating password");
+        exit;
+    }
+
+    // For first-time login (password_reset_required = 1)
+    if ($user['password_reset_required'] == 1) {
+        // For first-time users, just update the password
+        $updateStmt = $conn->prepare("UPDATE users SET password = ?, password_reset_required = 0 WHERE id = ?");
+        $updateStmt->bind_param("si", $newPassword, $userId);
+        
+        if ($updateStmt->execute()) {
+            // Clear session
+            session_destroy();
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Password changed successfully. Please login with your new password.',
+                'redirect' => '../Landing Page/landing.html#login'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Failed to update password'
+            ]);
+        }
+        $updateStmt->close();
+    } 
+    // For regular password change
+    else {
+        $currentPassword = $data['currentPassword'];
+        
+        // Verify current password (plain text comparison)
+        if ($currentPassword !== $user['password']) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Current password is incorrect'
+            ]);
+            exit;
+        }
+        
+        // Update password
+        $updateStmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+        $updateStmt->bind_param("si", $newPassword, $userId);
+        
+        if ($updateStmt->execute()) {
+            // Clear session
+            session_destroy();
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Password changed successfully. Please login with your new password.',
+                'redirect' => '../Landing Page/landing.html#login'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Failed to update password'
+            ]);
+        }
+        $updateStmt->close();
     }
     
+    $stmt->close();
 } catch (Exception $e) {
-    error_log("Password change error: " . $e->getMessage());
-    echo json_encode(['success' => false, 'message' => 'An error occurred while changing your password']);
-} finally {
-    if (isset($stmt)) $stmt->close();
-    if (isset($updateStmt)) $updateStmt->close();
-    if (isset($conn)) $conn->close();
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database error: ' . $e->getMessage()
+    ]);
 }
+
+$conn->close();
 ?> 
