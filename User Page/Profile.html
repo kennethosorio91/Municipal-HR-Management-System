@@ -166,29 +166,10 @@
                     <header class="card-header">
                         <img src="../assets/files.png" alt="Document Management">
                         <h2>Document Management</h2>
-                    </header>                    <div class="document-grid">
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Transcript of Records</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Birth Certificate</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <div class="document-item">
-                            <div class="document-info">
-                                <span class="document-title">Employment Contract</span>
-                                <span class="document-status">Status: Approved</span>
-                            </div>
-                            <button class="download-btn">Download</button>
-                        </div>
-                        <button class="upload-btn">Upload New Document</button>
+                    </header>                    
+                    <div class="document-grid">
+                        <div class="document-list"></div>
+                        <button class="upload-btn" onclick="openUploadModal()">Upload New Document</button>
                     </div>
                 </section>
 
@@ -199,29 +180,84 @@
                             <img src="../assets/document.png" alt="Certificate of Employment">
                             <h2>Certificate of Employment Request</h2>
                         </div>
-                        <button class="request-coe-btn">Request COE</button>
+                        <button class="request-coe-btn" onclick="openCOEModal()">Request COE</button>
                     </header>
-                    <div class="coe-list">
-                        <div class="coe-item">
-                            <div class="coe-info">
-                                <span class="coe-name">Visa Application</span>
-                                <span class="coe-date">Requested: 2024-12-01</span>
-                            </div>
-                            <div class="coe-status">
-                                <span class="status-tag active">Active</span>
-                            </div>
+                    <div class="coe-list"></div>                
+                </section>
+
+                <!-- Upload Document Modal -->
+                <div class="modal-overlay" id="uploadModal">
+                    <div class="modal-content upload-modal">
+                        <div class="modal-header">
+                            <h2>Upload Document</h2>
+                            <button class="close-modal" onclick="closeUploadModal()">&times;</button>
                         </div>
-                        <div class="coe-item">
-                            <div class="coe-info">
-                                <span class="coe-name">Bank Loan Application</span>
-                                <span class="coe-date">Requested: 2024-10-15 | Issued: 2024-10-17</span>
-                            </div>
-                            <div class="coe-status">
-                                <span class="status-tag issued">Issued</span>
-                                <a href="#" class="download-link">Download</a>
-                            </div>
+                        <div class="modal-body">
+                            <form id="uploadForm" enctype="multipart/form-data">
+                                <div class="form-field">
+                                    <label for="docTitle">Document Title</label>
+                                    <input type="text" id="docTitle" name="docTitle" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="docType">Document Type</label>
+                                    <select id="docType" name="docType" required>
+                                        <option value="">Select Document Type</option>
+                                        <option value="Personal">Personal Document</option>
+                                        <option value="Employment">Employment Document</option>
+                                        <option value="Training">Training Certificate</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="docFile">Select File</label>
+                                    <input type="file" id="docFile" name="docFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+                                    <small>Supported formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 5MB)</small>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="cancel-btn" onclick="closeUploadModal()">Cancel</button>
+                                    <button type="submit" class="confirm-btn">Upload</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>                </section>
+                    </div>
+                </div>
+
+                <!-- COE Request Modal -->
+                <div class="modal-overlay" id="coeModal">
+                    <div class="modal-content coe-modal">
+                        <div class="modal-header">
+                            <h2>Request Certificate of Employment</h2>
+                            <button class="close-modal" onclick="closeCOEModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="coeForm">
+                                <div class="form-field">
+                                    <label for="purpose">Purpose</label>
+                                    <select id="purpose" name="purpose" required>
+                                        <option value="">Select Purpose</option>
+                                        <option value="Bank Loan">Bank Loan</option>
+                                        <option value="Visa Application">Visa Application</option>
+                                        <option value="School Requirement">School Requirement</option>
+                                        <option value="Employment">Employment</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-field" id="otherPurposeField" style="display: none;">
+                                    <label for="otherPurpose">Specify Other Purpose</label>
+                                    <input type="text" id="otherPurpose" name="otherPurpose">
+                                </div>
+                                <div class="form-field">
+                                    <label for="remarks">Additional Remarks</label>
+                                    <textarea id="remarks" name="remarks" rows="3" placeholder="Any specific requirements or notes"></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="cancel-btn" onclick="closeCOEModal()">Cancel</button>
+                                    <button type="submit" class="confirm-btn">Submit Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -284,7 +320,6 @@
     <!-- Add mobile navigation JavaScript -->
     <script src="js/mobile-nav.js"></script>
     <script src="js/profile.js"></script>
-    <script src="js/shared.js"></script>
     <script src="js/logout.js"></script>
 </body>
 </html> 

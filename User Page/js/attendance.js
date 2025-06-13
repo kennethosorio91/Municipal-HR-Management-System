@@ -1,16 +1,18 @@
 // Attendance Page JavaScript Functionality
 
-class AttendanceManager {
-    constructor() {
+class AttendanceManager {    constructor() {
         this.modal = document.getElementById('correctionModal');
         this.correctionForm = document.getElementById('correctionForm');
         this.monthFilter = document.getElementById('monthFilter');
         this.attendanceTable = document.querySelector('.attendance-table tbody');
         this.timeInBtn = document.querySelector('.time-in');
         this.timeOutBtn = document.querySelector('.time-out');
-        this.todayTimeIn = document.querySelector('.time-card .time-value');
-        this.todayStatus = document.querySelector('.status-badge');
-        this.todayTimeOut = document.querySelectorAll('.time-card .time-value')[1];
+        
+        // Get time value elements more specifically
+        const timeCards = document.querySelectorAll('.time-card');
+        this.todayTimeIn = timeCards[0]?.querySelector('.time-value'); // First card - Time In
+        this.todayStatus = timeCards[1]?.querySelector('.status-badge'); // Second card - Status
+        this.todayTimeOut = timeCards[2]?.querySelector('.time-value'); // Third card - Time Out
         
         this.init();
     }
@@ -131,8 +133,10 @@ class AttendanceManager {
             console.error('Error submitting correction:', error);
             this.showError('Network error. Please try again.');
         }
-    }
-      async loadTodayAttendance() {
+    }      async loadTodayAttendance() {
+        // Try to reinitialize elements if they weren't found initially
+        this.reinitializeElements();
+        
         try {
             const response = await fetch('../handlers/attendance_handler.php');
             
@@ -141,63 +145,113 @@ class AttendanceManager {
             }
               const result = await response.json();
             
+            console.log('Backend response:', result); // Debug: Log the entire response
+            
             if (result.success) {
                 const today = result.today;
                 
+                console.log('Today\'s data:', today); // Debug: Log today's attendance data
+                
+                // Debug: Check if elements exist
+                console.log('Time elements found:', {
+                    timeIn: !!this.todayTimeIn,
+                    timeOut: !!this.todayTimeOut,
+                    status: !!this.todayStatus,
+                    timeInBtn: !!this.timeInBtn,
+                    timeOutBtn: !!this.timeOutBtn
+                });
+                
                 if (today) {
+                    console.log('Time in value:', today.time_in); // Debug: Log time_in value
+                    console.log('Time out value:', today.time_out); // Debug: Log time_out value
+                    console.log('Status value:', today.status); // Debug: Log status value
+                    
                     // Update time in display
                     if (today.time_in) {
-                        this.todayTimeIn.textContent = this.formatTime(today.time_in);
-                        this.timeInBtn.disabled = true;
-                        this.timeInBtn.textContent = 'Already Timed In';
-                        this.timeInBtn.style.backgroundColor = '#6B7280';
+                        const formattedTimeIn = this.formatTime(today.time_in);
+                        console.log('Formatted time in:', formattedTimeIn); // Debug: Log formatted time
+                        if (this.todayTimeIn) {
+                            this.todayTimeIn.textContent = formattedTimeIn;
+                        }
+                        if (this.timeInBtn) {
+                            this.timeInBtn.disabled = true;
+                            this.timeInBtn.textContent = 'Already Timed In';
+                            this.timeInBtn.style.backgroundColor = '#6B7280';
+                        }
                     } else {
+                        if (this.todayTimeIn) {
+                            this.todayTimeIn.textContent = '--:--';
+                        }
+                        if (this.timeInBtn) {
+                            this.timeInBtn.disabled = false;
+                            this.timeInBtn.textContent = 'Time In';
+                            this.timeInBtn.style.backgroundColor = '#2C6159';
+                        }
+                    }
+                    
+                    // Update time out display
+                    if (today.time_out) {
+                        const formattedTimeOut = this.formatTime(today.time_out);
+                        console.log('Formatted time out:', formattedTimeOut); // Debug: Log formatted time
+                        if (this.todayTimeOut) {
+                            this.todayTimeOut.textContent = formattedTimeOut;
+                        }
+                        if (this.timeOutBtn) {
+                            this.timeOutBtn.disabled = true;
+                            this.timeOutBtn.textContent = 'Already Timed Out';
+                            this.timeOutBtn.style.backgroundColor = '#6B7280';
+                        }
+                    } else {
+                        if (this.todayTimeOut) {
+                            this.todayTimeOut.textContent = '--:--';
+                        }
+                        if (this.timeOutBtn) {
+                            this.timeOutBtn.disabled = !today.time_in;
+                            if (today.time_in) {
+                                this.timeOutBtn.textContent = 'Time Out';
+                                this.timeOutBtn.style.backgroundColor = '#2C6159';
+                            } else {
+                                this.timeOutBtn.textContent = 'Time Out';
+                                this.timeOutBtn.style.backgroundColor = '#6B7280';
+                            }
+                        }
+                    }
+                    
+                    // Update status
+                    if (this.todayStatus) {
+                        if (today.status) {
+                            this.todayStatus.textContent = this.getStatusText(today.status);
+                            this.todayStatus.className = `status-badge ${this.getStatusClass(today.status)}`;
+                        } else {
+                            this.todayStatus.textContent = 'No Record';
+                            this.todayStatus.className = 'status-badge absent';
+                        }
+                    }
+                } else {
+                    console.log('No attendance record for today'); // Debug: Log when no record
+                    // No attendance record for today
+                    if (this.todayTimeIn) {
                         this.todayTimeIn.textContent = '--:--';
+                    }
+                    if (this.todayTimeOut) {
+                        this.todayTimeOut.textContent = '--:--';
+                    }
+                    if (this.todayStatus) {
+                        this.todayStatus.textContent = 'Not Checked In';
+                        this.todayStatus.className = 'status-badge absent';
+                    }
+                    
+                    if (this.timeInBtn) {
                         this.timeInBtn.disabled = false;
                         this.timeInBtn.textContent = 'Time In';
                         this.timeInBtn.style.backgroundColor = '#2C6159';
                     }
                     
-                    // Update time out display
-                    if (today.time_out) {
-                        this.todayTimeOut.textContent = this.formatTime(today.time_out);
+                    if (this.timeOutBtn) {
                         this.timeOutBtn.disabled = true;
-                        this.timeOutBtn.textContent = 'Already Timed Out';
+                        this.timeOutBtn.textContent = 'Time Out';
                         this.timeOutBtn.style.backgroundColor = '#6B7280';
-                    } else {
-                        this.todayTimeOut.textContent = '--:--';
-                        this.timeOutBtn.disabled = !today.time_in;
-                        if (today.time_in) {
-                            this.timeOutBtn.textContent = 'Time Out';
-                            this.timeOutBtn.style.backgroundColor = '#2C6159';
-                        } else {
-                            this.timeOutBtn.textContent = 'Time Out';
-                            this.timeOutBtn.style.backgroundColor = '#6B7280';
-                        }
                     }
-                    
-                    // Update status
-                    if (today.status) {
-                        this.todayStatus.textContent = this.getStatusText(today.status);
-                        this.todayStatus.className = `status-badge ${this.getStatusClass(today.status)}`;
-                    } else {
-                        this.todayStatus.textContent = 'No Record';
-                        this.todayStatus.className = 'status-badge absent';
-                    }
-                } else {
-                    // No attendance record for today
-                    this.todayTimeIn.textContent = '--:--';
-                    this.todayTimeOut.textContent = '--:--';
-                    this.todayStatus.textContent = 'Not Checked In';
-                    this.todayStatus.className = 'status-badge absent';
-                    
-                    this.timeInBtn.disabled = false;
-                    this.timeInBtn.textContent = 'Time In';
-                    this.timeInBtn.style.backgroundColor = '#2C6159';
-                    
-                    this.timeOutBtn.disabled = true;
-                    this.timeOutBtn.textContent = 'Time Out';
-                    this.timeOutBtn.style.backgroundColor = '#6B7280';
                 }
             } else {
                 console.error('Server error:', result);
@@ -208,23 +262,44 @@ class AttendanceManager {
             this.showError('Error loading today\'s attendance. Please refresh the page.');
         }
     }
-    
-    formatTime(timeString) {
-        if (!timeString) return '--:--';
+      formatTime(timeString) {
+        console.log('formatTime input:', timeString); // Debug: Log input
+        
+        if (!timeString) {
+            console.log('No time string provided');
+            return '--:--';
+        }
         
         try {
-            // Handle both full datetime and time-only strings
-            const time = timeString.includes(' ') ? 
-                new Date(timeString) : 
-                new Date(`2000-01-01 ${timeString}`);
-                
-            return time.toLocaleTimeString('en-US', {
+            let time;
+            
+            // Handle different time formats
+            if (timeString.includes(' ')) {
+                // Full datetime format: "2024-12-15 08:30:00"
+                time = new Date(timeString);
+            } else if (timeString.includes(':')) {
+                // Time only format: "08:30:00" or "08:30"
+                time = new Date(`2000-01-01 ${timeString}`);
+            } else {
+                console.log('Unknown time format:', timeString);
+                return timeString;
+            }
+            
+            if (isNaN(time.getTime())) {
+                console.log('Invalid date created from:', timeString);
+                return timeString;
+            }
+            
+            const formatted = time.toLocaleTimeString('en-US', {
                 hour: 'numeric',
                 minute: '2-digit',
                 hour12: true
             });
+            
+            console.log('formatTime output:', formatted); // Debug: Log output
+            return formatted;
         } catch (error) {
-            console.error('Error formatting time:', error);
+            console.error('Error formatting time:', error, 'Input:', timeString);
             return timeString;
         }
     }
@@ -305,8 +380,7 @@ class AttendanceManager {
             case 'absent': return 'Absent';
             default: return 'Present';
         }
-    }
-      async handleTimeIn() {        
+    }    async handleTimeIn() {        
         try {
             const response = await fetch('../handlers/attendance_handler.php', {
                 method: 'POST',
@@ -320,8 +394,11 @@ class AttendanceManager {
             
             if (result.success) {
                 this.showSuccess(result.message);
-                this.loadTodayAttendance();
-                this.loadAttendanceHistory();
+                // Add small delay to ensure backend processing is complete
+                setTimeout(() => {
+                    this.loadTodayAttendance();
+                    this.loadAttendanceHistory();
+                }, 500);
             } else {
                 this.showError(result.error || 'Failed to record time in');
             }
@@ -345,8 +422,11 @@ class AttendanceManager {
             
             if (result.success) {
                 this.showSuccess(result.message);
-                this.loadTodayAttendance();
-                this.loadAttendanceHistory();
+                // Add small delay to ensure backend processing is complete
+                setTimeout(() => {
+                    this.loadTodayAttendance();
+                    this.loadAttendanceHistory();
+                }, 500);
             } else {
                 this.showError(result.error || 'Failed to record time out');
             }
@@ -451,6 +531,34 @@ class AttendanceManager {
         setTimeout(() => {
             notification.remove();
         }, 4000);
+    }
+    
+    // Method to reinitialize DOM elements if they weren't found initially
+    reinitializeElements() {
+        if (!this.todayTimeIn || !this.todayTimeOut || !this.todayStatus) {
+            console.log('Reinitializing DOM elements...');
+            const timeCards = document.querySelectorAll('.time-card');
+            
+            if (timeCards.length >= 3) {
+                this.todayTimeIn = timeCards[0]?.querySelector('.time-value');
+                this.todayStatus = timeCards[1]?.querySelector('.status-badge');
+                this.todayTimeOut = timeCards[2]?.querySelector('.time-value');
+                
+                console.log('Reinitialized elements:', {
+                    timeIn: !!this.todayTimeIn,
+                    timeOut: !!this.todayTimeOut,
+                    status: !!this.todayStatus
+                });
+            }
+        }
+        
+        if (!this.timeInBtn) {
+            this.timeInBtn = document.querySelector('.time-in');
+        }
+        
+        if (!this.timeOutBtn) {
+            this.timeOutBtn = document.querySelector('.time-out');
+        }
     }
 }
 

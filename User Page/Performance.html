@@ -195,7 +195,103 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </main>        <!-- Request Training Modal -->
+        <div class="modal-overlay" id="trainingModal">
+            <div class="modal-content training-modal">
+                <div class="modal-header">
+                    <h2>Request Training</h2>
+                    <button class="close-modal" id="closeTrainingModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="trainingRequestForm" class="request-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="trainingTitle">Training Title/Program</label>
+                                <input type="text" id="trainingTitle" name="trainingTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="trainingProvider">Training Provider</label>
+                                <input type="text" id="trainingProvider" name="trainingProvider" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="trainingDate">Preferred Date</label>
+                                <input type="date" id="trainingDate" name="trainingDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="trainingDuration">Duration (Hours)</label>
+                                <input type="number" id="trainingDuration" name="trainingDuration" min="1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="trainingLocation">Location/Venue</label>
+                                <input type="text" id="trainingLocation" name="trainingLocation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="trainingCost">Estimated Cost</label>
+                                <input type="number" id="trainingCost" name="trainingCost" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="trainingJustification">Justification/Reason</label>
+                            <textarea id="trainingJustification" name="trainingJustification" rows="4" required placeholder="Please explain how this training will benefit your role and the organization..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" id="cancelTrainingRequest">Cancel</button>
+                            <button type="submit" class="submit-btn">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request COL Modal -->
+        <div class="modal-overlay" id="colModal">
+            <div class="modal-content col-modal">
+                <div class="modal-header">
+                    <h2>Request Compensatory Off-time Leave (COL)</h2>
+                    <button class="close-modal" id="closeColModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="colRequestForm" class="request-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="overtimeDate">Overtime Work Date</label>
+                                <input type="date" id="overtimeDate" name="overtimeDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="overtimeHours">Overtime Hours</label>
+                                <input type="number" id="overtimeHours" name="overtimeHours" min="1" max="24" step="0.5" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="colStartDate">COL Start Date</label>
+                                <input type="date" id="colStartDate" name="colStartDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="colEndDate">COL End Date</label>
+                                <input type="date" id="colEndDate" name="colEndDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="overtimeReason">Reason for Overtime Work</label>
+                            <textarea id="overtimeReason" name="overtimeReason" rows="3" required placeholder="Please describe the work performed during overtime..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="colReason">Reason for COL Request</label>
+                            <textarea id="colReason" name="colReason" rows="3" required placeholder="Please explain why you need this compensatory leave..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" id="cancelColRequest">Cancel</button>
+                            <button type="submit" class="submit-btn">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Logout Confirmation Modal -->
         <div class="modal-overlay" id="logoutModal">
@@ -210,12 +306,12 @@
                         <button class="confirm-btn" id="confirmLogout">Logout</button>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
     
     <script src="js/mobile-nav.js"></script>
-    <script src="js/logout.js"></script>
     <script src="js/performance.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 </html> 

@@ -70,7 +70,7 @@
                 </div>
                 <div class="header-actions">
                     <button class="btn-download-payslip">
-                        <img src="../assets/download.png" alt="Download">
+                        <img src="../assets/download-white.png" alt="Download">
                         Download Current Payslip
                     </button>
                 </div>
@@ -147,63 +147,14 @@
                         <img src="../assets/calendar.png" alt="Calendar">
                         <h2>Payslip History</h2>
                     </div>
-                    <div class="history-filter">
-                        <select id="payslipFilter">
-                            <option value="december-2024">December 2024</option>
-                            <option value="november-2024">November 2024</option>
-                            <option value="october-2024">October 2024</option>
-                            <option value="september-2024">September 2024</option>
-                            <option value="august-2024">August 2024</option>
-                        </select>
-                    </div>
                 </div>
                 
                 <div class="history-list">
-                    <div class="history-item">
-                        <div class="history-info">
-                            <h3>November 2024</h3>
-                            <p>Net Pay: ₱25,110</p>
-                        </div>
-                        <div class="history-actions">
-                            <button class="btn-view">View</button>
-                            <button class="btn-download">Download</button>
-                        </div>
-                    </div>
-                    
-                    <div class="history-item">
-                        <div class="history-info">
-                            <h3>October 2024</h3>
-                            <p>Net Pay: ₱25,850</p>
-                        </div>
-                        <div class="history-actions">
-                            <button class="btn-view">View</button>
-                            <button class="btn-download">Download</button>
-                        </div>
-                    </div>
-                    
-                    <div class="history-item">
-                        <div class="history-info">
-                            <h3>September 2024</h3>
-                            <p>Net Pay: ₱25,828</p>
-                        </div>
-                        <div class="history-actions">
-                            <button class="btn-view">View</button>
-                            <button class="btn-download">Download</button>
-                        </div>
-                    </div>
-                    
-                    <div class="history-item">
-                        <div class="history-info">
-                            <h3>August 2024</h3>
-                            <p>Net Pay: ₱25,100</p>
-                        </div>
-                        <div class="history-actions">
-                            <button class="btn-view">View</button>
-                            <button class="btn-download">Download</button>
-                        </div>
-                    </div>
+                    <!-- History items will be populated by JavaScript -->
                 </div>
-            </div>            <!-- Benefits & Bonuses Section -->
+            </div>
+
+            <!-- Benefits & Bonuses Section -->
             <div class="benefits-section">
                 <div class="benefits-header">
                     <img src="../assets/briefcase.png" alt="Benefits">
@@ -248,6 +199,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Salary Calculator Card -->
+            <div class="calculator-card">
+                <div class="calculator-header">
+                    <h2>Salary Calculator</h2>
+                    <p>Calculate salary based on government salary grade</p>
+                    <button class="btn-calculator" type="button">Open Calculator</button>
+                </div>
+                <div class="calculator-content">
+                    <div class="input-group">
+                        <label for="salaryGrade">Salary Grade:</label>
+                        <input type="number" id="salaryGrade" min="1" max="33" required>
+                        <button class="calculate-btn" type="button">Calculate</button>
+                    </div>
+                    <div class="calculation-results">
+                        <div class="monthly-results"></div>
+                        <div class="quarterly-results"></div>
+                        <div class="annual-results"></div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Logout Confirmation Modal -->
@@ -263,12 +235,12 @@
                         <button class="confirm-btn" id="confirmLogout">Logout</button>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
     
     <script src="js/mobile-nav.js"></script>
-    <script src="js/logout.js"></script>
     <script src="js/payslip.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 </html>

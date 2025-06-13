@@ -212,6 +212,165 @@
             </div>
         </main>
 
+        <!-- Apply Leave Modal -->
+        <div class="modal-overlay" id="applyLeaveModal">
+            <div class="modal-content apply-leave-modal">
+                <div class="modal-header">
+                    <h2>Apply for Leave</h2>
+                    <button class="close-modal" id="closeApplyLeave">&times;</button>
+                </div>
+                <form id="applyLeaveForm" class="leave-form">
+                    <div class="form-group">
+                        <label for="leaveType">Leave Type <span class="required">*</span></label>
+                        <select id="leaveType" name="leaveType" required>
+                            <option value="">Select Leave Type</option>
+                            <option value="vacation">Vacation Leave (15 days available)</option>
+                            <option value="sick">Sick Leave (12 days available)</option>
+                            <option value="emergency">Emergency Leave (3 days available)</option>
+                            <option value="maternity">Maternity Leave (60 days available)</option>
+                            <option value="study">Study Leave (5 days available)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date <span class="required">*</span></label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date <span class="required">*</span></label>
+                            <input type="date" id="endDate" name="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="totalDays">Total Days</label>
+                        <input type="number" id="totalDays" name="totalDays" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="leaveReason">Reason for Leave <span class="required">*</span></label>
+                        <textarea id="leaveReason" name="leaveReason" rows="4" 
+                                placeholder="Please provide a detailed reason for your leave application..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="leaveAddress">Address During Leave</label>
+                        <textarea id="leaveAddress" name="leaveAddress" rows="2" 
+                                placeholder="Where can you be contacted during your leave?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number During Leave</label>
+                        <input type="tel" id="contactNumber" name="contactNumber" 
+                               placeholder="Mobile number for emergency contact">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" id="cancelLeaveApplication">Cancel</button>
+                        <button type="submit" class="submit-btn">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Request Travel Order Modal -->
+        <div class="modal-overlay" id="travelOrderModal">
+            <div class="modal-content travel-order-modal">
+                <div class="modal-header">
+                    <h2>Request Travel Order</h2>
+                    <button class="close-modal" id="closeTravelOrder">&times;</button>
+                </div>
+                <form id="travelOrderForm" class="travel-form">
+                    <div class="form-group">
+                        <label for="travelPurpose">Purpose of Travel <span class="required">*</span></label>
+                        <select id="travelPurpose" name="travelPurpose" required>
+                            <option value="">Select Purpose</option>
+                            <option value="training">Training/Seminar</option>
+                            <option value="meeting">Official Meeting</option>
+                            <option value="conference">Conference</option>
+                            <option value="inspection">Site Inspection</option>
+                            <option value="representation">Official Representation</option>
+                            <option value="coordination">Inter-Agency Coordination</option>
+                            <option value="other">Other Official Business</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="travelDescription">Detailed Description <span class="required">*</span></label>
+                        <textarea id="travelDescription" name="travelDescription" rows="3" 
+                                placeholder="Provide detailed description of the travel purpose..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination">Destination <span class="required">*</span></label>
+                        <input type="text" id="destination" name="destination" 
+                               placeholder="City, Province or specific location" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="travelStartDate">Departure Date <span class="required">*</span></label>
+                            <input type="date" id="travelStartDate" name="travelStartDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelEndDate">Return Date <span class="required">*</span></label>
+                            <input type="date" id="travelEndDate" name="travelEndDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="travelDuration">Duration</label>
+                        <input type="text" id="travelDuration" name="travelDuration" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transportationMode">Mode of Transportation</label>
+                        <select id="transportationMode" name="transportationMode">
+                            <option value="">Select Transportation</option>
+                            <option value="government_vehicle">Government Vehicle</option>
+                            <option value="public_transport">Public Transportation</option>
+                            <option value="private_vehicle">Private Vehicle</option>
+                            <option value="air_travel">Air Travel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="accommodation">Accommodation Requirements</label>
+                        <textarea id="accommodation" name="accommodation" rows="2" 
+                                placeholder="Hotel booking requirements, if any..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estimatedCost">Estimated Cost (₱)</label>
+                        <input type="number" id="estimatedCost" name="estimatedCost" 
+                               placeholder="0.00" step="0.01" min="0">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" id="cancelTravelOrder">Cancel</button>
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Notification Modal -->
+        <div class="modal-overlay" id="successModal">
+            <div class="modal-content success-modal">
+                <div class="modal-header success-header">
+                    <img src="../assets/check-circle-white.png" alt="Success">
+                    <h2 id="successTitle">Application Submitted</h2>
+                </div>
+                <div class="success-content">
+                    <p id="successMessage">Your application has been submitted successfully and is now pending approval.</p>
+                    <div class="success-actions">
+                        <button class="confirm-btn" id="closeSuccess">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Logout Confirmation Modal -->
         <div class="modal-overlay" id="logoutModal">
             <div class="modal-content logout-modal">
@@ -225,12 +384,12 @@
                         <button class="confirm-btn" id="confirmLogout">Logout</button>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
     
     <script src="js/mobile-nav.js"></script>
-    <script src="js/logout.js"></script>
     <script src="js/leaveTravel.js"></script>
+    <script src="js/logout.js"></script>
 </body>
-</html> 
+</html>

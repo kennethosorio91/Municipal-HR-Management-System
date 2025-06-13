@@ -45,6 +45,39 @@ function isMobileDevice() {
     return window.innerWidth <= 768;
 }
 
+// Function to toggle mobile menu
+function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-nav-overlay');
+    const menuButton = document.getElementById('mobile-menu-button');
+    
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuButton.classList.toggle('active');
+}
+
+// Function to open mobile menu
+function openMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-nav-overlay');
+    const menuButton = document.getElementById('mobile-menu-button');
+    
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    menuButton.classList.add('active');
+}
+
+// Function to close mobile menu
+function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-nav-overlay');
+    const menuButton = document.getElementById('mobile-menu-button');
+    
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    menuButton.classList.remove('active');
+}
+
 // Function to handle orientation change
 function handleOrientationChange() {
     window.addEventListener('orientationchange', function() {
