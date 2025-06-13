@@ -787,19 +787,147 @@ tbody tr:hover {
     background: rgba(255, 255, 255, 0.8);
 }
 
-/* Mobile Navigation */
-.menu-toggle {
+/* Mobile Navigation will be handled by mobile-nav.js */
+
+/* Mobile Navigation Styles */
+.mobile-hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+    z-index: 1001;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
-.menu-toggle span {
-    height: 2px;
+.mobile-hamburger span {
+    height: 3px;
     width: 25px;
     background: white;
     border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1001;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-sidebar.active {
+    right: 0;
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: rotate(90deg);
+}
+
+.mobile-nav-links {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    padding: 80px 0 40px 0;
+    margin: 0;
+    height: 100%;
+}
+
+.mobile-nav-links a {
+    display: flex !important;
+    align-items: center;
+    color: #333 !important;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 20px 30px;
+    letter-spacing: 2px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mobile-nav-links a:hover {
+    background: rgba(44, 97, 89, 0.1);
+    color: #2C6159 !important;
+    padding-left: 40px;
+}
+
+.mobile-nav-links a.login-btn {
+    margin: 20px 30px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background: linear-gradient(291deg, #005174 0%, #088C78 63%);
+    color: white !important;
+    text-align: center;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.mobile-nav-links a.login-btn:hover {
+    background: linear-gradient(291deg, #004060 0%, #076b5f 63%);
+    padding-left: 20px;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Design */
@@ -837,32 +965,29 @@ tbody tr:hover {
 }
 
 @media (max-width: 768px) {
+    /* Header Mobile Styles */
+    header {
+        background: rgba(255, 255, 255, 0.6);
+        -webkit-backdrop-filter: blur(40px);
+        backdrop-filter: blur(40px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
     nav {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        justify-content: space-between;
     }
 
-    .menu-toggle {
+    .mobile-hamburger {
         display: flex;
     }
 
     .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 1rem 0;
         display: none;
-        margin-top: 1rem;
     }
 
-    .nav-links.show {
-        display: flex;
-    }
-
-    .login-btn {
-        padding: 0.8rem 1.5rem;
-        width: 100%;
-        margin-top: 1rem;
+    .left-side .city {
+        color: #333;
     }
 
     .home {

@@ -125,6 +125,9 @@
                     <button type="submit">LOGIN</button>
                 </form>
                 <div id="loginMessage" class="login-message" style="display: none;"></div>
+                <div class="forgot-password">
+                    <a href="../User Page/forgot_password.html">Forgot Password?</a>
+                </div>
             </div>
         </section>
     </main>
@@ -184,6 +187,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="mobile-nav.js"></script>
     <script>
         // Active link highlighting
         document.addEventListener('DOMContentLoaded', function() {
@@ -219,11 +223,6 @@
 
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // Show announcement modal only once per session
-            if (!sessionStorage.getItem("announcementShown")) {
-                document.getElementById("modalAnnouncement").style.display = "flex";
-                sessionStorage.setItem("announcementShown", "true");
-            }
         });
 
         // Announcement Pagination and Modal
@@ -488,6 +487,22 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+        }
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #2C6159;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #1a3d37;
+            text-decoration: underline;
         }
     </style>
 </body>
