@@ -388,6 +388,7 @@
     visibility: hidden;
     transition: all 0.3s ease;
     padding: 20px;
+    overflow-y: auto;
 }
 
 .modal-overlay.active {
@@ -400,9 +401,11 @@
     border-radius: 24px;
     width: 100%;
     max-width: 800px;
+    max-height: 90vh;
     padding: 32px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     position: relative;
+    overflow-y: auto;
 }
 
 .modal-header {
@@ -601,7 +604,8 @@
 @media (max-width: 768px) {
     .modal-content {
         padding: 24px;
-        max-width: 100%;
+        margin: 10px;
+        max-height: 85vh;
     }
     
     .edit-form-grid {
@@ -617,7 +621,7 @@
 @media (max-width: 480px) {
     .modal-content {
         padding: 20px;
-        border-radius: 16px;
+        margin: 8px;
     }
     
     .modal-overlay {
@@ -805,8 +809,8 @@
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 20px;
+    margin-bottom: 24px;
 }
 
 .form-group {
@@ -850,7 +854,7 @@
 
 .form-actions {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
     padding-top: 24px;
     border-top: 1px solid #E5E7EB;
@@ -896,6 +900,7 @@
 
     .form-actions {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
 
     .btn-cancel {

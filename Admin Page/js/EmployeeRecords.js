@@ -575,6 +575,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span>${employee.dateHired || 'N/A'}</span>
                         </div>
                         <div class="detail-item">
+                            <label>Date of Birth</label>
+                            <span>${employee.birthdate || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Gender</label>
+                            <span>${employee.gender || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
                             <label>Email</label>
                             <span>${employee.email || 'N/A'}</span>
                         </div>

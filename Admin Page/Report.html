@@ -291,7 +291,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="departments">Departments</label>
-                            <select id="departments" multiple>
+                            <select id="departments" required>
+                                <option value="">Select Department</option>
                                 <option value="all">All Departments</option>
                                 <option value="admin">Administration</option>
                                 <option value="finance">Finance</option>
@@ -367,65 +368,6 @@
             <div class="modal-footer">
                 <button type="button" class="cancel-btn" id="cancel-export-all">Cancel</button>
                 <button type="button" class="confirm-btn" id="start-export-all">Start Export</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Report History Modal -->
-    <div id="history-modal" class="modal-overlay">
-        <div class="modal-content history-modal">
-            <div class="modal-header">
-                <h3>Report History</h3>
-                <button class="close-modal" id="close-history">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-content-with-filters">
-                    <div class="filter-section-horizontal">
-                        <div class="filter-title-section">
-                            <h4 id="filter-report-type">Report History</h4>
-                            <span id="results-count" class="results-count">Loading...</span>
-                        </div>
-                        <div class="filter-controls-row">
-                            <div class="filter-group">
-                                <label for="date-filter">Time Range</label>
-                                <select id="date-filter">
-                                    <option value="all">All Time</option>
-                                    <option value="week">This Week</option>
-                                    <option value="month">This Month</option>
-                                    <option value="quarter">This Quarter</option>
-                                    <option value="year">This Year</option>
-                                    <option value="custom">Custom Range</option>
-                                </select>
-                            </div>
-                            <div class="filter-group">
-                                <label for="status-filter">Status</label>
-                                <select id="status-filter">
-                                    <option value="all">All Status</option>
-                                    <option value="generated">Generated</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="submitted">Submitted</option>
-                                    <option value="archived">Archived</option>
-                                </select>
-                            </div>
-                            <div class="filter-group custom-date-inputs">
-                                <label for="start-date-filter">Start Date</label>
-                                <input type="date" id="start-date-filter">
-                            </div>
-                            <div class="filter-group custom-date-inputs">
-                                <label for="end-date-filter">End Date</label>
-                                <input type="date" id="end-date-filter">
-                            </div>
-                            <div class="filter-actions">
-                                <button class="apply-filters-btn">Apply Filters</button>
-                                <button class="clear-filters-btn">Clear</button>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="cancel-btn" id="close-history-btn">Close</button>
             </div>
         </div>
     </div>

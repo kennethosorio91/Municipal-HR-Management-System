@@ -1173,8 +1173,8 @@ select {
 }
 
 .ticket-table th {
-    background: linear-gradient(291deg, #005174 0%, #088C78 63%);
-    color: white;
+    background: white;
+    color: rgb(0, 0, 0);
     padding: 15px;
     text-align: left;
     font-weight: 500;
