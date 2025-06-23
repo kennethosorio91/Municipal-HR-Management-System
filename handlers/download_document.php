@@ -1,4 +1,4 @@
-    <?php
+<?php
 session_start();
 require_once '../config/db_connect.php';
 
@@ -16,9 +16,10 @@ try {
 
     // Get document info from database
     $stmt = $conn->prepare("
-        SELECT file_name, file_path 
-        FROM user_documents 
-        WHERE id = ? AND email = ?
+        SELECT d.file_path, d.title as file_name
+        FROM documents d
+        INNER JOIN users u ON d.user_id = u.id
+        WHERE d.id = ? AND u.email = ?
     ");
     
     $stmt->bind_param("is", $documentId, $email);

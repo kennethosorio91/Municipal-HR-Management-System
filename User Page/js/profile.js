@@ -7,37 +7,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupEventListeners() {
     // Document upload form submission
-    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    const uploadForm = document.getElementById('uploadForm');
+    uploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-            const formData = new FormData();
-        formData.append('title', document.getElementById('docTitle').value);
-        formData.append('type', document.getElementById('docType').value);
-        formData.append('file', document.getElementById('docFile').files[0]);
+        const submitButton = uploadForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Uploading...';
 
-            try {
-                const response = await fetch('../handlers/upload_document.php', {
-                    method: 'POST',
-                    body: formData
-                });
+        const formData = new FormData(uploadForm);
 
-                const data = await response.json();
-                if (data.success) {
-                    alert('Document uploaded successfully');
+        try {
+            const response = await fetch('../handlers/upload_document.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            if (response.ok && data.success) {
+                alert('Document uploaded successfully');
                 closeUploadModal();
-                    loadDocuments(); // Refresh document list
-                } else {
-                throw new Error(data.message || 'Failed to upload document');
-                }
-            } catch (error) {
-            alert(error.message);
+                loadDocuments(); // Refresh document list
+                uploadForm.reset();
+            } else {
+                throw new Error(data.error || data.message || 'Failed to upload document');
             }
+        } catch (error) {
+            alert(`Upload failed: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Upload';
+        }
     });
 
     // COE request form submission
-    document.getElementById('coeForm').addEventListener('submit', async (e) => {
+    const coeForm = document.getElementById('coeForm');
+    coeForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        const submitButton = coeForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
         const purpose = document.getElementById('purpose').value;
         const otherPurpose = document.getElementById('otherPurpose').value;
         const remarks = document.getElementById('remarks').value;
@@ -57,15 +68,19 @@ function setupEventListeners() {
             });
 
             const data = await response.json();
-            if (data.success) {
+            if (response.ok && data.success) {
                 alert('COE request submitted successfully');
                 closeCOEModal();
                 loadCOERequests(); // Refresh COE requests list
+                coeForm.reset();
             } else {
-                throw new Error(data.message || 'Failed to submit COE request');
+                throw new Error(data.error || data.message || 'Failed to submit COE request');
             }
         } catch (error) {
-            alert(error.message);
+            alert(`Request failed: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Request';
         }
     });
 
@@ -85,7 +100,7 @@ async function loadDocuments() {
         const response = await fetch('../handlers/get_documents.php');
         const data = await response.json();
         
-        if (data.success) {
+        if (response.ok && data.success) {
             const documentList = document.querySelector('.document-list');
             let html = '';
 
@@ -114,10 +129,12 @@ async function loadDocuments() {
             });
 
             documentList.innerHTML = html;
+        } else {
+            throw new Error(data.error || data.message || 'Failed to retrieve documents.');
         }
     } catch (error) {
         console.error('Failed to load documents:', error);
-        alert('Failed to load documents. Please try again later.');
+        alert(`Failed to load documents: ${error.message}`);
     }
 }
 
@@ -126,7 +143,7 @@ async function loadCOERequests() {
         const response = await fetch('../handlers/get_coe_requests.php');
         const data = await response.json();
         
-        if (data.success) {
+        if (response.ok && data.success) {
             const coeList = document.querySelector('.coe-list');
             let html = '';
 
@@ -155,10 +172,12 @@ async function loadCOERequests() {
             });
 
             coeList.innerHTML = html;
+        } else {
+            throw new Error(data.error || data.message || 'Failed to retrieve COE requests.');
         }
     } catch (error) {
         console.error('Failed to load COE requests:', error);
-        alert('Failed to load COE requests. Please try again later.');
+        alert(`Failed to load COE requests: ${error.message}`);
     }
 }
 

@@ -1,0 +1,60 @@
+[23-Jun-2025 06:50:29 Europe/Berlin] Fetching documents for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:29 Europe/Berlin] Error in get_documents.php: Failed to prepare statement: Unknown column 'document_type' in 'field list'
+[23-Jun-2025 06:50:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php on line 88
+[23-Jun-2025 06:50:29 Europe/Berlin] Fetching COE requests for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:29 Europe/Berlin] Error in get_coe_requests.php: Failed to prepare statement: Unknown column 'remarks' in 'field list'
+[23-Jun-2025 06:50:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php on line 88
+[23-Jun-2025 06:50:31 Europe/Berlin] Fetching documents for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:31 Europe/Berlin] Error in get_documents.php: Failed to prepare statement: Unknown column 'document_type' in 'field list'
+[23-Jun-2025 06:50:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php on line 88
+[23-Jun-2025 06:50:31 Europe/Berlin] Fetching COE requests for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:31 Europe/Berlin] Error in get_coe_requests.php: Failed to prepare statement: Unknown column 'remarks' in 'field list'
+[23-Jun-2025 06:50:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php on line 88
+[23-Jun-2025 06:50:31 Europe/Berlin] Fetching documents for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:31 Europe/Berlin] Error in get_documents.php: Failed to prepare statement: Unknown column 'document_type' in 'field list'
+[23-Jun-2025 06:50:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php on line 88
+[23-Jun-2025 06:50:31 Europe/Berlin] Fetching COE requests for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:31 Europe/Berlin] Error in get_coe_requests.php: Failed to prepare statement: Unknown column 'remarks' in 'field list'
+[23-Jun-2025 06:50:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php on line 88
+[23-Jun-2025 06:50:32 Europe/Berlin] Fetching documents for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:32 Europe/Berlin] Error in get_documents.php: Failed to prepare statement: Unknown column 'document_type' in 'field list'
+[23-Jun-2025 06:50:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php on line 88
+[23-Jun-2025 06:50:32 Europe/Berlin] Fetching COE requests for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:32 Europe/Berlin] Error in get_coe_requests.php: Failed to prepare statement: Unknown column 'remarks' in 'field list'
+[23-Jun-2025 06:50:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php on line 88
+[23-Jun-2025 06:50:32 Europe/Berlin] Fetching documents for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:32 Europe/Berlin] Error in get_documents.php: Failed to prepare statement: Unknown column 'document_type' in 'field list'
+[23-Jun-2025 06:50:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_documents.php on line 88
+[23-Jun-2025 06:50:32 Europe/Berlin] Fetching COE requests for email: juan.cruz@municipal.gov.ph
+[23-Jun-2025 06:50:32 Europe/Berlin] Error in get_coe_requests.php: Failed to prepare statement: Unknown column 'remarks' in 'field list'
+[23-Jun-2025 06:50:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on bool in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php:88
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Municipal-HR-Management-System\handlers\get_coe_requests.php on line 88

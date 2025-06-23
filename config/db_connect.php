@@ -54,6 +54,4 @@ try {
     
     die("Sorry, there was an error connecting to the database. Please try again later.");
 }
-
-error_log("Database connection successful to: " . $config['dbname']);
 ?>

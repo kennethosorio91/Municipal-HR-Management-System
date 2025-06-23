@@ -9,14 +9,24 @@ try {
     }
 
     $email = $_SESSION['email'];
-    $purpose = $_POST['purpose'] ?? '';
+    
+    // Read JSON from the request body
+    $json_data = file_get_contents('php://input');
+    $data = json_decode($json_data, true);
+
+    $purpose = $data['purpose'] ?? '';
     $requestDate = date('Y-m-d');
 
     // Insert COE request
-    $stmt = $conn->prepare("
+    $sql = "
         INSERT INTO coe_requests (email, purpose, request_date, status) 
         VALUES (?, ?, ?, 'Active')
-    ");
+    ";
+    
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        throw new Exception('Database prepare failed: ' . $conn->error);
+    }
     
     $stmt->bind_param("sss", $email, $purpose, $requestDate);
     $stmt->execute();

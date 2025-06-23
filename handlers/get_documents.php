@@ -11,12 +11,18 @@ try {
     $email = $_SESSION['email'];
 
     // Get user documents
-    $stmt = $conn->prepare("
-        SELECT id, document_title, file_name, status, upload_date 
-        FROM user_documents 
-        WHERE email = ? 
-        ORDER BY upload_date DESC
-    ");
+    $sql = "
+        SELECT d.id, d.title, d.type, d.status, d.upload_date 
+        FROM documents d
+        INNER JOIN users u ON d.user_id = u.id
+        WHERE u.email = ? 
+        ORDER BY d.upload_date DESC
+    ";
+    
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        throw new Exception('Database prepare failed: ' . $conn->error);
+    }
     
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -29,7 +35,7 @@ try {
 
     echo json_encode([
         'success' => true,
-        'data' => $documents
+        'documents' => $documents
     ]);
 
 } catch (Exception $e) {

@@ -11,12 +11,17 @@ try {
     $email = $_SESSION['email'];
 
     // Get COE requests
-    $stmt = $conn->prepare("
+    $sql = "
         SELECT id, purpose, request_date, issue_date, status 
         FROM coe_requests 
         WHERE email = ? 
         ORDER BY request_date DESC
-    ");
+    ";
+    
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        throw new Exception('Database prepare failed: ' . $conn->error);
+    }
     
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -24,12 +29,13 @@ try {
     
     $requests = [];
     while ($row = $result->fetch_assoc()) {
+        $row['remarks'] = ''; // Add default remarks for frontend compatibility
         $requests[] = $row;
     }
 
     echo json_encode([
         'success' => true,
-        'data' => $requests
+        'requests' => $requests
     ]);
 
 } catch (Exception $e) {
