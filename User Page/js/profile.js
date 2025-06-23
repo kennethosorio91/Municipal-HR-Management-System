@@ -27,7 +27,7 @@ function setupEventListeners() {
             if (response.ok && data.success) {
                 alert('Document uploaded successfully');
                 closeUploadModal();
-                loadDocuments(); // Refresh document list
+                loadDocuments();
                 uploadForm.reset();
             } else {
                 throw new Error(data.error || data.message || 'Failed to upload document');
@@ -48,7 +48,7 @@ function setupEventListeners() {
         const submitButton = coeForm.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
-
+        
         const purpose = document.getElementById('purpose').value;
         const otherPurpose = document.getElementById('otherPurpose').value;
         const remarks = document.getElementById('remarks').value;
@@ -71,7 +71,7 @@ function setupEventListeners() {
             if (response.ok && data.success) {
                 alert('COE request submitted successfully');
                 closeCOEModal();
-                loadCOERequests(); // Refresh COE requests list
+                loadCOERequests();
                 coeForm.reset();
             } else {
                 throw new Error(data.error || data.message || 'Failed to submit COE request');
@@ -116,7 +116,7 @@ async function loadDocuments() {
                         </div>
                         <div class="document-actions">
                             <button class="download-btn" onclick="downloadDocument(${doc.id})">
-                                <img src="../assets/download.png" alt="Download">
+                                <img src="../assets/download-white.png" alt="Download">
                                 Download
                             </button>
                             <button class="delete-btn" onclick="deleteDocument(${doc.id})">
@@ -133,7 +133,6 @@ async function loadDocuments() {
             throw new Error(data.error || data.message || 'Failed to retrieve documents.');
         }
     } catch (error) {
-        console.error('Failed to load documents:', error);
         alert(`Failed to load documents: ${error.message}`);
     }
 }
@@ -163,7 +162,7 @@ async function loadCOERequests() {
                             <span class="status-tag ${statusClass}">${request.status}</span>
                             ${request.status === 'Issued' ? 
                                 `<button class="download-btn" onclick="downloadCOE(${request.id})">
-                                    <img src="../assets/download.png" alt="Download">
+                                    <img src="../assets/download-white.png" alt="Download">
                                     Download
                                 </button>` : ''}
                         </div>
@@ -176,7 +175,6 @@ async function loadCOERequests() {
             throw new Error(data.error || data.message || 'Failed to retrieve COE requests.');
         }
     } catch (error) {
-        console.error('Failed to load COE requests:', error);
         alert(`Failed to load COE requests: ${error.message}`);
     }
 }
@@ -209,7 +207,7 @@ function formatDate(dateString) {
 
 async function downloadDocument(documentId) {
     try {
-    window.location.href = `../handlers/download_document.php?id=${documentId}`;
+        window.location.href = `../handlers/download_document.php?id=${documentId}`;
     } catch (error) {
         alert('Failed to download document. Please try again later.');
     }
@@ -228,7 +226,7 @@ async function deleteDocument(documentId) {
         const data = await response.json();
         if (data.success) {
             alert('Document deleted successfully');
-            loadDocuments(); // Refresh the document list
+            loadDocuments();
         } else {
             throw new Error(data.message || 'Failed to delete document');
         }
@@ -239,7 +237,7 @@ async function deleteDocument(documentId) {
 
 async function downloadCOE(requestId) {
     try {
-    window.location.href = `../handlers/download_coe.php?id=${requestId}`;
+        window.location.href = `../handlers/download_coe.php?id=${requestId}`;
     } catch (error) {
         alert('Failed to download COE. Please try again later.');
     }

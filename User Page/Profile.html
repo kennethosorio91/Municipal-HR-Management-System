@@ -80,31 +80,31 @@
                         <form class="form-grid">
                             <div class="form-field">
                                 <label>Full Name</label>
-                                <input type="text" id="fullName" readonly>
+                                <input type="text" id="fullName" title="Full Name" placeholder="Full Name" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Position</label>
-                                <input type="text" id="position" readonly>
+                                <input type="text" id="position" title="Position" placeholder="Position" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Department</label>
-                                <input type="text" id="department" readonly>
+                                <input type="text" id="department" title="Department" placeholder="Department" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Employment Type</label>
-                                <input type="text" id="employment" readonly>
+                                <input type="text" id="employment" title="Employment Type" placeholder="Employment Type" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Email</label>
-                                <input type="email" id="email" readonly>
+                                <input type="email" id="email" title="Email" placeholder="Email" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Phone</label>
-                                <input type="tel" id="phone" readonly>
+                                <input type="tel" id="phone" title="Phone" placeholder="Phone" readonly>
                             </div>
                             <div class="form-field full-width">
                                 <label>Address</label>
-                                <input type="text" id="address" readonly>
+                                <input type="text" id="address" title="Address" placeholder="Address" readonly>
                             </div>
                         </form>
                     </section>
@@ -163,13 +163,15 @@
 
                 <!-- Document Management -->
                 <section class="document-section">
-                    <header class="card-header">
-                        <img src="../assets/files.png" alt="Document Management">
-                        <h2>Document Management</h2>
+                    <header class="document-header">
+                        <div class="document-title">
+                            <img src="../assets/files.png" alt="Document Management">
+                            <h2>Document Management</h2>
+                        </div>
+                        <button class="upload-btn" onclick="openUploadModal()">Upload New Document</button>
                     </header>                    
                     <div class="document-grid">
                         <div class="document-list"></div>
-                        <button class="upload-btn" onclick="openUploadModal()">Upload New Document</button>
                     </div>
                 </section>
 
@@ -304,12 +306,10 @@
                     document.getElementById('dateHired').textContent = data.data.dateHired;
                     document.getElementById('yearsOfService').textContent = data.data.yearsOfService + ' years';
                 } else {
-                    console.error('Failed to load profile:', data.message);
                     alert('Failed to load profile information. Please try again later.');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
                 alert('An error occurred while loading profile information.');
             });
         }

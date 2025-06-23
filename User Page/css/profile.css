@@ -185,6 +185,49 @@
     margin-bottom: 24px;
 }
 
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.document-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.document-title img {
+    width: 24px;
+    height: 24px;
+}
+
+.document-title h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1C313A;
+    margin: 0;
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    background: #2C6159;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.upload-btn:hover {
+    background: #1C4F47;
+}
+
 .document-grid {
     display: flex;
     flex-direction: column;
@@ -283,13 +326,13 @@
 }
 
 .delete-btn {
-    background: #FEE2E2;
-    color: #991B1B;
+    background: #DC2626;
+    color: white;
     border: none;
 }
 
 .delete-btn:hover {
-    background: #FCA5A5;
+    background: #B91C1C;
 }
 
 /* Certificate of Employment Section */
