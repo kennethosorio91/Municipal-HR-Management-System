@@ -44,7 +44,7 @@ try {
     if ($user['password_reset_required']) {
         // Check temporary passwords if password hasn't been reset
         if ($email === 'admin@municipal.gov.ph') {
-            $passwordValid = ($password === 'Admin@123');
+            $passwordValid = ($password === 'concepcionlgu');
         } else {
             $passwordValid = ($password === 'concepcionlgu');
         }
@@ -68,9 +68,30 @@ try {
     
     // Set session variables
     $_SESSION['id'] = $user['id'];
-    $_SESSION['user_id'] = $user['id']; // For attendance system compatibility
     $_SESSION['email'] = $user['email'];
     $_SESSION['role'] = $user['role'];
+    
+    // For employee users, set user_id for attendance system compatibility
+    if ($user['role'] === 'employee') {
+        // Get employee ID from employee_records table
+        $empStmt = $conn->prepare("SELECT id FROM employee_records WHERE email = ?");
+        $empStmt->bind_param("s", $user['email']);
+        $empStmt->execute();
+        $empResult = $empStmt->get_result();
+        
+        if ($empResult->num_rows === 1) {
+            $employee = $empResult->fetch_assoc();
+            $_SESSION['user_id'] = $employee['id'];
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Employee record not found']);
+            exit;
+        }
+        
+        $empStmt->close();
+    } else {
+        // For admin, user_id is the same as id
+        $_SESSION['user_id'] = $user['id'];
+    }
     
     // Update last login
     $updateSql = "UPDATE users SET last_login = NOW() WHERE id = ?";

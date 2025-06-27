@@ -14,7 +14,7 @@ if (!isset($conn)) {
 }
 
 // Check if user is authenticated
-if (!isset($_SESSION['user_id']) && !isset($_SESSION['reset_user_id'])) {
+if (!isset($_SESSION['id']) && !isset($_SESSION['reset_user_id'])) {
     echo json_encode([
         'success' => false,
         'message' => 'Not authenticated'
@@ -27,11 +27,11 @@ $data = json_decode(file_get_contents('php://input'), true);
 $newPassword = $data['newPassword'];
 
 // Get user ID (either from regular session or reset session)
-$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : $_SESSION['reset_user_id'];
+$userId = isset($_SESSION['id']) ? $_SESSION['id'] : $_SESSION['reset_user_id'];
 
 try {
     // Get user information
-    $stmt = $conn->prepare("SELECT password_reset_required, password FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT password_reset_required, password, role FROM users WHERE id = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();

@@ -57,10 +57,10 @@ if (isset($_GET['forgot']) && $_GET['forgot'] === 'true') {
     }
 } 
 // Regular password reset check for logged in users
-else if (isset($_SESSION['user_id'])) {
+else if (isset($_SESSION['id'])) {
     try {
         $stmt = $conn->prepare("SELECT password_reset_required FROM users WHERE id = ?");
-        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->bind_param("i", $_SESSION['id']);
         $stmt->execute();
         $result = $stmt->get_result();
         

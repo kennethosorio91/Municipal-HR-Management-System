@@ -128,56 +128,6 @@
     color: #9CA3AF;
 }
 
-/* Loading message for leave credits */
-.loading-message {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px 20px;
-    color: #666;
-    font-style: italic;
-}
-
-/* Leave credit subtitle for total days */
-.leave-credit-subtitle {
-    font-size: 11px;
-    color: #9CA3AF;
-    margin-top: 4px;
-}
-
-/* Status-based styling for leave credit days */
-.leave-credit-days.low {
-    color: #e74c3c;
-}
-
-.leave-credit-days.warning {
-    color: #f39c12;
-}
-
-.leave-credit-days.normal {
-    color: #27ae60;
-}
-
-/* Gender-specific leave type styling */
-.credit-maternity-leave .leave-credit-card {
-    border-left: 4px solid #EC4899;
-}
-
-.credit-paternity-leave .leave-credit-card {
-    border-left: 4px solid #3B82F6;
-}
-
-.credit-vacation-leave .leave-credit-card {
-    border-left: 4px solid #10B981;
-}
-
-.credit-sick-leave .leave-credit-card {
-    border-left: 4px solid #F59E0B;
-}
-
-.credit-emergency-leave .leave-credit-card {
-    border-left: 4px solid #EF4444;
-}
-
 /* Applications and Orders Sections */
 .applications-section, .travel-orders-section {
     background: white;
@@ -286,73 +236,30 @@
     color: #059669;
 }
 
+.status-badge.rejected {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
 .status-badge.ongoing {
     background: #DBEAFE;
     color: #2563EB;
 }
 
-/* Modal Styles */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.modal-overlay.active {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
-}
-
-.modal-content {
-    background: white;
-    border-radius: 16px;
-    width: 100%;
+/* Remove duplicate modal styles */
+.leave-modal,
+.travel-modal {
     max-width: 600px;
-    position: relative;
-    margin: 0 auto;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
-.modal-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid #E5E7EB;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1F2937;
-    margin: 0;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #6B7280;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-}
-
-.close-modal:hover {
-    color: #1F2937;
-}
-
-.leave-form, .travel-form {
+.leave-content,
+.travel-content {
     padding: 24px;
+}
+
+/* Form Styles */
+.leave-form, .travel-form {
+    padding: 0 24px 24px 24px;
 }
 
 .form-group {
@@ -363,108 +270,163 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    margin-bottom: 20px;
 }
 
-/* Form Validation Styles */
-.form-group input:invalid,
-.form-group select:invalid,
-.form-group textarea:invalid {
-    border-color: #EF4444;
-}
-
-.error-message {
-    color: #EF4444;
-    font-size: 12px;
-    margin-top: 4px;
-    display: none;
-}
-
-.form-group input:invalid + .error-message,
-.form-group select:invalid + .error-message,
-.form-group textarea:invalid + .error-message {
+.form-group label {
     display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.required {
+    color: #EF4444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #374151;
+    background: white;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group input[readonly] {
+    background: #F9FAFB;
+    color: #6B7280;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    margin-top: 24px;
+}
+
+.cancel-btn, .submit-btn, .confirm-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: #F3F4F6;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+}
+
+.cancel-btn:hover {
+    background: #E5E7EB;
+}
+
+.submit-btn {
+    background: #3B82F6;
+    color: white;
+}
+
+.submit-btn:hover {
+    background: #2563EB;
+    transform: translateY(-1px);
+}
+
+.confirm-btn {
+    background: #10B981;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: #059669;
+    transform: translateY(-1px);
 }
 
 /* Success Modal Styles */
 .success-modal {
     max-width: 400px;
+    text-align: center;
 }
 
 .success-header {
-    background: #059669;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     color: white;
-    border-radius: 16px 16px 0 0;
+    border-radius: 12px 12px 0 0;
     padding: 24px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.success-header img {
+    width: 48px;
+    height: 48px;
+}
+
+.success-header h2 {
+    color: white;
+    font-size: 20px;
+    margin: 0;
 }
 
 .success-content {
     padding: 24px;
-    text-align: center;
 }
 
-/* No data message */
-.no-data-message {
+.success-content p {
+    font-size: 14px;
+    color: #6B7280;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+}
+
+.success-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* Empty States */
+.no-credits,
+.no-applications {
     text-align: center;
     padding: 40px 20px;
-    color: #666;
-    font-style: italic;
+    background: #f9fafb;
+    border-radius: 12px;
+    border: 1px dashed #d1d5db;
 }
 
-.no-data-message p {
+.no-credits p,
+.no-applications p {
+    color: #6b7280;
     margin: 0;
     font-size: 14px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .modal-overlay.active {
-        padding-top: 20px;
-        align-items: flex-start;
-    }
-
-    .modal-content {
-        max-height: calc(100vh - 40px);
-        overflow-y: auto;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .leave-form, .travel-form {
-        padding: 16px;
-    }
-
-    .form-actions {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .form-actions button {
-        width: 100%;
-    }
-}
-
-/* Loading Indicator */
-.loading-spinner {
-    display: none;
-    width: 24px;
-    height: 24px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #2C6159;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-}
-
-.loading .loading-spinner {
-    display: inline-block;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 /* Responsive Design */

@@ -24,6 +24,7 @@
                 <div class="nav-links">
                     <a href="#home" class="active">HOME</a>
                     <a href="#announcements">ANNOUNCEMENTS</a>
+                    <a href="#careers">CAREERS</a>
                     <a href="#help-desk">HELP DESK</a>
                     <a href="#login" class="login-btn"><span>LOGIN</span></a>
                 </div>
@@ -88,6 +89,15 @@
             <div class="announcement-modal"></div>
         </div>
 
+        <!-- Careers Section -->
+        <section class="careers" id="careers">
+            <h1 class="banner-announcements fade-up">CAREERS</h1>
+            <div class="careers-content fade-up">
+                <p>Join our team and contribute to the community. We are looking for passionate individuals to fill various roles within the municipality.</p>
+                <button class="view-positions-btn" onclick="openCareersModal()">View Open Positions</button>
+            </div>
+        </section>
+
         <!-- Help Desk Section -->
         <section class="help-desk" id="help-desk">
             <div class="help-desk-content fade-up">
@@ -102,12 +112,13 @@
                     <div class="right-side-help fade-up">
                         <div class="contact-container">
                             <div class="contact-title">Contact Us</div>
-                            <form action="#" method="post">
+                            <form id="contactForm" action="#" method="post">
                                 <input type="text" class="name" name="name" placeholder="Enter Name" required>
                                 <input type="email" class="email" name="email" placeholder="Enter a valid email address" required>
                                 <textarea class="message" name="message" placeholder="Enter your message..." required></textarea>
                                 <button type="submit">Submit</button>
                             </form>
+                            <div id="contactMessage" style="display: none; color: #2C6159; margin-top: 10px;"></div>
                         </div>
                     </div>
                 </div>
@@ -183,6 +194,34 @@
                 </div>
             </div>
             <button class="close-modal" onclick="closeFAQModal()">×</button>
+        </div>
+    </div>
+
+    <!-- Careers Modal -->
+    <div class="careers-modal-overlay" id="modalCareers">
+        <div class="careers-modal">
+            <h2>Open Positions</h2>
+            <div class="job-list">
+                <!-- JS will populate this -->
+            </div>
+            <button class="close-modal" onclick="closeCareersModal()">×</button>
+        </div>
+    </div>
+
+    <!-- Application Modal -->
+    <div class="application-modal-overlay" id="modalApplication">
+        <div class="application-modal">
+            <h2>Apply for <span id="job-title-application"></span></h2>
+            <form id="applicationForm">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+                <textarea name="message" placeholder="Why are you a good fit for this role?"></textarea>
+                <label for="resume">Upload Resume (PDF, DOC, DOCX):</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                <button type="submit">Submit Application</button>
+            </form>
+            <button class="close-modal" onclick="closeApplicationModal()">×</button>
         </div>
     </div>
 
@@ -306,6 +345,72 @@
             displayAnnouncements(currentPage);
         });
 
+        // Careers Modal
+        const jobPositions = [
+            { title: "Administrative Assistant", department: "Mayor's Office", description: "Provides administrative support to the office.", qualifications: ["Bachelor's degree", "2 years experience"] },
+            { title: "IT Support Specialist", department: "IT Department", description: "Maintains and troubleshoots computer systems.", qualifications: ["IT-related degree", "Certifications are a plus"] },
+            { title: "Civil Engineer", department: "Engineering Office", description: "Plans and oversees construction projects.", qualifications: ["Licensed Civil Engineer", "3+ years experience"] }
+        ];
+
+        function openCareersModal() {
+            const modal = document.getElementById("modalCareers");
+            const jobList = modal.querySelector('.job-list');
+            jobList.innerHTML = '';
+
+            jobPositions.forEach(job => {
+                const jobItem = document.createElement('div');
+                jobItem.className = 'job-item';
+                jobItem.innerHTML = `
+                    <h3>${job.title}</h3>
+                    <p><strong>Department:</strong> ${job.department}</p>
+                    <p>${job.description}</p>
+                    <p><strong>Qualifications:</strong></p>
+                    <ul>
+                        ${job.qualifications.map(q => `<li>${q}</li>`).join('')}
+                    </ul>
+                    <button class="apply-btn" onclick="openApplicationModal('${job.title}')">Apply</button>
+                `;
+                jobList.appendChild(jobItem);
+            });
+
+            modal.style.display = "flex";
+        }
+
+        function closeCareersModal() {
+            document.getElementById("modalCareers").style.display = "none";
+        }
+
+        function openApplicationModal(jobTitle) {
+            document.getElementById("job-title-application").textContent = jobTitle;
+            document.getElementById("modalApplication").style.display = "flex";
+        }
+
+        function closeApplicationModal() {
+            document.getElementById("modalApplication").style.display = "none";
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const contactForm = document.getElementById('contactForm');
+            const messageDiv = document.getElementById('contactMessage');
+            
+            messageDiv.textContent = 'Submitted successfully!';
+            messageDiv.style.display = 'block';
+            
+            contactForm.reset();
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 4000);
+        });
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would handle the form submission, e.g., via fetch to a backend.
+            alert("Thank you for your application!");
+            closeApplicationModal();
+        });
+
         // Login form handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -398,7 +503,7 @@
 
     <style>
         /* Modal Styles */
-        .announcement-modal-overlay, .faq-modal-overlay {
+        .announcement-modal-overlay, .faq-modal-overlay, .careers-modal-overlay, .application-modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -410,7 +515,7 @@
             align-items: center;
             z-index: 1000;
         }
-        .announcement-modal, .help-modal {
+        .announcement-modal, .help-modal, .careers-modal, .application-modal {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -478,6 +583,129 @@
         .faq-item.active .faq-question span {
             transform: rotate(45deg);
         }
+
+        /* Careers Section */
+        .careers {
+            padding: 100px 5%;
+            background: url('assets/MGC2.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .careers-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+        .careers-content p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .view-positions-btn {
+            padding: 12px 28px;
+            background: #2C6159;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .view-positions-btn:hover {
+            background: #1a3d37;
+        }
+
+        /* Careers Modal */
+        .careers-modal {
+            width: 800px;
+            max-width: 90%;
+        }
+        .job-list {
+            margin-top: 20px;
+        }
+        .job-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            text-align: left;
+        }
+        .job-item:last-child {
+            border-bottom: none;
+        }
+        .job-item h3 {
+            margin: 0 0 10px;
+            color: #2C6159;
+        }
+        .job-item p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .job-item ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            list-style: disc;
+        }
+        .job-item li {
+            color: #333;
+        }
+
+        .apply-btn {
+            padding: 8px 16px;
+            background: #059669;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #047857;
+        }
+
+        /* Application Modal */
+        .application-modal {
+            width: 500px;
+            max-width: 90%;
+        }
+
+        #applicationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        #applicationForm input, #applicationForm textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #applicationForm button {
+            padding: 12px;
+            background: #2C6159;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #applicationForm button:hover {
+            background: #1a3d37;
+        }
+
         /* Ensure this matches your existing landing.css styles */
         .faq-button {
             padding: 10px 20px;

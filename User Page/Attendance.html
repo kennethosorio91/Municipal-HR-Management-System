@@ -146,24 +146,24 @@
                     
                     <div class="time-cards">                        <div class="time-card">
                             <span class="time-label">Time In</span>
-                            <span class="time-value">--:--</span>
+                            <span class="time-value time-in-time">--:--</span>
                         </div>
                         <div class="time-card">
                             <span class="time-label">Status</span>
-                            <span class="status-badge present">Not Checked In</span>
+                            <span class="status-badge status-text present">Not Checked In</span>
                         </div>
                         <div class="time-card">
                             <span class="time-label">Time Out</span>
-                            <span class="time-value">--:--</span>
+                            <span class="time-value time-out-time">--:--</span>
                         </div>
                     </div>
 
                     <div class="time-actions">
-                        <button class="time-btn time-in">
+                        <button class="time-btn time-in" id="time-in-btn">
                             <img src="../assets/check-circle-white.png" alt="Time In">
                             Time In
                         </button>
-                        <button class="time-btn time-out">
+                        <button class="time-btn time-out" id="time-out-btn">
                             <img src="../assets/check-circle-black.png" alt="Time Out">
                             Time Out
                         </button>
@@ -189,26 +189,27 @@
                     </div>
                     
                     <div class="table-container">
-                        <table class="attendance-table">
+                        <table class="attendance-table" id="attendance-history-table">
                             <thead>
                                 <tr>
                                     <th>Date</th>
+                                    <th>Day</th>
                                     <th>Time In</th>
                                     <th>Time Out</th>
                                     <th>Total Hrs</th>
                                     <th>Status</th>
                                 </tr>
-                            </thead>                            <tbody id="attendanceTableBody">
-                                <!-- Attendance records will be loaded dynamically -->
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be populated by JS -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </main>    
-        
-    <script src="js/mobile-nav.js"></script>
-    <script src="js/logout.js"></script>
+        </main>
+    </div>
+
+    <script src="js/user-layout.js"></script>
     <script src="js/attendance.js"></script>
 </body>
-</html> 
+</html>

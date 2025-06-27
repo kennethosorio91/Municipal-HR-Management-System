@@ -22,11 +22,6 @@ function formatDate($date) {
     return $formatted !== '1970-01-01' ? $formatted : null;
 }
 
-
-$dateHired = date('Y-m-d', strtotime($input['dateHired']));
-$birthdate = date('Y-m-d', strtotime($input['birthdate']));
-
-
 try {
     debugLog("=== STARTING ADD EMPLOYEE ===");
     debugLog("Request method: " . $_SERVER['REQUEST_METHOD']);
@@ -95,15 +90,15 @@ try {
     $address = trim($input['address'] ?? '');
 
     // Format dates properly
-    $dateHired = date('Y-m-d', strtotime($input['dateHired']));
-    $birthdate = date('Y-m-d', strtotime($input['birthdate']));
+    $dateHired = formatDate($input['dateHired']);
+    $birthdate = formatDate($input['birthdate']);
 
     // Validate dates
-    if ($dateHired === '1970-01-01' || !$dateHired) {
-        throw new Exception("Invalid date hired format. Please use YYYY-MM-DD format.");
+    if (!$dateHired) {
+        throw new Exception("Invalid date hired format. Please use MM/DD/YYYY format.");
     }
-    if ($birthdate === '1970-01-01' || !$birthdate) {
-        throw new Exception("Invalid birthdate format. Please use YYYY-MM-DD format.");
+    if (!$birthdate) {
+        throw new Exception("Invalid birthdate format. Please use MM/DD/YYYY format.");
     }
 
     debugLog("Prepared values: fullName=$fullName, position=$position, gender=$gender, department=$department, employment=$employment, status=$status, dateHired=$dateHired, birthdate=$birthdate, email=$email, phone=$phone, address=$address");
@@ -141,7 +136,7 @@ try {
         $employee_id = $conn->insert_id;
 
         // Create user account with default password
-        $sql_user = "INSERT INTO users (email, password, role, created_at) VALUES (?, ?, 'employee', NOW())";
+        $sql_user = "INSERT INTO users (email, password, role, password_reset_required, created_at) VALUES (?, ?, 'employee', 1, NOW())";
         $stmt_user = $conn->prepare($sql_user);
         if (!$stmt_user) {
             throw new Exception("Prepare user insert failed: " . $conn->error);
@@ -150,7 +145,29 @@ try {
         // Use the default password 'concepcionlgu'
         $default_password = 'concepcionlgu';
         $stmt_user->bind_param("ss", $email, $default_password);
+        debugLog("Executing user insert");
         $stmt_user->execute();
+        debugLog("User insert successful");
+
+        // Initialize leave credits based on gender
+        debugLog("Preparing leave credits insert");
+        $stmt = $conn->prepare("INSERT INTO leave_credits 
+            (user_id, vacation_leave, sick_leave, emergency_leave, maternity_leave, paternity_leave, study_leave) 
+            VALUES (?, 15, 15, 3, ?, ?, 5)");
+        if (!$stmt) {
+            throw new Exception("Prepare leave credits insert failed: " . $conn->error);
+        }
+        
+        // Set maternity/paternity leave based on gender
+        $maternityLeave = ($gender === 'Female') ? 105 : 0;
+        $paternityLeave = ($gender === 'Male') ? 7 : 0;
+        
+        debugLog("Binding leave credits parameters: employee_id=$employee_id, maternity=$maternityLeave, paternity=$paternityLeave");
+        // Bind parameters properly - employee_id is the correct foreign key for user_id in leave_credits
+        $stmt->bind_param("idd", $employee_id, $maternityLeave, $paternityLeave);
+        debugLog("Executing leave credits insert");
+        $stmt->execute();
+        debugLog("Leave credits insert successful");
 
         // Commit transaction
         $conn->commit();

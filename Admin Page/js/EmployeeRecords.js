@@ -64,16 +64,22 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         employees.forEach(emp => {
-            const empType = emp.employment ? emp.employment.trim().toLowerCase() : '';
+            // Normalize the employment type string
+            const empType = (emp.employment || '').toString().trim().toLowerCase();
 
+            // More robust type matching
             if (empType.includes('permanent')) {
                 typeCounts.permanent++;
             } else if (empType.includes('contractual')) {
                 typeCounts.contractual++;
-            } else if (empType.includes('job order') || empType.includes('job-order')) {
+            } else if (empType.includes('job order') || empType.includes('job-order') || empType === 'jo') {
                 typeCounts['job-order']++;
-            } else if (empType.includes('probationary')) {
+            } else if (empType.includes('probationary') || empType === 'prob') {
                 typeCounts.probationary++;
+            }
+            // Log unmatched types for debugging
+            else if (empType) {
+                console.warn('Unmatched employment type:', emp.employment);
             }
         });
 
@@ -315,23 +321,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Modal close functionality
-        if (elements.closeBtn) {
-            elements.closeBtn.addEventListener('click', () => {
-                const modal = document.getElementById('addEmployeeModal');
-                if (modal) modal.classList.remove('active');
-            });
-        }
-
-        if (elements.cancelBtn) {
-            elements.cancelBtn.addEventListener('click', () => {
-                const modal = document.getElementById('addEmployeeModal');
-                if (modal) modal.classList.remove('active');
-            });
-        }
-
-        // Close modal when clicking outside
         const modal = document.getElementById('addEmployeeModal');
         if (modal) {
+            const closeBtn = modal.querySelector('.close-modal');
+            const cancelBtn = modal.querySelector('.btn-cancel');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+            }
+            
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                });
+            }
+            
+            // Close modal when clicking outside
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.remove('active');
@@ -363,51 +370,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handler
     function handleFormSubmit(e) {
         e.preventDefault();
-        
-        // Get form data
-        const form = e.target; // Get the form that triggered the submit event
+        const form = e.target;
         const formData = new FormData(form);
-        const employeeData = {
-            fullName: formData.get('fullName'),
-            position: formData.get('position'),
-            gender: formData.get('gender'),
-            department: formData.get('department'),
-            employment: formData.get('employment'),
-            status: formData.get('status'),
-            dateHired: formatDateToMMDDYYYY(formData.get('dateHired')),
-            birthdate: formatDateToMMDDYYYY(formData.get('birthdate')),
-            phone: formData.get('phone'),
-            address: formData.get('address')
-        };
 
-        // Show loading state
-        showLoading(true);
-
-        // Send data to server
         fetch('../handlers/add_employee.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(employeeData)
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
-            showLoading(false);
             if (data.success) {
-                alert(`Employee added successfully!\nLogin credentials:\nEmail: ${data.data.email}\nPassword: ${formatDateToMMDDYYYY(employeeData.birthdate)}`);
-                const modal = document.getElementById('addEmployeeModal');
-                if (modal) modal.classList.remove('active');
+                // Close the modal
+                const modal = document.querySelector('.modal');
+                closeModal(modal);
+                
+                // Reset the form
                 form.reset();
+                
+                // Show success message
+                alert('Employee added successfully!');
+                
+                // Reload the employees data to refresh the table and stat cards
                 loadEmployees();
             } else {
-                alert(data.message || 'Error adding employee');
+                throw new Error(data.message || 'Error adding employee');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            showLoading(false);
-            alert('Error adding employee. Please try again.');
+            alert(error.message || 'An error occurred while adding the employee');
         });
     }
 
@@ -506,13 +497,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function openAddEmployeeModal() {
         const modal = document.getElementById('addEmployeeModal');
         if (modal) {
-            modal.classList.add('active');
-            
-            // Attach submit event listener to the form
+            // Reset form if it exists
             const addForm = modal.querySelector('#addEmployeeForm');
             if (addForm) {
-                addForm.addEventListener('submit', handleFormSubmit);
+                addForm.reset();
+                
+                // Remove any existing event listeners to prevent duplicates
+                const newForm = addForm.cloneNode(true);
+                addForm.parentNode.replaceChild(newForm, addForm);
+                
+                // Add the submit event listener
+                newForm.addEventListener('submit', handleFormSubmit);
             }
+            
+            // Show the modal
+            modal.classList.add('active');
         }
     }
 

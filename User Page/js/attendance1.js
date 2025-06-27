@@ -138,27 +138,9 @@ class AttendanceManager {    constructor() {
         this.reinitializeElements();
         
         try {
-            // Add cache-busting parameter and a timeout
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-            
-            const response = await fetch(`../handlers/attendance_handler.php?t=${new Date().getTime()}`, {
-                signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId);
+            const response = await fetch('../handlers/attendance_handler.php');
             
             if (!response.ok) {
-                console.error(`HTTP error! status: ${response.status}`);
-                
-                // Try to get more detailed error information
-                try {
-                    const errorText = await response.text();
-                    console.error('Error response:', errorText);
-                } catch (textError) {
-                    console.error('Could not read error response text');
-                }
-                
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
               const result = await response.json();
@@ -278,38 +260,8 @@ class AttendanceManager {    constructor() {
         } catch (error) {
             console.error('Error loading today\'s attendance:', error);
             this.showError('Error loading today\'s attendance. Please refresh the page.');
-            
-            // Set default values for UI elements
-            this.setDefaultAttendanceValues();
         }
     }
-    
-    // New method to set default values when there's an error
-    setDefaultAttendanceValues() {
-        if (this.todayTimeIn) {
-            this.todayTimeIn.textContent = '--:--';
-        }
-        if (this.todayTimeOut) {
-            this.todayTimeOut.textContent = '--:--';
-        }
-        if (this.todayStatus) {
-            this.todayStatus.textContent = 'Error';
-            this.todayStatus.className = 'status-badge absent';
-        }
-        
-        if (this.timeInBtn) {
-            this.timeInBtn.disabled = false;
-            this.timeInBtn.textContent = 'Time In';
-            this.timeInBtn.style.backgroundColor = '#2C6159';
-        }
-        
-        if (this.timeOutBtn) {
-            this.timeOutBtn.disabled = true;
-            this.timeOutBtn.textContent = 'Time Out';
-            this.timeOutBtn.style.backgroundColor = '#6B7280';
-        }
-    }
-      
       formatTime(timeString) {
         console.log('formatTime input:', timeString); // Debug: Log input
         
@@ -358,28 +310,10 @@ class AttendanceManager {    constructor() {
         this.attendanceTable.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Loading attendance records...</td></tr>';
         
         try {
-            // Add timeout and cache-busting parameter
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-            
-            const response = await fetch(`../handlers/attendance_handler.php?month=${selectedMonth}&t=${new Date().getTime()}`, {
-                signal: controller.signal
-            });
-            
-            clearTimeout(timeoutId);
+            const response = await fetch(`../handlers/attendance_handler.php?month=${selectedMonth}`);
             
             if (!response.ok) {
-                // Try to get more detailed error information
-                let errorMessage = `HTTP error! status: ${response.status}`;
-                try {
-                    const errorText = await response.text();
-                    console.error('Error response:', errorText);
-                    errorMessage += ` - ${errorText}`;
-                } catch (textError) {
-                    console.error('Could not read error response text');
-                }
-                
-                throw new Error(errorMessage);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             
             const result = await response.json();
@@ -435,7 +369,6 @@ class AttendanceManager {    constructor() {
             case 'present': return 'present';
             case 'late': return 'late';
             case 'absent': return 'absent';
-            case 'undertime': return 'undertime';
             default: return 'present';
         }
     }
@@ -445,7 +378,6 @@ class AttendanceManager {    constructor() {
             case 'present': return 'Present';
             case 'late': return 'Late';
             case 'absent': return 'Absent';
-            case 'undertime': return 'Undertime';
             default: return 'Present';
         }
     }    async handleTimeIn() {        
@@ -462,27 +394,11 @@ class AttendanceManager {    constructor() {
             
             if (result.success) {
                 this.showSuccess(result.message);
-
-                // Directly update the UI with the response
-                if (this.todayTimeIn) {
-                    this.todayTimeIn.textContent = result.time_in;
-                }
-                if (this.todayStatus) {
-                    this.todayStatus.textContent = this.getStatusText(result.status);
-                    this.todayStatus.className = `status-badge ${this.getStatusClass(result.status)}`;
-                }
-                if (this.timeInBtn) {
-                    this.timeInBtn.disabled = true;
-                    this.timeInBtn.textContent = 'Already Timed In';
-                    this.timeInBtn.style.backgroundColor = '#6B7280';
-                }
-                if (this.timeOutBtn) {
-                    this.timeOutBtn.disabled = false;
-                    this.timeOutBtn.style.backgroundColor = '#2C6159';
-                }
-
-                // Reload history
-                this.loadAttendanceHistory();
+                // Add small delay to ensure backend processing is complete
+                setTimeout(() => {
+                    this.loadTodayAttendance();
+                    this.loadAttendanceHistory();
+                }, 500);
             } else {
                 this.showError(result.error || 'Failed to record time in');
             }
@@ -506,23 +422,11 @@ class AttendanceManager {    constructor() {
             
             if (result.success) {
                 this.showSuccess(result.message);
-
-                // Directly update the UI
-                if (this.todayTimeOut) {
-                    this.todayTimeOut.textContent = result.time_out;
-                }
-                if (this.todayStatus) {
-                    this.todayStatus.textContent = this.getStatusText(result.status);
-                    this.todayStatus.className = `status-badge ${this.getStatusClass(result.status)}`;
-                }
-                if (this.timeOutBtn) {
-                    this.timeOutBtn.disabled = true;
-                    this.timeOutBtn.textContent = 'Already Timed Out';
-                    this.timeOutBtn.style.backgroundColor = '#6B7280';
-                }
-
-                // Reload history
-                this.loadAttendanceHistory();
+                // Add small delay to ensure backend processing is complete
+                setTimeout(() => {
+                    this.loadTodayAttendance();
+                    this.loadAttendanceHistory();
+                }, 500);
             } else {
                 this.showError(result.error || 'Failed to record time out');
             }
@@ -534,8 +438,11 @@ class AttendanceManager {    constructor() {
     
     formatDate(dateString) {
         const date = new Date(dateString);
-        const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
     }
     
     capitalize(str) {
@@ -543,98 +450,105 @@ class AttendanceManager {    constructor() {
     }
     
     showSuccess(message) {
-        // Create toast notification
-        const toast = document.createElement('div');
-        toast.className = 'toast success';
-        toast.innerHTML = `
-            <div class="toast-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
+        // Create and show success notification
+        const notification = document.createElement('div');
+        notification.className = 'notification success';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">✓</span>
+                <span class="notification-message">${message}</span>
             </div>
-            <div class="toast-content">
-                <p>${message}</p>
-            </div>
-            <button class="toast-close">×</button>
         `;
         
-        document.body.appendChild(toast);
+        document.body.appendChild(notification);
         
-        // Add active class after a short delay (for animation)
+        // Add CSS if not exists
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 16px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease-out;
+                }
+                .notification.success {
+                    background: #10B981;
+                    color: white;
+                }
+                .notification.error {
+                    background: #EF4444;
+                    color: white;
+                }
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .notification-icon {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Remove notification after 3 seconds
         setTimeout(() => {
-            toast.classList.add('active');
-        }, 10);
-        
-        // Remove toast after 5 seconds
-        setTimeout(() => {
-            toast.classList.remove('active');
-            setTimeout(() => {
-                toast.remove();
-            }, 300); // Wait for fade out animation
-        }, 5000);
-        
-        // Close button functionality
-        const closeBtn = toast.querySelector('.toast-close');
-        closeBtn.addEventListener('click', () => {
-            toast.classList.remove('active');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        });
+            notification.remove();
+        }, 3000);
     }
     
     showError(message) {
-        // Create toast notification
-        const toast = document.createElement('div');
-        toast.className = 'toast error';
-        toast.innerHTML = `
-            <div class="toast-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                </svg>
+        // Create and show error notification
+        const notification = document.createElement('div');
+        notification.className = 'notification error';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">✕</span>
+                <span class="notification-message">${message}</span>
             </div>
-            <div class="toast-content">
-                <p>${message}</p>
-            </div>
-            <button class="toast-close">×</button>
         `;
         
-        document.body.appendChild(toast);
+        document.body.appendChild(notification);
         
-        // Add active class after a short delay (for animation)
+        // Remove notification after 4 seconds
         setTimeout(() => {
-            toast.classList.add('active');
-        }, 10);
-        
-        // Remove toast after 5 seconds
-        setTimeout(() => {
-            toast.classList.remove('active');
-            setTimeout(() => {
-                toast.remove();
-            }, 300); // Wait for fade out animation
-        }, 5000);
-        
-        // Close button functionality
-        const closeBtn = toast.querySelector('.toast-close');
-        closeBtn.addEventListener('click', () => {
-            toast.classList.remove('active');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        });
+            notification.remove();
+        }, 4000);
     }
     
+    // Method to reinitialize DOM elements if they weren't found initially
     reinitializeElements() {
-        // Try to find elements again if they weren't found initially
         if (!this.todayTimeIn || !this.todayTimeOut || !this.todayStatus) {
+            console.log('Reinitializing DOM elements...');
             const timeCards = document.querySelectorAll('.time-card');
+            
             if (timeCards.length >= 3) {
-                this.todayTimeIn = this.todayTimeIn || timeCards[0]?.querySelector('.time-value');
-                this.todayStatus = this.todayStatus || timeCards[1]?.querySelector('.status-badge');
-                this.todayTimeOut = this.todayTimeOut || timeCards[2]?.querySelector('.time-value');
+                this.todayTimeIn = timeCards[0]?.querySelector('.time-value');
+                this.todayStatus = timeCards[1]?.querySelector('.status-badge');
+                this.todayTimeOut = timeCards[2]?.querySelector('.time-value');
+                
+                console.log('Reinitialized elements:', {
+                    timeIn: !!this.todayTimeIn,
+                    timeOut: !!this.todayTimeOut,
+                    status: !!this.todayStatus
+                });
             }
         }
         
@@ -645,192 +559,11 @@ class AttendanceManager {    constructor() {
         if (!this.timeOutBtn) {
             this.timeOutBtn = document.querySelector('.time-out');
         }
-        
-        if (!this.attendanceTable) {
-            this.attendanceTable = document.querySelector('.attendance-table tbody');
-        }
     }
 }
 
-// Initialize the attendance manager when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    const attendanceManager = new AttendanceManager();
+// Initialize attendance manager when DOM is loaded
+let attendanceManager;
 
-    const timeInBtn = document.getElementById('time-in-btn');
-    const timeOutBtn = document.getElementById('time-out-btn');
-    const timeInTimeEl = document.querySelector('.time-in-time');
-    const timeOutTimeEl = document.querySelector('.time-out-time');
-    const statusTextEl = document.querySelector('.status-text');
-
-    function fetchAttendanceData() {
-        // Mocked data - User has already timed in and out for today
-        const mockData = {
-            success: true,
-            time_in: "07:58:10",
-            time_out: "17:02:30",
-            status: "Completed"
-        };
-
-        if (mockData.success) {
-            if (mockData.time_in) {
-                timeInTimeEl.textContent = formatTime(mockData.time_in);
-                timeInBtn.disabled = true;
-                timeInBtn.textContent = 'TIMED IN';
-                timeInBtn.style.backgroundColor = '#ccc';
-            } else {
-                timeInTimeEl.textContent = '--:--';
-                timeInBtn.disabled = false;
-            }
-
-            if (mockData.time_out) {
-                timeOutTimeEl.textContent = formatTime(mockData.time_out);
-                timeOutBtn.disabled = true;
-                timeOutBtn.textContent = 'TIMED OUT';
-                timeOutBtn.style.backgroundColor = '#ccc';
-            } else {
-                timeOutTimeEl.textContent = '--:--';
-                // Enable time-out only if timed-in
-                timeOutBtn.disabled = !mockData.time_in;
-            }
-            
-            statusTextEl.textContent = mockData.status || 'Pending';
-            if(mockData.status === 'Completed') {
-                statusTextEl.style.color = '#28a745';
-            }
-
-        } else {
-            console.error('Failed to fetch attendance data');
-            timeInTimeEl.textContent = '--:--';
-            timeOutTimeEl.textContent = '--:--';
-            statusTextEl.textContent = 'Error';
-            statusTextEl.style.color = '#dc3545';
-        }
-    }
-
-    function updateAttendanceHistory() {
-        const tbody = document.getElementById('attendance-history-table').querySelector('tbody');
-        tbody.innerHTML = ''; // Clear existing rows
-
-        const mockHistory = generateMockHistory();
-        
-        if (mockHistory.length > 0) {
-            mockHistory.forEach(record => {
-                const row = document.createElement('tr');
-                
-                let statusClass = '';
-                if (record.status === 'On Time') statusClass = 'status-on-time';
-                else if (record.status === 'Late') statusClass = 'status-late';
-                else if (record.status === 'Undertime') statusClass = 'status-undertime';
-                else if (record.status === 'Absent') statusClass = 'status-absent';
-
-
-                row.innerHTML = `
-                    <td>${record.date}</td>
-                    <td>${record.day}</td>
-                    <td>${record.time_in || '--:--'}</td>
-                    <td>${record.time_out || '--:--'}</td>
-                    <td>${record.total_hours || '0h 0m'}</td>
-                    <td><span class="status ${statusClass}">${record.status}</span></td>
-                `;
-                tbody.appendChild(row);
-            });
-        } else {
-            tbody.innerHTML = '<tr><td colspan="6">No attendance records found.</td></tr>';
-        }
-    }
-
-    function generateMockHistory() {
-        const history = [];
-        const today = new Date('2025-06-26'); // Set fixed date for consistency
-        const currentMonth = today.getMonth();
-        const currentYear = today.getFullYear();
-
-        // Generate for current month (up to today)
-        for (let i = 1; i <= today.getDate(); i++) {
-            const date = new Date(currentYear, currentMonth, i);
-            if (date.getDay() === 0 || date.getDay() === 6) continue; // Skip weekends
-            history.push(createRecord(date));
-        }
-
-        // Generate for previous month
-        const prevMonth = currentMonth - 1;
-        const daysInPrevMonth = new Date(currentYear, prevMonth + 1, 0).getDate();
-        for (let i = 1; i <= daysInPrevMonth; i++) {
-            const date = new Date(currentYear, prevMonth, i);
-            if (date.getDay() === 0 || date.getDay() === 6) continue;
-             history.push(createRecord(date));
-        }
-        
-        return history.reverse(); // Show most recent first
-    }
-
-    function createRecord(date) {
-        const day = date.toLocaleDateString('en-US', { weekday: 'long' });
-        const formattedDate = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
-
-        // Make some days absent
-        if (Math.random() < 0.05) {
-             return {
-                date: formattedDate,
-                day: day,
-                time_in: null,
-                time_out: null,
-                total_hours: '0h 0m',
-                status: 'Absent'
-            };
-        }
-
-        const timeInHour = 7 + Math.floor(Math.random() * 2); // 7-8 AM
-        const timeInMinute = Math.floor(Math.random() * 60);
-        const timeIn = new Date(date);
-        timeIn.setHours(timeInHour, timeInMinute);
-
-        const timeOutHour = 17 + Math.floor(Math.random() * 2); // 5-6 PM
-        const timeOutMinute = Math.floor(Math.random() * 60);
-        const timeOut = new Date(date);
-        timeOut.setHours(timeOutHour, timeOutMinute);
-        
-        const totalMs = timeOut - timeIn;
-        const totalHours = Math.floor(totalMs / (1000 * 60 * 60));
-        const totalMinutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
-
-        let status = 'On Time';
-        if (timeInHour > 8 || (timeInHour === 8 && timeInMinute > 0)) {
-            status = 'Late';
-        } else if (totalHours < 8) {
-            status = 'Undertime';
-        }
-
-        return {
-            date: formattedDate,
-            day: day,
-            time_in: timeIn.toLocaleTimeString('en-US', { hour12: false }),
-            time_out: timeOut.toLocaleTimeString('en-US', { hour12: false }),
-            total_hours: `${totalHours}h ${totalMinutes}m`,
-            status: status
-        };
-    }
-
-    function formatTime(timeString) {
-        if (!timeString) return '--:--';
-        const [h, m] = timeString.split(':');
-        const hour = parseInt(h, 10);
-        const ampm = hour >= 12 ? 'PM' : 'AM';
-        const formattedHour = hour % 12 || 12;
-        return `${formattedHour}:${m} ${ampm}`;
-    }
-
-    timeInBtn.addEventListener('click', () => {
-        // This would normally send a request to the server
-        alert("This is a mock action. In a real scenario, this would record your time-in.");
-    });
-
-    timeOutBtn.addEventListener('click', () => {
-        // This would normally send a request to the server
-        alert("This is a mock action. In a real scenario, this would record your time-out.");
-    });
-
-    // Initial data load
-    fetchAttendanceData();
-    updateAttendanceHistory();
+document.addEventListener('DOMContentLoaded', () => {    attendanceManager = new AttendanceManager();
 });

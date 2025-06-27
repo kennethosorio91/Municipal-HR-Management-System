@@ -1,6 +1,32 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Manila');
 require_once '../config/db_connect.php';
+
+// Initialize PDO connection if it doesn't exist
+if (!isset($pdo)) {
+    try {
+        $config_file = __DIR__ . '/../config/db_config.php';
+        $config = require_once $config_file;
+        
+        $pdo = new PDO(
+            "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}",
+            $config['username'],
+            $config['password'],
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]
+        );
+    } catch (PDOException $e) {
+        // Log error safely without exposing sensitive information
+        error_log("PDO connection error: " . $e->getMessage());
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode(['error' => 'Database connection error']);
+        exit;
+    }
+}
 
 header('Content-Type: application/json');
 
@@ -8,6 +34,13 @@ header('Content-Type: application/json');
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode(['error' => 'User not logged in']);
+    exit;
+}
+
+// Check if user is an admin - admins should not access employee attendance
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+    http_response_code(403);
+    echo json_encode(['error' => 'Admin users do not have employee attendance records']);
     exit;
 }
 
@@ -43,6 +76,7 @@ try {
             echo json_encode(['error' => 'Method not allowed']);
     }
 } catch (Exception $e) {
+    error_log("Attendance handler error: " . $e->getMessage());
     http_response_code(500);
     echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);
 }
@@ -112,38 +146,26 @@ function handleTimeIn() {
         $stmt->execute([$user_id]);
         
         if ($stmt->fetch()) {
+            http_response_code(400);
             echo json_encode(['error' => 'You have already timed in today']);
             return;
         }
         
-        // Use test time if available, otherwise real time
-        $timeIn = isset($_SESSION['test_time']) ? 
-            date('H:i:s', strtotime($_SESSION['test_time'])) : 
-            date('H:i:s');
-            
-        $currentDate = isset($_SESSION['test_time']) ? 
-            date('Y-m-d', strtotime($_SESSION['test_time'])) : 
-            date('Y-m-d');
-        
+        $timeIn = date('H:i:s');
+        $createdAt = date('Y-m-d H:i:s');
         $status = (strtotime($timeIn) > strtotime('08:00:00')) ? 'late' : 'present';
         
         $stmt = $pdo->prepare("
             INSERT INTO attendance (user_id, time_in, status, created_at) 
             VALUES (?, ?, ?, ?)
         ");
-        
-        $createdAt = isset($_SESSION['test_time']) ? 
-            $_SESSION['test_time'] : 
-            date('Y-m-d H:i:s');
-            
         $stmt->execute([$user_id, $timeIn, $status, $createdAt]);
         
         echo json_encode([
             'success' => true,
             'message' => 'Time in recorded successfully',
             'time_in' => date('h:i A', strtotime($timeIn)),
-            'status' => $status,
-            'test_mode' => isset($_SESSION['test_time'])
+            'status' => $status
         ]);
         
     } catch (PDOException $e) {
@@ -155,38 +177,38 @@ function handleTimeOut() {
     global $pdo, $user_id;
     
     try {
-        // Check if user has timed in today
-        $currentDate = isset($_SESSION['test_time']) ? 
-            date('Y-m-d', strtotime($_SESSION['test_time'])) : 
-            date('Y-m-d');
-            
+        // Check if user has timed in today and not timed out yet
         $stmt = $pdo->prepare("
-            SELECT id, time_in FROM attendance 
-            WHERE user_id = ? AND DATE(created_at) = ? AND time_out IS NULL
+            SELECT id, status FROM attendance 
+            WHERE user_id = ? AND DATE(created_at) = CURDATE() AND time_out IS NULL
         ");
-        $stmt->execute([$user_id, $currentDate]);
-        $record = $stmt->fetch();
+        $stmt->execute([$user_id]);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if (!$record) {
-            echo json_encode(['error' => 'No time in record found for today']);
+            http_response_code(400);
+            echo json_encode(['error' => 'No active time-in record found for today.']);
             return;
         }
         
-        // Use test time if available, otherwise real time
-        $timeOut = isset($_SESSION['test_time']) ? 
-            date('H:i:s', strtotime($_SESSION['test_time'])) : 
-            date('H:i:s');
+        $timeOut = date('H:i:s');
+        $status = $record['status']; // Keep original status (present or late)
+
+        // Check for undertime, but only if they weren't already late
+        if (strtotime($timeOut) < strtotime('17:00:00') && $status === 'present') {
+            $status = 'undertime';
+        }
         
         $stmt = $pdo->prepare("
-            UPDATE attendance SET time_out = ? WHERE id = ?
+            UPDATE attendance SET time_out = ?, status = ? WHERE id = ?
         ");
-        $stmt->execute([$timeOut, $record['id']]);
+        $stmt->execute([$timeOut, $status, $record['id']]);
         
         echo json_encode([
             'success' => true,
             'message' => 'Time out recorded successfully',
             'time_out' => date('h:i A', strtotime($timeOut)),
-            'test_mode' => isset($_SESSION['test_time'])
+            'status' => $status
         ]);
         
     } catch (PDOException $e) {

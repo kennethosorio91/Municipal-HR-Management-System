@@ -14,31 +14,40 @@ if (!file_exists($config_file)) {
 $config = require_once $config_file;
 
 try {
-    // Create PDO connection
-    $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
-    $pdo = new PDO($dsn, $config['username'], $config['password']);
-    
-    // Set PDO attributes
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-    // Keep MySQLi connection for backward compatibility
+    // Create MySQLi connection
     $conn = new mysqli(
         $config['host'],
         $config['username'], 
         $config['password'],
-        $config['dbname']
+        $config['dbname'],
+        $config['port']
     );
 
-    // Check MySQLi connection
+    // Check connection
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    // Set charset for MySQLi
+    // Set charset
     if (!$conn->set_charset($config['charset'])) {
         throw new Exception("Error setting charset: " . $conn->error);
+    }
+
+    // Create PDO connection as well
+    try {
+        $pdo = new PDO(
+            "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}",
+            $config['username'],
+            $config['password'],
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]
+        );
+    } catch (PDOException $e) {
+        // Log PDO connection error but don't fail if MySQLi is working
+        error_log("PDO connection error: " . $e->getMessage());
     }
 
 } catch (Exception $e) {

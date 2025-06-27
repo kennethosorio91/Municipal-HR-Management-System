@@ -10,13 +10,26 @@ try {
 
     $email = $_SESSION['email'];
 
-    // Get COE requests
+    // Check if issue_date column exists
+    $checkColumnSql = "SHOW COLUMNS FROM coe_requests LIKE 'issue_date'";
+    $columnExists = $conn->query($checkColumnSql)->num_rows > 0;
+    
+    // Get COE requests with conditional column selection
+    if ($columnExists) {
     $sql = "
         SELECT id, purpose, request_date, issue_date, status 
         FROM coe_requests 
         WHERE email = ? 
         ORDER BY request_date DESC
     ";
+    } else {
+        $sql = "
+            SELECT id, purpose, request_date, status 
+            FROM coe_requests 
+            WHERE email = ? 
+            ORDER BY request_date DESC
+        ";
+    }
     
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
@@ -30,6 +43,10 @@ try {
     $requests = [];
     while ($row = $result->fetch_assoc()) {
         $row['remarks'] = ''; // Add default remarks for frontend compatibility
+        // If column doesn't exist but code expects it, add a null value
+        if (!$columnExists) {
+            $row['issue_date'] = null;
+        }
         $requests[] = $row;
     }
 

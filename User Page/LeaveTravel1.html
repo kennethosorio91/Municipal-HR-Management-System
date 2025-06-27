@@ -84,9 +84,8 @@
                     <img src="../assets/calendar.png" alt="Calendar">
                     <h2>Leave Credits Balance</h2>
                 </div>
-                <div class="leave-credits-grid">
-                    <!-- Leave credits will be dynamically loaded here -->
-                    <div class="loading-message">Loading leave credits...</div>
+                <div class="leave-credits-grid" id="leaveCreditsGrid">
+                    <!-- Leave credits will be loaded dynamically -->
                 </div>
             </div>
 
@@ -96,59 +95,8 @@
                     <img src="../assets/calendar.png" alt="Applications">
                     <h2>My Leave Applications</h2>
                 </div>
-                
-                <div class="application-item">
-                    <div class="application-info">
-                        <div class="application-type">Vacation Leave</div>
-                        <div class="application-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Duration:</span>
-                                2024-12-23 to 2024-12-27
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Reason:</span>
-                                Family Vacation
-                            </div>
-                        </div>
-                        <div class="application-date">Date Applied: 2024-12-05</div>
-                    </div>
-                    <div class="status-badge pending">Pending</div>
-                </div>
-
-                <div class="application-item">
-                    <div class="application-info">
-                        <div class="application-type">Sick Leave</div>
-                        <div class="application-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Duration:</span>
-                                2024-11-15 to 2024-11-18
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Reason:</span>
-                                Medical Appointment
-                            </div>
-                        </div>
-                        <div class="application-date">Date Applied: 2024-11-04</div>
-                    </div>
-                    <div class="status-badge approved">Approved</div>
-                </div>
-
-                <div class="application-item">
-                    <div class="application-info">
-                        <div class="application-type">Emergency Leave</div>
-                        <div class="application-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Duration:</span>
-                                2024-10-28 to 2024-10-29
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Reason:</span>
-                                Family Emergency
-                            </div>
-                        </div>
-                        <div class="application-date">Date Applied: 2024-10-28</div>
-                    </div>
-                    <div class="status-badge approved">Approved</div>
+                <div id="leaveApplicationsList">
+                    <!-- Leave applications will be loaded dynamically -->
                 </div>
             </div>
 
@@ -158,33 +106,8 @@
                     <img src="../assets/map-pin.png" alt="Travel Orders">
                     <h2>Official Travel Orders</h2>
                 </div>
-                
-                <div class="travel-order-item">
-                    <div class="travel-order-info">
-                        <div class="travel-order-type">Provincial Capital</div>
-                        <div class="travel-order-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Purpose:</span>
-                                Training Seminar
-                            </div>
-                        </div>
-                        <div class="travel-order-date">Travel Dates: 2024-12-15 to 2024-12-17</div>
-                    </div>
-                    <div class="status-badge approved">Approved</div>
-                </div>
-
-                <div class="travel-order-item">
-                    <div class="travel-order-info">
-                        <div class="travel-order-type">Regional Office</div>
-                        <div class="travel-order-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Purpose:</span>
-                                Quarterly Meeting
-                            </div>
-                        </div>
-                        <div class="travel-order-date">Travel Dates: 2024-11-28 to 2024-11-29</div>
-                    </div>
-                    <div class="status-badge ongoing">Ongoing</div>
+                <div id="travelOrdersList">
+                    <!-- Travel orders will be loaded dynamically -->
                 </div>
             </div>
         </main>
@@ -201,21 +124,22 @@
                         <label for="leaveType">Leave Type <span class="required">*</span></label>
                         <select id="leaveType" name="leaveType" required>
                             <option value="">Select Leave Type</option>
-                            <!-- Leave types will be dynamically loaded here -->
+                            <option value="vacation">Vacation Leave (15 days available)</option>
+                            <option value="sick">Sick Leave (12 days available)</option>
+                            <option value="emergency">Emergency Leave (3 days available)</option>
+                            <option value="maternity">Maternity Leave (60 days available)</option>
+                            <option value="study">Study Leave (5 days available)</option>
                         </select>
-                        <div class="error-message">Please select a leave type</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="startDate">Start Date <span class="required">*</span></label>
                             <input type="date" id="startDate" name="startDate" required>
-                            <div class="error-message">Please select a start date</div>
                         </div>
                         <div class="form-group">
                             <label for="endDate">End Date <span class="required">*</span></label>
                             <input type="date" id="endDate" name="endDate" required>
-                            <div class="error-message">Please select an end date</div>
                         </div>
                     </div>
                     
@@ -228,7 +152,6 @@
                         <label for="leaveReason">Reason for Leave <span class="required">*</span></label>
                         <textarea id="leaveReason" name="leaveReason" rows="4" 
                                 placeholder="Please provide a detailed reason for your leave application..." required></textarea>
-                        <div class="error-message">Please provide a reason for your leave</div>
                     </div>
                     
                     <div class="form-group">
@@ -245,10 +168,7 @@
                     
                     <div class="form-actions">
                         <button type="button" class="cancel-btn" id="cancelLeaveApplication">Cancel</button>
-                        <button type="submit" class="submit-btn">
-                            <span class="button-text">Submit Application</span>
-                            <div class="loading-spinner"></div>
-                        </button>
+                        <button type="submit" class="submit-btn">Submit Application</button>
                     </div>
                 </form>
             </div>
@@ -263,35 +183,45 @@
                 </div>
                 <form id="travelOrderForm" class="travel-form">
                     <div class="form-group">
+                        <label for="travelPurpose">Purpose of Travel <span class="required">*</span></label>
+                        <select id="travelPurpose" name="travelPurpose" required>
+                            <option value="">Select Purpose</option>
+                            <option value="training">Training/Seminar</option>
+                            <option value="meeting">Official Meeting</option>
+                            <option value="conference">Conference</option>
+                            <option value="inspection">Site Inspection</option>
+                            <option value="representation">Official Representation</option>
+                            <option value="coordination">Inter-Agency Coordination</option>
+                            <option value="other">Other Official Business</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="travelDescription">Detailed Description <span class="required">*</span></label>
+                        <textarea id="travelDescription" name="travelDescription" rows="3" 
+                                placeholder="Provide detailed description of the travel purpose..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="destination">Destination <span class="required">*</span></label>
                         <input type="text" id="destination" name="destination" 
                                placeholder="City, Province or specific location" required>
-                        <div class="error-message">Please enter the destination</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="travelStartDate">Departure Date <span class="required">*</span></label>
                             <input type="date" id="travelStartDate" name="travelStartDate" required>
-                            <div class="error-message">Please select a departure date</div>
                         </div>
                         <div class="form-group">
                             <label for="travelEndDate">Return Date <span class="required">*</span></label>
                             <input type="date" id="travelEndDate" name="travelEndDate" required>
-                            <div class="error-message">Please select a return date</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="travelDuration">Duration</label>
                         <input type="text" id="travelDuration" name="travelDuration" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="travelDescription">Purpose of Travel <span class="required">*</span></label>
-                        <textarea id="travelDescription" name="travelDescription" rows="4" 
-                                placeholder="Provide detailed description of the travel purpose..." required></textarea>
-                        <div class="error-message">Please provide the purpose of travel</div>
                     </div>
                     
                     <div class="form-group">
@@ -319,10 +249,7 @@
                     
                     <div class="form-actions">
                         <button type="button" class="cancel-btn" id="cancelTravelOrder">Cancel</button>
-                        <button type="submit" class="submit-btn">
-                            <span class="button-text">Submit Request</span>
-                            <div class="loading-spinner"></div>
-                        </button>
+                        <button type="submit" class="submit-btn">Submit Request</button>
                     </div>
                 </form>
             </div>
